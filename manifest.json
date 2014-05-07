@@ -1,0 +1,49 @@
+{
+    "name": "Mediawiki",
+    "id": "mediawiki",
+    "description": {
+        "en": "Open Source Wiki software",
+        "fr": "Wiki Open Source"
+    },
+    "developer": {
+        "name": "ElieSauveterre",
+        "email": "contact@mikangali.om",
+        "url": "http://www.mikangali.com/"
+    },
+    "multi_instance": "true",
+    "arguments": {
+        "install": [
+            {
+                "name": "domain",
+                "ask": {
+                    "en": "Choose a domain for Mediawiki"
+                },
+                "example": "domain.org"
+            },
+            {
+                "name": "path",
+                "ask": {
+                    "en": "Choose a path for Mediawiki"
+                },
+                "example": "/wiki",
+                "default": "/wiki"
+            },
+            {
+                "name": "wikiname",
+                "ask": {
+                    "en": "Choose a name"
+                },
+                "example": "My Wiki",
+                "default": "My Wiki"
+            },
+            {
+                "name": "language",
+                "ask": {
+                    "en": "Choose the language"
+                },
+                "choices": ["en", "fr"],
+                "default": "en"
+            }
+        ]
+    }
+}

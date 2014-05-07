@@ -1,0 +1,62 @@
+# Retrieve arguments
+domain=$1
+path=$2
+wiki_name=$3
+language=$4
+
+# Check domain/path availability
+sudo yunohost app checkurl $domain$path -a mediawiki
+if [[ ! $? -eq 0 ]]; then
+    exit 1
+fi
+
+# Generate random DES key & password
+deskey=$(dd if=/dev/urandom bs=1 count=200 2> /dev/null | tr -c -d '[A-Za-z0-9]' | sed -n 's/\(.\{24\}\).*/\1/p')
+db_pwd=$(dd if=/dev/urandom bs=1 count=200 2> /dev/null | tr -c -d '[A-Za-z0-9]' | sed -n 's/\(.\{24\}\).*/\1/p')
+
+# Use 'mediawiki' as database name and user
+db_user=mediawiki
+
+# Initialize database and store mysql password for upgrade
+sudo yunohost app initdb $db_user -p $db_pwd -s $(readlink -e ../conf/SQL/mysql.initial.sql)
+sudo yunohost app setting mediawiki mysqlpwd -v $db_pwd
+
+# Copy files to the right place
+final_path=/var/www/mediawiki
+sudo mkdir -p $final_path
+sudo wget http://releases.wikimedia.org/mediawiki/1.22/mediawiki-1.22.6.tar.gz
+sudo tar xvzf mediawiki-*.tar.gz
+sudo mv mediawiki-*/* $final_path
+sudo rm -R mediawiki-*
+sudo cp ../conf/LocalSettings.php $final_path/
+
+# LDAP Extension
+sudo wget https://codeload.github.com/wikimedia/mediawiki-extensions-LdapAuthentication/legacy.tar.gz/REL1_22
+sudo tar -xzf REL1_22
+sudo mkdir $final_path/extensions/LdapAuthentication
+sudo mv wikimedia-mediawiki-extensions-LdapAuthentication*/* $final_path/extensions/LdapAuthentication/
+sudo rm -R wikimedia-mediawiki-extensions-LdapAuthentication*
+sudo rm REL1_22
+
+# Change variables in Mediawiki configuration
+sudo sed -i "s/ynh_wiki_name/$wiki_name/g" $final_path/LocalSettings.php
+sudo sed -i "s/ynh_wiki_domain/$domain/g" $final_path/LocalSettings.php
+sudo sed -i "s/ynh_wiki_db_name/$db_user/g" $final_path/LocalSettings.php
+sudo sed -i "s/ynh_wiki_db_user/$db_user/g" $final_path/LocalSettings.php
+sudo sed -i "s/ynh_wiki_db_password/$db_pwd/g" $final_path/LocalSettings.php
+sudo sed -i "s/ynh_wiki_language/$language/g" $final_path/LocalSettings.php
+
+# Update DB
+sudo php5 $final_path/maintenance/update.php
+
+# Set permissions to roundcube directory
+sudo chown -R www-data: $final_path
+
+# Modify Nginx configuration file and copy it to Nginx conf directory
+sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
+sed -i "s@ALIASTOCHANGE@$final_path/@g" ../conf/nginx.conf
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/mediawiki.conf
+
+# Reload Nginx and regenerate SSOwat conf
+sudo service nginx reload
+sudo yunohost app ssowatconf
