@@ -1,4 +1,1 @@
-mediawiki_ynh
-=============
-
-MediaWIki packaged for Yunohost
+MediaWIki 1.22.6 packaged for Yunohost
