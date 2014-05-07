@@ -10,7 +10,7 @@
         "email": "contact@mikangali.om",
         "url": "http://www.mikangali.com/"
     },
-    "multi_instance": "true",
+    "multi_instance": "false",
     "arguments": {
         "install": [
             {
