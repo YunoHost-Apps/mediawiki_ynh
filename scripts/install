@@ -40,7 +40,7 @@ sudo rm REL1_22
 
 # Change variables in Mediawiki configuration
 sudo sed -i "s/ynh_wiki_name/$wiki_name/g" $final_path/LocalSettings.php
-sudo sed -i "s@ynh_wiki_domain@$domain/$path@g" $final_path/LocalSettings.php
+sudo sed -i "s/ynh_wiki_domain/$domain$path/g" $final_path/LocalSettings.php
 sudo sed -i "s/ynh_wiki_db_name/$db_user/g" $final_path/LocalSettings.php
 sudo sed -i "s/ynh_wiki_db_user/$db_user/g" $final_path/LocalSettings.php
 sudo sed -i "s/ynh_wiki_db_password/$db_pwd/g" $final_path/LocalSettings.php
