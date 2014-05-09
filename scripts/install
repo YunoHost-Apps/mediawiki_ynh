@@ -47,8 +47,13 @@ sudo rm -R wikimedia-mediawiki-extensions-Auth_remoteuser*
 sudo rm REL1_22
 
 # Change variables in Mediawiki configuration
+pathForWiki=$path
+if [ "$pathForWiki" = "/" ]; then
+    pathForWiki=""
+fi
+
 sudo sed -i "s/ynh_wiki_name/$wiki_name/g" $final_path/LocalSettings.php
-sudo sed -i "s@ynh_wiki_path@$path@g" $final_path/LocalSettings.php
+sudo sed -i "s@ynh_wiki_path@$pathForWiki@g" $final_path/LocalSettings.php
 sudo sed -i "s@ynh_wiki_domain@$domain@g" $final_path/LocalSettings.php
 sudo sed -i "s/ynh_wiki_db_name/$db_user/g" $final_path/LocalSettings.php
 sudo sed -i "s/ynh_wiki_db_user/$db_user/g" $final_path/LocalSettings.php
