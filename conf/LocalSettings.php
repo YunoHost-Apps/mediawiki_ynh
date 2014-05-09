@@ -166,8 +166,3 @@ $wgAuth = new Auth_remoteuser();
 $wgAuthRemoteuserAuthz = true;
 $wgAuthRemoteuserName  = $_SERVER["AUTHENTICATE_CN"];
 $wgAuthRemoteuserMail  = $_SERVER["AUTHENTICATE_MAIL"];
-
-// Don't let anonymous people do things...
-$wgGroupPermissions['*']['createaccount'] = false;
-$wgGroupPermissions['*']['read']          = false;
-$wgGroupPermissions['*']['edit']          = false;
