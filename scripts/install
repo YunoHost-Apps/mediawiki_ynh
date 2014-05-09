@@ -38,6 +38,14 @@ sudo mv wikimedia-mediawiki-extensions-LdapAuthentication*/* $final_path/extensi
 sudo rm -R wikimedia-mediawiki-extensions-LdapAuthentication*
 sudo rm REL1_22
 
+# RemoteUser Extension
+sudo wget https://codeload.github.com/wikimedia/mediawiki-extensions-Auth_remoteuser/legacy.tar.gz/REL1_22
+sudo tar -xzf REL1_22
+sudo mkdir $final_path/extensions/Auth_remoteuser
+sudo mv wikimedia-mediawiki-extensions-Auth_remoteuser*/* $final_path/extensions/Auth_remoteuser/
+sudo rm -R wikimedia-mediawiki-extensions-Auth_remoteuser*
+sudo rm REL1_22
+
 # Change variables in Mediawiki configuration
 sudo sed -i "s/ynh_wiki_name/$wiki_name/g" $final_path/LocalSettings.php
 sudo sed -i "s@ynh_wiki_path@$path@g" $final_path/LocalSettings.php
