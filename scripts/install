@@ -3,6 +3,8 @@ domain=$1
 path=$2
 wiki_name=$3
 language=$4
+is_public=$5
+
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a mediawiki
@@ -67,6 +69,23 @@ sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
 sed -i "s@ALIASTOCHANGE@$final_path/@g" ../conf/nginx.conf
 sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/mediawiki.conf
 
+
+#sudo yunohost app setting mediawiki is_public -v "$is_public"
+#if [ $is_public = "Yes" ];
+#then
+#  sudo yunohost app setting mediawiki skipped_uris -v "/"
+#fi
+
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
 sudo yunohost app ssowatconf
+
+# Add admin account
+# Step 1 : get a token
+#gettoken=$(curl -c tmpcookie -kL -X POST https://$domain$path/api.php --data "format=json&action=createaccount&name=monAdmin&password=123456&reason=InstallMediawiki")
+#echo $gettoken
+#token=$(echo $gettoken | grep -Po '(?<="token":")[^"]*')
+#echo $token
+## Step 2 : create the account
+#echo "format=json&token=$token&action=createaccount&name=monAdmin&reason=InstallMediawiki"
+#curl -b tmpcookie -kL -X POST https://$domain$path/api.php --data "format=json&token=$token&action=createaccount&name=monAdmin&password=123456&reason=InstallMediawiki"
