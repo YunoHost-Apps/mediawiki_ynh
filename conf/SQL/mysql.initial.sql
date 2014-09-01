@@ -1058,13 +1058,6 @@ CREATE TABLE IF NOT EXISTS `user_groups` (
   KEY `ug_group` (`ug_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=binary;
 
---
--- Contenu de la table `user_groups`
---
-
-INSERT INTO `user_groups` (`ug_user`, `ug_group`) VALUES
-(1, 'bureaucrat'),
-(1, 'sysop');
 
 -- --------------------------------------------------------
 
