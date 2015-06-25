@@ -1,5 +1,5 @@
 {
-    "name": "Mediawiki",
+    "name": "MediaWiki",
     "id": "mediawiki",
     "description": {
         "en": "Open Source Wiki software",
@@ -16,14 +16,16 @@
             {
                 "name": "domain",
                 "ask": {
-                    "en": "Choose a domain for Mediawiki"
+                    "en": "Choose a domain for MediaWiki",
+                    "fr": "Choissez un domaine pour MediaWiki"
                 },
                 "example": "domain.org"
             },
             {
                 "name": "path",
                 "ask": {
-                    "en": "Choose a path for Mediawiki"
+                    "en": "Choose a path for MediaWiki",
+                    "fr": "Choissez un chemin pour MediaWiki"
                 },
                 "example": "/wiki",
                 "default": "/wiki"
@@ -31,7 +33,8 @@
             {
                 "name": "wikiname",
                 "ask": {
-                    "en": "Choose a name"
+                    "en": "Choose a name for the wiki",
+                    "fr": "Choissez un nom pour le wiki"
                 },
                 "example": "MyWiki",
                 "default": "MyWiki"
@@ -39,7 +42,8 @@
             {
                 "name": "language",
                 "ask": {
-                    "en": "Choose the language"
+                    "en": "Choose the language",
+                    "fr": "Choissez la langue"
                 },
                 "choices": ["en", "fr"],
                 "default": "en"
@@ -53,7 +57,6 @@
                 "choices": ["Yes", "No"],
                 "default": "Yes"
             }
-
         ]
     }
 }
