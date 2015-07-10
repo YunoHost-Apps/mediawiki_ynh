@@ -1,1 +1,1 @@
-MediaWIki 1.22.6 packaged for Yunohost
+MediaWiki 1.22.6 packaged for YunoHost
