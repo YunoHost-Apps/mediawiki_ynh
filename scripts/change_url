@@ -96,9 +96,28 @@ fi
 #=================================================
 
 # ======= modif perso =======
-ynh_replace_string  "\$wgServer = \"https://$old_domain\";"
-  "\$wgServer = \"https://$new_domain\";" "$final_path/LocalSettings.php"
-ynh_replace_string "\$wgScriptPath = \"$old_path\";" "\$wgScriptPath = \"$new_path\";" "$final_path/LocalSettings.php"
+# change domain
+if [ $change_domain -eq 1 ]
+then
+	ynh_replace_string  "\$wgServer = \"https://$old_domain\";" "\$wgServer = \"https://$new_domain\";" "$final_path/LocalSettings.php"
+fi
+# change path
+if [ $change_path -eq 1 ]
+then
+	if [ "$old_path" = "/" ]; then
+		old_scriptpath=""
+	else
+		old_scriptpath=$old_path
+	fi
+
+	if [ "$new_path" = "/" ]; then
+		new_scriptpath=""
+	else
+		new_scriptpath=$new_path
+	fi
+
+	ynh_replace_string "\$wgScriptPath = \"$old_scriptpath\";" "\$wgScriptPath = \"$new_scriptpath\";" "$final_path/LocalSettings.php"
+fi 
 # ======= modif perso =======
 
 #=================================================
