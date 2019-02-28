@@ -250,9 +250,15 @@ fi
 
 #php $final_path/maintenance/update.php
 
+if [ "$path_url" = "/" ]; then
+	scriptpath=""
+else
+	scriptpath=$path_url
+fi
+
 php $final_path/maintenance/install.php --conf $final_path \
 	--server "https://$domain" \
-	--scriptpath $path_url \
+	--scriptpath "$scriptpath" \
 	--dbuser $db_name \
 	--dbpass $db_pwd \
 	--dbname $db_name \
