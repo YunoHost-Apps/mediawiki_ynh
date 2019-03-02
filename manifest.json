@@ -1,61 +1,84 @@
 {
     "name": "MediaWiki",
     "id": "mediawiki",
+    "packaging_format": 1,
     "description": {
-        "en": "Open Source Wiki software",
-        "fr": "Wiki Open Source"
+        "en": "MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.",
+        "fr": "MediaWiki est un ensemble wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia ."
     },
-    "developer": {
-        "name": "ElieSauveterre",
-        "email": "contact@mikangali.om",
-        "url": "http://www.mikangali.com/"
+    "version": "1.32.0",
+    "url": "https://www.mediawiki.org/",
+    "license": "GPL-2.0-or-later",
+    "maintainer": {
+        "name": "Antoine",
+        "email": "antoine@miaou.org",
+        "url": "https://miaou.org"
     },
-    "multi_instance": "false",
+    "requirements": {
+        "yunohost": ">= 3.4"
+    },
+    "multi_instance": true,
+    "services": [
+        "nginx",
+        "php7.0-fpm",
+        "mysql"
+    ],
     "arguments": {
-        "install": [
+        "install" : [
             {
                 "name": "domain",
+                "type": "domain",
                 "ask": {
-                    "en": "Choose a domain for MediaWiki",
-                    "fr": "Choisissez un domaine pour MediaWiki"
+                    "en": "Choose a domain name for MediaWiki",
+                    "fr": "Choisissez un nom de domaine pour MediaWiki"
                 },
-                "example": "domain.org"
+                "example": "example.com"
             },
             {
                 "name": "path",
+                "type": "path",
                 "ask": {
-                    "en": "Choose a path for MediaWiki",
-                    "fr": "Choisissez un chemin pour MediaWiki"
+                    "en": "Choose a path for ynhexample",
+                    "fr": "Choisissez un chemin pour ynhexample"
                 },
                 "example": "/wiki",
                 "default": "/wiki"
             },
             {
-                "name": "wikiname",
+                "name": "admin",
+                "type": "user",
                 "ask": {
-                    "en": "Choose a name for the wiki",
-                    "fr": "Choisissez un nom pour le wiki"
+                    "en": "Choose an admin user",
+                    "fr": "Choisissez l’administrateur"
                 },
-                "example": "MyWiki",
-                "default": "MyWiki"
+                "example": "johndoe"
+            },
+            {
+                "name": "password",
+                "type": "password",
+                "ask": {
+                    "en": "Set the administrator password",
+                    "fr": "Définissez le mot de passe administrateur"
+                }
             },
             {
                 "name": "language",
+                "type": "string",
                 "ask": {
-                    "en": "Choose the language",
-                    "fr": "Choisissez la langue"
+                    "en": "Choose the application language",
+                    "fr": "Choisissez la langue de l'application"
                 },
-                "choices": ["en", "fr"],
-                "default": "en"
+                "choices": ["fr", "en"],
+                "default": "fr"
             },
             {
                 "name": "is_public",
+                "type": "boolean",
                 "ask": {
-                    "en": "Is it a public wiki?",
-                    "fr": "Est-ce un wiki public ?"
+                    "en": "Is it a public application?",
+                    "fr": "Est-ce une application publique ?"
                 },
-                "choices": ["Yes", "No"],
-                "default": "Yes"
+                "default": true
             }
         ]
     }
