@@ -26,21 +26,22 @@ MediaWiki is a free and open source software wiki package written in PHP, origin
 
 ## Configuration
 
-How to configure this app: 
- * by the admin panel : Log in then click on `Preferences`
- * you can edit the file Localsettings.php located in `/var/www/mediawiki`.
+How to configure this app:  
+
+ * by the admin panel : Log in then click on `Preferences`  
+ * you can edit the file Localsettings.php located in `/var/www/mediawiki`.  
 
 ## Documentation
 
- * Official documentation: https://www.mediawiki.org/
- * YunoHost documentation: https://yunohost.org/#/app_mediawiki
+ * Official documentation: https://www.mediawiki.org/  
+ * YunoHost documentation: https://yunohost.org/#/app_mediawiki  
 
 ## YunoHost specific features
 
 #### Multi-users support
 
-Are LDAP and HTTP auth supported? : not yet
-Can the app be used by multiple users? : yes
+Are LDAP and HTTP auth supported? : not yet  
+Can the app be used by multiple users? : yes  
 
 #### Supported architectures
 
