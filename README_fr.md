@@ -26,21 +26,22 @@ MediaWiki est un ensemble wiki à base de logiciels libres Open source, dévelop
 
 ## Configuration
 
-Comment configurer cette application: 
- * par le panneau d'administration : Connectez vous puis cliquer on `Préférences`
- * vous pouvez modifier le fichier Localsettings.php situé dans `/var/www/mediawiki`.
+Comment configurer cette application:  
+
+ * par le panneau d'administration : Connectez vous puis cliquer on `Préférences`  
+ * vous pouvez modifier le fichier Localsettings.php situé dans `/var/www/mediawiki`.  
 
 ## Documentation
 
- * Documentation officielle: https://www.mediawiki.org/
+ * Documentation officielle: https://www.mediawiki.org/  
  * Documentation YunoHost: https://yunohost.org/#/app_mediawiki
 
 ## Caractéristiques spécifiques YunoHost
 
 #### Support multi-utilisateurs
 
-L'authentification LDAP et HTTP est-elle prise en charge? : pas pour l'instant
-L'application peut-elle être utilisée par plusieurs utilisateurs? : oui
+L'authentification LDAP et HTTP est-elle prise en charge? : pas pour l'instant  
+L'application peut-elle être utilisée par plusieurs utilisateurs? : oui  
 
 #### Supported architectures
 
