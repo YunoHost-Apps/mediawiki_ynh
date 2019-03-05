@@ -132,6 +132,7 @@ ynh_print_info "Setting up source files..."
 ynh_app_setting_set $app final_path $final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source "$final_path"
+ynh_setup_source "$final_path/extensions/" "ldap"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -233,23 +234,6 @@ fi
 # MODIFY A CONFIG FILE
 #=================================================
 
-#cp ../conf/LocalSettings.php $final_path/ # modif perso
-
-### `ynh_replace_string` is used to replace a string in a file.
-### (It's compatible with sed regular expressions syntax)
-
-#ynh_replace_string "match_string" "replace_string" "$final_path/CONFIG_FILE"
-
-# ======= modif perso =======
-#ynh_replace_string "ynh_wiki_path" "$path_url" "$final_path/LocalSettings.php"
-#ynh_replace_string "ynh_wiki_domain" "$domain" "$final_path/LocalSettings.php"
-#ynh_replace_string "ynh_wiki_db_name" "$db_name" "$final_path/LocalSettings.php"
-#ynh_replace_string "ynh_wiki_db_user" "$db_name" "$final_path/LocalSettings.php"
-#ynh_replace_string "ynh_wiki_db_password" "$db_pwd" "$final_path/LocalSettings.php"
-#ynh_replace_string "ynh_wiki_language" "$language" "$final_path/LocalSettings.php"
-
-#php $final_path/maintenance/update.php
-
 if [ "$path_url" = "/" ]; then
 	scriptpath=""
 else
@@ -266,6 +250,21 @@ php $final_path/maintenance/install.php --conf $final_path \
 	--lang $language \
 	--pass $password \
 	"YunoWiki" $admin
+
+cp ../conf/LocalSettings.php $final_path/LocalSettings.php
+
+ynh_replace_string "__PATH__" "$path_url" "$final_path/LocalSettings.php"
+ynh_replace_string "__DOMAIN__" "$domain" "$final_path/LocalSettings.php"
+ynh_replace_string "__DB_NAME__" "$db_name" "$final_path/LocalSettings.php"
+ynh_replace_string "__DB_USER__" "$db_name" "$final_path/LocalSettings.php"
+ynh_replace_string "__DB_PWD__" "$db_pwd" "$final_path/LocalSettings.php"
+ynh_replace_string "__LANGUAGE__" "$language" "$final_path/LocalSettings.php"
+
+secret=$(ynh_string_random 64)
+ynh_app_setting_set $app secret $secret
+ynh_replace_string "__SECRET__" "$secret" "$final_path/LocalSettings.php"
+
+php $final_path/maintenance/update.php
 
 # ======= modif perso =======
 
