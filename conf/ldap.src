@@ -1,0 +1,5 @@
+SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LdapAuthentication-REL1_32-e2cab88.tar.gz
+SOURCE_SUM=401f4ddccb036fd2aae8e4741847b8a4623800be1388b615ddc88b0d2bf8cc85
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=false
