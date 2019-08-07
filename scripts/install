@@ -151,7 +151,7 @@ php $final_path/maintenance/install.php --conf $final_path \
   --dbprefix "mdk_" \
   --lang $language \
   --pass $admin_password \
-  $wiki_name $admin
+  "$wiki_name" "$admin"
 
 #=================================================
 # REPLACE CONFIGURATION SETTINGS
