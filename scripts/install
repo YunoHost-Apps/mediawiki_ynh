@@ -18,6 +18,7 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 admin=$YNH_APP_ARG_ADMIN
+admin_password=$YNH_APP_ARG_PASSWORD
 is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
 password=$YNH_APP_ARG_PASSWORD
@@ -50,6 +51,7 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=admin --value=$admin
+ynh_app_setting_set --app=$app --key=admin_password --value=$admin_password
 ynh_app_setting_set --app=$app --key=is_public --value=$is_public
 ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=wiki_name --value=$wiki_name
@@ -148,7 +150,7 @@ php $final_path/maintenance/install.php --conf $final_path \
   --dbname $db_name \
   --dbprefix "mdk_" \
   --lang $language \
-  --pass $password \
+  --pass $admin_password \
   $wiki_name $admin
 
 #=================================================
@@ -158,7 +160,6 @@ cp ../conf/LocalSettings.php $final_path/LocalSettings.php
 
 ynh_replace_string --match_string="__WIKI_NAME__" --replace_string="$wiki_name" --target_file="$final_path/LocalSettings.php"
 ynh_replace_string --match_string="__ADMIN__" --replace_string="$admin" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__PASSWORD__" --replace_string="$password" --target_file="$final_path/LocalSettings.php"
 
 if [ $path_url = "/" ]; then
     # MediaWiki expects a "" for the root URL which is typically assumed to be

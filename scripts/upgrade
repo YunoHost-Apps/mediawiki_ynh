@@ -15,7 +15,6 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$(ynh_app_setting_get $app domain)
 path_url=$(ynh_app_setting_get $app path)
 admin=$(ynh_app_setting_get $app admin)
-password=$(ynh_app_setting_get $app password)
 is_public=$(ynh_app_setting_get $app is_public)
 final_path=$(ynh_app_setting_get $app final_path)
 language=$(ynh_app_setting_get $app language)
@@ -130,7 +129,6 @@ cp ../conf/LocalSettings.php $final_path/LocalSettings.php
 ynh_replace_string "__WIKI_NAME__" "YunoWiki" "$final_path/LocalSettings.php"
 
 ynh_replace_string "__ADMIN__" "$admin" "$final_path/LocalSettings.php"
-ynh_replace_string "__PASSWORD__" "$password" "$final_path/LocalSettings.php"
 
 if [ $path_url = "/" ]; then
     # MediaWiki expects a "" for the root URL which is typically assumed to be
