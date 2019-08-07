@@ -137,6 +137,9 @@ wfLoadExtension( 'LDAPProvider' );
 # https://www.mediawiki.org/wiki/Extension:PluggableAuth
 wfLoadExtension( 'PluggableAuth' );
 
+$wgPluggableAuth_EnableLocalLogin = true;
+$wgPluggableAuth_EnableLocalProperties = true;
+
 # LDAPAuthentication2
 # https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2
 wfLoadExtension( 'LDAPAuthentication2' );
