@@ -1,20 +1,31 @@
 # MediaWiki
 
-[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki)  
+[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki)
 [![Install mediawiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
-> *This package allow you to install mediawiki quickly and simply on a YunoHost server.  
+> *This package allow you to install mediawiki quickly and simply on a YunoHost server.
+
 If you don't have YunoHost, please see [here](https://yunohost.org/#/install) to know how to install and enjoy it.*
 
 ## Overview
 
 ![mediawiki_logo](sources/images/mediawiki_logo.png)
 
-MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia. 
+MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.
 
 **Shipped version:** 1.32.0
+
+**Shipped extension versions:**
+  * [LDAPProvider](https://www.mediawiki.org/wiki/Extension:LDAPProvider): 1.33 Stable
+  * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth): 1.33 Stable
+  * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2): 1.33 Stable
+  * [LDAPGroups](https://www.mediawiki.org/wiki/Extension:LDAPGroups): 1.31 Stable (**disabled and unused for now**)
+  * [LDAPUserInfo](https://www.mediawiki.org/wiki/Extension:LDAPUserInfo): 1.33 Stable (**disabled and unused for now**)
+  * [LDAPAuthorization](https://www.mediawiki.org/wiki/Extension:LDAPAuthorization): 1.33 Stable (**disabled and unused for now**)
+
+Please note, there is no available 1.32.0 version of the LDAP* extensions but the installation portal assures that they work across various different version of MediaWiki. This is currently the case. We will be working towards a MediaWiki [1.33.0 upgrade shortly](https://github.com/YunoHost-Apps/mediawiki_ynh/issues/4). Some of the extensions are marked as "disabled and unused" because they are not immediately required but are part of the MediaWiki "LDAP Stack" which may be needed in future versions.
 
 ## Screenshots
 
@@ -26,22 +37,22 @@ MediaWiki is a free and open source software wiki package written in PHP, origin
 
 ## Configuration
 
-How to configure this app:  
+How to configure this app:
 
- * by the admin panel : Log in then click on `Preferences`  
- * you can edit the file Localsettings.php located in `/var/www/mediawiki`.  
+ * Through the admin panel : Log in then click on `Preferences`
 
 ## Documentation
 
- * Official documentation: https://www.mediawiki.org/  
- * YunoHost documentation: https://yunohost.org/#/app_mediawiki  
+ * Official documentation: https://www.mediawiki.org/
+ * YunoHost documentation: https://yunohost.org/#/app_mediawiki
 
 ## YunoHost specific features
 
 #### Multi-users support
 
-Are LDAP and HTTP auth supported? : not yet  
-Can the app be used by multiple users? : yes  
+* Is LDAP supported: yes
+* Is HTTP auth supported? : no
+* Can the app be used by multiple users? : yes
 
 #### Supported architectures
 
@@ -55,10 +66,7 @@ Can the app be used by multiple users? : yes
 
 ## Additional information
 
-* Other information you would add about this application
-
-**More information on the documentation page:**  
-https://yunohost.org/packaging_apps
+* The [Discourse forum topic](https://forum.yunohost.org/t/community-app-mediawiki-free-software-wiki-package-wikipedia/8588) tracking release schedule and feedback.
 
 ## Links
 
@@ -71,12 +79,13 @@ https://yunohost.org/packaging_apps
 Developers info
 ----------------
 
-**Only if you want to use a testing branch for coding, instead of merging directly into master.**
-Please do your pull request to the [testing branch](https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing).
+Please make your change requests against the testing branch.
 
-To try the testing branch, please proceed like that.
+To try the testing branch, please try:
+
 ```
-sudo yunohost app install https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
-or
-sudo yunohost app upgrade mediawiki -u https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
+$ yunohost app install https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
+$ yunohost app upgrade mediawiki -u https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
 ```
+
+This should not be done on a production server!
