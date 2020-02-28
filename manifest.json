@@ -10,12 +10,12 @@
     "url": "https://www.mediawiki.org/",
     "license": "GPL-2.0-or-later",
     "maintainer": {
-        "name": "Antoine",
-        "email": "antoine@miaou.org",
-        "url": "https://miaou.org"
+        "name": "decentral1se",
+        "email": "lukewm@riseup.net",
+        "url": "https://decentral1.se"
     },
     "requirements": {
-        "yunohost": ">= 3.4"
+        "yunohost": ">= 3.6.4"
     },
     "multi_instance": true,
     "services": [
@@ -38,8 +38,8 @@
                 "name": "path",
                 "type": "path",
                 "ask": {
-                    "en": "Choose a path for ynhexample",
-                    "fr": "Choisissez un chemin pour ynhexample"
+                    "en": "Choose a path for MediaWiki",
+                    "fr": "Choisissez un chemin pour MediaWiki"
                 },
                 "example": "/wiki",
                 "default": "/wiki"
@@ -78,7 +78,19 @@
                     "en": "Is it a public application?",
                     "fr": "Est-ce une application publique ?"
                 },
-                "default": true
+                "default": true,
+                "help": {
+                  "en": "It will be accessible to the public"
+                }
+            },
+            {
+                "name": "wiki_name",
+                "type": "string",
+                "ask": {
+                    "en": "Choose the application name",
+                    "fr": "Choisissez le nom de l'application"
+                },
+                "default": "YunoWiki"
             }
         ]
     }
