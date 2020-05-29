@@ -1,28 +1,34 @@
 #!/bin/bash
 
 #=================================================
+# GENERIC START
+#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
+
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
 # MANAGE SCRIPT FAILURE
 #=================================================
+
+# Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
 #=================================================
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
-app=$YNH_APP_INSTANCE_NAME
+
 domain=$YNH_APP_ARG_DOMAIN
-path_url=$YNH_APP_ARG_PATH
+path_url=$(ynh_normalize_url_path $YNH_APP_ARG_PATH)
 admin=$YNH_APP_ARG_ADMIN
 admin_password=$YNH_APP_ARG_PASSWORD
 is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
-password=$YNH_APP_ARG_PASSWORD
 wiki_name=$YNH_APP_ARG_WIKI_NAME
+
+app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -30,15 +36,15 @@ wiki_name=$YNH_APP_ARG_WIKI_NAME
 ynh_script_progression --message="Validating installation parameters..." --weight=1
 
 final_path=/var/www/$app
-test ! -e "$final_path" || ynh_die "This path already contains a folder"
+test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
-path_url=$(ynh_normalize_url_path $path_url)
+# Register (book) web path
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
 #=================================================
 # GENERATE LDAP USER SETTINGS
 #=================================================
-ynh_script_progression --message="Generating dedicated LDAP user credentials..." --weight=2
+ynh_script_progression --message="Generating dedicated LDAP user credentials..." --weight=1
 
 ldap_user="${app}_ldap"
 ldap_password=$(ynh_string_random --length=8)
@@ -59,24 +65,25 @@ ynh_app_setting_set --app=$app --key=ldap_user --value=$ldap_user
 ynh_app_setting_set --app=$app --key=ldap_password --value=$ldap_password
 
 #=================================================
+# STANDARD MODIFICATIONS
+#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=10
+ynh_script_progression --message="Installing dependencies..." --weight=15
 
 ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-ynh_script_progression --message="Creating a MySQL database..." --weight=3
+ynh_script_progression --message="Creating a MySQL database..." --weight=1
 
-db_name=$(ynh_sanitize_dbid $app)
+db_name=$(ynh_sanitize_dbid --db_name=$app)
 db_user=$db_name
-
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 ynh_app_setting_set --app=$app --key=db_user --value=$db_user
-
 ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
+# creates the variable db_pwd
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -84,7 +91,7 @@ ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 ynh_script_progression --message="Setting up source files..." --weight=4
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
-
+# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
 ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
 ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
@@ -98,44 +105,40 @@ ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_aut
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring nginx web server..." --weight=2
+ynh_script_progression --message="Configuring nginx web server..." --weight=1
 
+# Create a dedicated nginx config
 ynh_add_nginx_config
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Configuring system user..." --weight=1
+ynh_script_progression --message="Configuring system user..." --weight=2
 
-ynh_system_user_create $app
+# Create a system user
+ynh_system_user_create --username=$app
 
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=1
+ynh_script_progression --message="Configuring php-fpm..." --weight=1
 
+# Create a dedicated php-fpm config
 ynh_add_fpm_config
 
 #=================================================
-# CREATING DEDICATED LDAP USER
+# SPECIFIC SETUP
 #=================================================
-ynh_script_progression --message="Creating dedicated LDAP user..." --weight=20
+# CREATE DEDICATED LDAP USER
+#=================================================
+ynh_script_progression --message="Creating dedicated LDAP user..." --weight=1
 
 yunohost user create $ldap_user --firstname "MediaWikiLdap" --lastname "MediaWikiLdap" --mail ${ldap_user}@$domain --password $ldap_password -q 0
 
 #=================================================
-# PUBLIC ACCESS HANDLING
-#=================================================
-ynh_app_setting_set --app=$app --key=skipped_uris --value="/"
-
-if [ $is_public -eq 0 ]
-then
-  ynh_app_setting_delete --app=$app --key=skipped_uris
-fi
-
-#=================================================
 # RUN INSTALLATION OF MEDIAWIKI
 #=================================================
+ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
 if [ "$path_url" = "/" ]; then
   scriptpath=""
 else
@@ -158,44 +161,44 @@ php $final_path/maintenance/install.php --conf $final_path \
 #=================================================
 cp ../conf/LocalSettings.php $final_path/LocalSettings.php
 
-ynh_replace_string --match_string="__WIKI_NAME__" --replace_string="$wiki_name" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__ADMIN__" --replace_string="$admin" --target_file="$final_path/LocalSettings.php"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__WIKI_NAME__" --replace_string="$wiki_name"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
 
 if [ $path_url = "/" ]; then
     # MediaWiki expects a "" for the root URL which is typically assumed to be
     # "/" by other application packages. Therefore, we assume end-users will do
     # this as well and make sure to ensure an "" in all cases where "/" is
     # specified
-    ynh_replace_string --match_string="__PATH__" --replace_string="" --target_file="$final_path/LocalSettings.php"
+    ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
 else
-    ynh_replace_string --match_string="__PATH__" --replace_string="$path_url" --target_file="$final_path/LocalSettings.php"
+    ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
 fi
 
-ynh_replace_string --match_string="__DOMAIN__" --replace_string="$domain" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__DB_NAME__" --replace_string="$db_name" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__DB_USER__" --replace_string="$db_name" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__LANGUAGE__" --replace_string="$language" --target_file="$final_path/LocalSettings.php"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DOMAIN__"    --replace_string="$domain"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_NAME__"   --replace_string="$db_name"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_USER__"   --replace_string="$db_name"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_PWD__"    --replace_string="$db_pwd"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LANGUAGE__"  --replace_string="$language"
 
 secret=$(ynh_string_random 64)
 ynh_app_setting_set $app secret $secret
-ynh_replace_string --match_string="__SECRET__" --replace_string="$secret" --target_file="$final_path/LocalSettings.php"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
 
-ynh_replace_string --match_string="__LDAP_USER__" --replace_string="$ldap_user" --target_file="$final_path/LocalSettings.php"
-ynh_replace_string --match_string="__LDAP_PASSWORD__" --replace_string="$ldap_password" --target_file="$final_path/LocalSettings.php"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_USER__" --replace_string="$ldap_user"
+ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_PASSWORD__" --replace_string="$ldap_password"
 
 php $final_path/maintenance/update.php
 
+chown -R $app:$app $final_path
+
 #=================================================
-# SECURE FILES AND DIRECTORIES AND SSOwat
+# SETUP SSOWAT
 #=================================================
 ynh_script_progression --message="Configuring SSOwat..." --weight=1
 
-chown -R $app:$app $final_path
-
-if [ $is_public -eq 1 ]
-then
-  ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
+# Make app public if necessary
+if [ $is_public -eq 1 ]; then
+  ynh_permission_update --permission "main" --add "visitors"
 fi
 
 #=================================================
@@ -208,4 +211,5 @@ ynh_systemd_action --service_name=nginx --action=reload
 #=================================================
 # END OF SCRIPT
 #=================================================
+
 ynh_script_progression --message="Installation of $app completed" --last
