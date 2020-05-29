@@ -3,8 +3,8 @@
 		domain="domain.tld"	(DOMAIN)
 		path="/path"	(PATH)
 		admin="john"	(USER)
-		language="fr"
 		is_public=1	(PUBLIC|public=1|private=0)
+		language="fr"
 		password="pass"
 		wiki_name="MyYunoWiki"	(WIKI_NAME)
 		port="666"	(PORT)
@@ -16,27 +16,18 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=0	from_commit=CommitHash
+		upgrade=1	from_commit=49d6a9b894d17ab30fa8f972c7b08d41b9bbb2d7
 		backup_restore=1
 		multi_instance=1
 		incorrect_path=1
 		port_already_use=0
 		change_url=1
 ;;; Levels
-	Level 1=auto
-	Level 2=auto
-	Level 3=auto
-	Level 4=1
 	Level 5=auto
-	Level 6=auto
-	Level 7=auto
-	Level 8=0
-	Level 9=0
-	Level 10=0
 ;;; Options
 Email=
 Notification=none
 ;;; Upgrade options
-	; commit=CommitHash
-		name=Name and date of the commit.
-		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&wiki_name=YnhCiMediaWiki
+	; commit=49d6a9b894d17ab30fa8f972c7b08d41b9bbb2d7
+		name= Fix sha256sums, fix url 
+		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&is_public=1&language=fr&password=pass&port=666&wiki_name=YnhCiMediaWiki
