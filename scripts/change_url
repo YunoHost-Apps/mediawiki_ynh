@@ -71,6 +71,8 @@ fi
 #=================================================
 # SET NEW URL
 #=================================================
+ynh_script_progression --message="Setting the new URL..." --weight=1
+
 if [ $change_domain -eq 1 ]
 then
   ynh_replace_string  --match_string="\$wgServer = \"https://$old_domain\";" --replace_string="\$wgServer = \"https://$new_domain\";" --target_file="$final_path/LocalSettings.php"
@@ -91,7 +93,7 @@ then
   fi
 
   ynh_replace_string --match_string="\$wgScriptPath = \"$old_scriptpath\";" --replace_string="\$wgScriptPath = \"$new_scriptpath\";" --target_file="$final_path/LocalSettings.php"
-fi 
+fi
 
 #=================================================
 # RELOAD NGINX
