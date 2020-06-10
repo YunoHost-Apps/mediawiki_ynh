@@ -60,6 +60,7 @@ How to configure this app:
 
 * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
 * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
+* Buster x86-64b - [![Build Status](https://ci-buster.nohost.me/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-buster.nohost.me/ci/apps/mediawiki/)
 
 ## Limitations
 
