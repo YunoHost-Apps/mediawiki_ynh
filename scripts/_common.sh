@@ -9,3 +9,5 @@ pkg_dependencies=(
     imagemagick
     acl
 )
+
+YNH_PHP_VERSION="7.3"

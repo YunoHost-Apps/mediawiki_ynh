@@ -128,6 +128,7 @@ ynh_script_progression --message="Upgrading php-fpm configuration..." --weight=1
 
 # Create a dedicated php-fpm config
 ynh_add_fpm_config
+phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
 
 #=================================================
 # SPECIFIC UPGRADE
@@ -185,7 +186,7 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_USER__" --replace_string="$ldap_user"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_PASSWORD__" --replace_string="$ldap_password"
 
-php "$final_path/maintenance/update.php"
+"php$phpversion" "$final_path/maintenance/update.php"
 
 #=================================================
 # SECURE FILES AND DIRECTORIES
