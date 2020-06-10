@@ -17,15 +17,15 @@
 
 MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.
 
-**Shipped version:** 1.32.0
+**Shipped version:** 1.35.0
 
 **Shipped extension versions:**
-  * [LDAPProvider](https://www.mediawiki.org/wiki/Extension:LDAPProvider): 1.31 Stable
-  * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth): 1.31 Stable
-  * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2): 1.31 Stable
-  * [LDAPGroups](https://www.mediawiki.org/wiki/Extension:LDAPGroups): 1.31 Stable (**disabled and unused for now**)
-  * [LDAPUserInfo](https://www.mediawiki.org/wiki/Extension:LDAPUserInfo): 1.31 Stable (**disabled and unused for now**)
-  * [LDAPAuthorization](https://www.mediawiki.org/wiki/Extension:LDAPAuthorization): 1.31 Stable (**disabled and unused for now**)
+  * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
+  * [LDAPAuthorization](https://www.mediawiki.org/wiki/Extension:LDAPAuthorization) (**disabled and unused for now**)
+  * [LDAPGroups](https://www.mediawiki.org/wiki/Extension:LDAPGroups) (**disabled and unused for now**)
+  * [LDAPUserInfo](https://www.mediawiki.org/wiki/Extension:LDAPUserInfo) (**disabled and unused for now**)
+  * [LDAPProvider](https://www.mediawiki.org/wiki/Extension:LDAPProvider)
+  * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth)
 
 Some of the extensions are marked as "disabled and unused" because they are not immediately required but are part of the MediaWiki "LDAP Stack" which may be needed in future versions.
 
