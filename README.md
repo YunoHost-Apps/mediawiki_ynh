@@ -1,17 +1,14 @@
-# MediaWiki
+# MediaWiki for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki)
-[![Install mediawiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=mediawiki)
+[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
+[![Install WediaWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
-> *This package allow you to install mediawiki quickly and simply on a YunoHost server.
-
+> *This package allow you to install MediaWiki quickly and simply on a YunoHost server.  
 If you don't have YunoHost, please see [here](https://yunohost.org/#/install) to know how to install and enjoy it.*
 
 ## Overview
-
-![mediawiki_logo](sources/images/mediawiki_logo.png)
 
 MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.
 
@@ -39,7 +36,7 @@ Please note, there is no available 1.32.0 version of the LDAP* extensions but th
 
 How to configure this app:
 
- * Through the admin panel : Log in then click on `Preferences`
+ * Through the admin panel: Log in then click on `Preferences`
 
 ## Documentation
 
@@ -50,15 +47,14 @@ How to configure this app:
 
 #### Multi-users support
 
-* Is LDAP supported: yes
-* Is HTTP auth supported? : no
-* Can the app be used by multiple users? : yes
+* Is LDAP supported?: **yes**
+* Is HTTP auth supported?: **no**
+* Can the app be used by multiple users?: **yes**
 
 #### Supported architectures
 
-* x86-64b - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Community%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Community%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
 * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki%20%28Community%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
-* Jessie x86-64b - [![Build Status](https://ci-stretch.nohost.me/ci/logs/mediawiki%20%28Community%29.svg)](https://ci-stretch.nohost.me/ci/apps/mediawiki/)
 
 ## Limitations
 
@@ -72,6 +68,7 @@ How to configure this app:
 
  * Report a bug: https://github.com/YunoHost-Apps/mediawiki_ynh/issues
  * App website: https://www.mediawiki.org/
+ * Upstream app repository: https://github.com/wikimedia/mediawiki
  * YunoHost website: https://yunohost.org/
 
 ---
@@ -79,13 +76,11 @@ How to configure this app:
 Developers info
 ----------------
 
-Please make your change requests against the testing branch.
+Please do your pull request to the [testing branch](https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing).
 
-To try the testing branch, please try:
-
+To try the testing branch, please proceed like that.
 ```
-$ yunohost app install https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
-$ yunohost app upgrade mediawiki -u https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
+or
+sudo yunohost app upgrade mediawiki -u https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
 ```
-
-This should not be done on a production server!
