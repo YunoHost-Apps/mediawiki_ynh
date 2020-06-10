@@ -1,8 +1,10 @@
 # MediaWiki for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) 
+[
+![](https://dash.yunohost.org/integration/mediawiki.svg)
 ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg)
 ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+](https://dash.yunohost.org/appci/app/mediawiki) 
 
 [![Install WediaWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=mediawiki)
 
