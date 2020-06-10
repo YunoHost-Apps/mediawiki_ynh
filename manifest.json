@@ -3,19 +3,18 @@
     "id": "mediawiki",
     "packaging_format": 1,
     "description": {
-        "en": "MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.",
-        "fr": "MediaWiki est un ensemble wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia ."
+        "en": "A free and open source software wiki package written in PHP, originally for use on Wikipedia.",
+        "fr": "Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia ."
     },
-    "version": "1.32.0~ynh2",
-    "url": "https://www.mediawiki.org/",
+    "version": "1.32.0~ynh3",
+    "url": "https://www.mediawiki.org",
     "license": "GPL-2.0-or-later",
     "maintainer": {
-        "name": "decentral1se",
-        "email": "lukewm@riseup.net",
-        "url": "https://decentral1.se"
+        "name": "Salamandar",
+        "email": "felix@piedallu.me"
     },
     "requirements": {
-        "yunohost": ">= 3.6.4"
+        "yunohost": ">= 3.7.0"
     },
     "multi_instance": true,
     "services": [
@@ -49,17 +48,22 @@
                 "type": "user",
                 "ask": {
                     "en": "Choose an admin user",
-                    "fr": "Choisissez l’administrateur"
+                    "fr": "Choisissez l'administrateur"
                 },
                 "example": "johndoe"
             },
             {
-                "name": "password",
-                "type": "password",
+                "name": "is_public",
+                "type": "boolean",
                 "ask": {
-                    "en": "Set the administrator password",
-                    "fr": "Définissez le mot de passe administrateur"
-                }
+                    "en": "Is it a public wiki ?",
+                    "fr": "Est-ce un wiki public ?"
+                },
+                "help": {
+                    "en": "Visibility of the wiki pages",
+                    "fr": "La visibilité des pages du wiki"
+                },
+                "default": true
             },
             {
                 "name": "language",
@@ -72,16 +76,17 @@
                 "default": "fr"
             },
             {
-                "name": "is_public",
-                "type": "boolean",
+                "name": "password",
+                "type": "password",
                 "ask": {
-                    "en": "Is it a public application?",
-                    "fr": "Est-ce une application publique ?"
+                    "en": "Set the administrator password",
+                    "fr": "Définissez le mot de passe administrateur"
                 },
-                "default": true,
                 "help": {
-                  "en": "It will be accessible to the public"
-                }
+                    "en": "The password for the wiki administrator",
+                    "fr": "Le mot de passe de l'administrateur du wiki"
+                },
+                "example": "Choose a password"
             },
             {
                 "name": "wiki_name",
