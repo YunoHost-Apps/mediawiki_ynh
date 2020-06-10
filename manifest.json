@@ -3,10 +3,10 @@
     "id": "mediawiki",
     "packaging_format": 1,
     "description": {
-        "en": "MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.",
-        "fr": "MediaWiki est un ensemble wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia ."
+        "en": "A free and open source software wiki package written in PHP, originally for use on Wikipedia.",
+        "fr": "Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia ."
     },
-    "version": "1.32.0",
+    "version": "1.32.0~ynh1",
     "url": "https://www.mediawiki.org/",
     "license": "GPL-2.0-or-later",
     "maintainer": {
