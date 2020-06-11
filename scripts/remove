@@ -16,12 +16,12 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-port=$(ynh_app_setting_get --app=$app --key=port)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+domain=$(ynh_app_setting_get --app="$app" --key=domain)
+port=$(ynh_app_setting_get --app="$app" --key=port)
+db_name=$(ynh_app_setting_get --app="$app" --key=db_name)
 db_user=$db_name
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
+final_path=$(ynh_app_setting_get --app="$app" --key=final_path)
+ldap_user=$(ynh_app_setting_get --app="$app" --key=ldap_user)
 
 #=================================================
 # STANDARD REMOVE
@@ -31,7 +31,7 @@ ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 ynh_script_progression --message="Removing the MySQL database..." --weight=4
 
 # Remove a database if it exists, along with the associated user
-ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
+ynh_mysql_remove_db --db_user"=$db_user" --db_name="$db_name"
 
 #=================================================
 # REMOVE DEPENDENCIES
@@ -72,7 +72,7 @@ ynh_remove_fpm_config
 #=================================================
 ynh_script_progression --message="Removing LDAP user..." --weight=1
 
-yunohost user delete $ldap_user --purge
+yunohost user delete "$ldap_user" --purge
 
 #=================================================
 # GENERIC FINALIZATION
@@ -82,7 +82,7 @@ yunohost user delete $ldap_user --purge
 ynh_script_progression --message="Removing the dedicated system user..." --weight=1
 
 # Delete a system user
-ynh_system_user_delete --username=$app
+ynh_system_user_delete --username="$app"
 
 #=================================================
 # END OF SCRIPT

@@ -16,23 +16,23 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-admin=$(ynh_app_setting_get --app=$app --key=admin)
-is_public=$(ynh_app_setting_get --app=$app --key=is_public)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-language=$(ynh_app_setting_get --app=$app --key=language)
-wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
-ldap_password=$(ynh_app_setting_get --app=$app --key=ldap_password)
+domain=$(ynh_app_setting_get --app="$app" --key=domain)
+path_url=$(ynh_app_setting_get --app="$app" --key=path)
+admin=$(ynh_app_setting_get --app="$app" --key=admin)
+is_public=$(ynh_app_setting_get --app="$app" --key=is_public)
+final_path=$(ynh_app_setting_get --app="$app" --key=final_path)
+language=$(ynh_app_setting_get --app="$app" --key=language)
+wiki_name=$(ynh_app_setting_get --app="$app" --key=wiki_name)
+db_name=$(ynh_app_setting_get --app="$app" --key=db_name)
+db_pwd=$(ynh_app_setting_get --app="$app" --key=mysqlpwd)
+ldap_user=$(ynh_app_setting_get --app="$app" --key=ldap_user)
+ldap_password=$(ynh_app_setting_get --app="$app" --key=ldap_password)
 
 # Note(decentral1se): avoid using this on upgrade for the versions
 # of the application that upgrade and have not stored this in their
 # settings (when it was not available to them). Later on, when we have
 # moved a few versions on, we can re-enable this
-# wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
+# wiki_name=$(ynh_app_setting_get --app="$app" --key=wiki_name)
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -41,23 +41,23 @@ ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # Fix is_public as a boolean value
 if [ "$is_public" = "Yes" ]; then
-    ynh_app_setting_set --app=$app --key=is_public --value=1
+    ynh_app_setting_set --app="$app" --key=is_public --value=1
     is_public=1
 elif [ "$is_public" = "No" ]; then
-    ynh_app_setting_set --app=$app --key=is_public --value=0
+    ynh_app_setting_set --app="$app" --key=is_public --value=0
     is_public=0
 fi
 
 # If db_name doesn't exist, create it
 if [ -z "$db_name" ]; then
-    db_name=$(ynh_sanitize_dbid --db_name=$app)
-    ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+    db_name=$(ynh_sanitize_dbid --db_name="$app")
+    ynh_app_setting_set --app="$app" --key=db_name --value="$db_name"
 fi
 
 # If final_path doesn't exist, create it
 if [ -z "$final_path" ]; then
-    final_path=/var/www/$app
-    ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+    final_path="/var/www/$app"
+    ynh_app_setting_set --app="$app" --key=final_path --value="$final_path"
 fi
 
 #=================================================
@@ -79,7 +79,7 @@ ynh_abort_if_errors
 #=================================================
 
 # Normalize the URL path syntax
-path_url=$(ynh_normalize_url_path --path_url=$path_url)
+path_url=$(ynh_normalize_url_path --path_url="$path_url")
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -111,7 +111,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..." --weight=3
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_install_app_dependencies "${pkg_dependencies[@]}"
 
 #=================================================
 # CREATE DEDICATED USER
@@ -119,7 +119,7 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app
+ynh_system_user_create --username="$app"
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -137,11 +137,13 @@ ynh_add_fpm_config
 ynh_script_progression --message="Creating dedicated LDAP user if necessary..." --weight=1
 
 if [[ -z "$ldap_user" ]]; then
-  ldap_user="${app}_ldap"
-  ldap_password=$(ynh_string_random --length=8)
-  ynh_app_setting_set --app="$app" --key=ldap_user --value="$ldap_user"
-  ynh_app_setting_set --app="$app" --key=ldap_password --value="$ldap_password"
-  yunohost user create $ldap_user --firstname "MediaWikiLdap" --lastname "MediaWikiLdap" --mail ${ldap_user}@$domain --password $ldap_password -q 0
+    ldap_user="${app}_ldap"
+    ldap_password=$(ynh_string_random --length=8)
+    ynh_app_setting_set --app="$app" --key=ldap_user --value="$ldap_user"
+    ynh_app_setting_set --app="$app" --key=ldap_password --value="$ldap_password"
+    yunohost user create "$ldap_user" \
+        --firstname "MediaWikiLdap" --lastname "MediaWikiLdap" \
+        --mail "${ldap_user}@$domain" --password "$ldap_password" -q 0
 fi
 
 #=================================================
@@ -154,13 +156,13 @@ ynh_backup_if_checksum_is_different --file="$final_path/CONFIG_FILE"
 #=================================================
 ynh_script_progression --message="Upgrading application files..." --weight=4
 
-rm $final_path/LocalSettings.php
-cp ../conf/LocalSettings.php $final_path/LocalSettings.php
+rm "$final_path/LocalSettings.php"
+cp ../conf/LocalSettings.php "$final_path/LocalSettings.php"
 
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__WIKI_NAME__" --replace_string="$wiki_name"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
 
-if [ $path_url = "/" ]; then
+if [ "$path_url" = "/" ]; then
     # MediaWiki expects a "" for the root URL which is typically assumed to be
     # "/" by other application packages. Therefore, we assume end-users will do
     # this as well and make sure to ensure an "" in all cases where "/" is
@@ -177,20 +179,20 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LANGUAGE__"  --replace_string="$language"
 
 secret=$(ynh_string_random 64)
-ynh_app_setting_set $app secret $secret
+ynh_app_setting_set "$app" secret "$secret"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
 
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_USER__" --replace_string="$ldap_user"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_PASSWORD__" --replace_string="$ldap_password"
 
-php $final_path/maintenance/update.php
+php "$final_path/maintenance/update.php"
 
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
 # Set permissions on app files
-chown -R $app:$app $final_path
+chown -R "$app:$app" "$final_path"
 
 #=================================================
 # SETUP SSOWAT

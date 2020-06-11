@@ -24,10 +24,10 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+final_path=$(ynh_app_setting_get --app="$app" --key=final_path)
+domain=$(ynh_app_setting_get --app="$app" --key=domain)
+db_name=$(ynh_app_setting_get --app="$app" --key=db_name)
+phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
 
 #=================================================
 # STANDARD BACKUP STEPS
