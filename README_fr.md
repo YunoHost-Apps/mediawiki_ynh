@@ -10,7 +10,7 @@
 
 *[Read this readme in english.](./README.md)* 
 
-> *Ce package vous permet d'installer MediaWiki rapidement et simplement sur un serveur Yunohost.  
+> *Ce package vous permet d'installer MediaWiki rapidement et simplement sur un serveur YunoHost.  
 Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
 
 ## Vue d'ensemble
@@ -20,12 +20,12 @@ MediaWiki est un logiciel wiki gratuit et open source écrit en PHP, à l'origin
 **Version incluse :**  1.32.0
 
 **Versions des extensions installées :**
-  * [LDAPProvider](https://www.mediawiki.org/wiki/Extension:LDAPProvider): 1.33 Stable
-  * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth): 1.33 Stable
-  * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2): 1.33 Stable
-  * [LDAPGroups](https://www.mediawiki.org/wiki/Extension:LDAPGroups): 1.31 Stable (**désactivée et inutilisée**)
-  * [LDAPUserInfo](https://www.mediawiki.org/wiki/Extension:LDAPUserInfo): 1.33 Stable (**désactivée et inutilisée**)
-  * [LDAPAuthorization](https://www.mediawiki.org/wiki/Extension:LDAPAuthorization): 1.33 Stable (**désactivée et inutilisée**)
+  * [LDAPProvider](https://www.mediawiki.org/wiki/Extension:LDAPProvider) : 1.33 Stable
+  * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth) : 1.33 Stable
+  * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2) : 1.33 Stable
+  * [LDAPGroups](https://www.mediawiki.org/wiki/Extension:LDAPGroups) : 1.31 Stable (**désactivée et inutilisée**)
+  * [LDAPUserInfo](https://www.mediawiki.org/wiki/Extension:LDAPUserInfo) : 1.33 Stable (**désactivée et inutilisée**)
+  * [LDAPAuthorization](https://www.mediawiki.org/wiki/Extension:LDAPAuthorization) : 1.33 Stable (**désactivée et inutilisée**)
 
 Certaines des extensions sont marquées comme "désactivées et inutilisées" car elles ne sont pas immédiatement requises mais font partie de la "pile LDAP" de MediaWiki qui pourrait être nécessaire dans les futures versions.
 
