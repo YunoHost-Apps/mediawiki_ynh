@@ -21,7 +21,6 @@ port=$(ynh_app_setting_get --app="$app" --key=port)
 db_name=$(ynh_app_setting_get --app="$app" --key=db_name)
 db_user=$db_name
 final_path=$(ynh_app_setting_get --app="$app" --key=final_path)
-ldap_user=$(ynh_app_setting_get --app="$app" --key=ldap_user)
 
 #=================================================
 # STANDARD REMOVE
@@ -52,27 +51,22 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 # REMOVE NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing nginx web server configuration..." --weight=1
+ynh_script_progression --message="Removing NGINX web server configuration..." --weight=1
 
-# Remove the dedicated nginx config
+# Remove the dedicated NGINX config
 ynh_remove_nginx_config
 
 #=================================================
 # REMOVE PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing php-fpm configuration..." --weight=1
+ynh_script_progression --message="Removing PHP-FPM configuration..." --weight=1
 
-# Remove the dedicated php-fpm config
+# Remove the dedicated PHP-FPM config
 ynh_remove_fpm_config
 
 #=================================================
 # SPECIFIC REMOVE
 #=================================================
-# REMOVE LDAP USER
-#=================================================
-ynh_script_progression --message="Removing LDAP user..." --weight=1
-
-yunohost user delete "$ldap_user" --purge
 
 #=================================================
 # GENERIC FINALIZATION

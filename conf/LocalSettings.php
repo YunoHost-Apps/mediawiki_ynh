@@ -168,11 +168,9 @@ $LDAPProviderDomainConfigProvider = function() {
       "connection" => [
         "server" => "localhost",
         "port" => "389",
-        "user" => "uid=__LDAP_USER__,ou=users,dc=yunohost,dc=org",
-        "pass" => "__LDAP_PASSWORD__",
         "basedn" => "dc=yunohost,dc=org",
-        "groupbasedn" => "dc=yunohost,dc=org",
-        "userbasedn" => "dc=yunohost,dc=org",
+        "groupbasedn" => "ou=users,dc=yunohost,dc=org",
+        "userbasedn" => "ou=groups,dc=yunohost,dc=org",
         "searchattribute" => "uid",
         "usernameattribute" => "uid",
         "realnameattribute" => "cn",
