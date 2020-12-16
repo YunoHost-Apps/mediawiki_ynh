@@ -25,8 +25,6 @@ language=$(ynh_app_setting_get --app="$app" --key=language)
 wiki_name=$(ynh_app_setting_get --app="$app" --key=wiki_name)
 db_name=$(ynh_app_setting_get --app="$app" --key=db_name)
 db_pwd=$(ynh_app_setting_get --app="$app" --key=mysqlpwd)
-ldap_user=$(ynh_app_setting_get --app="$app" --key=ldap_user)
-ldap_password=$(ynh_app_setting_get --app="$app" --key=ldap_password)
 
 # Note(decentral1se): avoid using this on upgrade for the versions
 # of the application that upgrade and have not stored this in their
@@ -126,18 +124,14 @@ phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# CREATE DEDICATED LDAP USER
+# REMOVE LEGACY LDAP USER
 #=================================================
-ynh_script_progression --message="Creating dedicated LDAP user if necessary..." --weight=1
-
-if [[ -z "$ldap_user" ]]; then
-    ldap_user="${app}_ldap"
-    ldap_password=$(ynh_string_random --length=8)
-    ynh_app_setting_set --app="$app" --key=ldap_user --value="$ldap_user"
-    ynh_app_setting_set --app="$app" --key=ldap_password --value="$ldap_password"
-    yunohost user create "$ldap_user" \
-        --firstname "MediaWikiLdap" --lastname "MediaWikiLdap" \
-        --mail "${ldap_user}@$domain" --password "$ldap_password" -q 0
+# Removed in dec. 2020
+ldap_user=$(ynh_app_setting_get --app="$app" --key=ldap_user)
+if [[ -n "$ldap_user" ]]; then
+    yunohost user delete "$ldap_user"
+    ynh_app_setting_delete --app="$app" --key=ldap_user
+    ynh_app_setting_delete --app="$app" --key=ldap_password
 fi
 
 #=================================================
@@ -175,9 +169,6 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 secret=$(ynh_string_random 64)
 ynh_app_setting_set "$app" secret "$secret"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
-
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_USER__" --replace_string="$ldap_user"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_PASSWORD__" --replace_string="$ldap_password"
 
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --app="$app" --key=admin_password | awk '{print length}')
