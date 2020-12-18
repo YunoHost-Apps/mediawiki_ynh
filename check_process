@@ -5,7 +5,7 @@
 		admin="john"	(USER)
 		is_public=1	(PUBLIC|public=1|private=0)
 		language="fr"
-		password="pass"
+		password="jztI4OHHr2RfhrqK5wgX"
 		wiki_name="MyYunoWiki"	(WIKI_NAME)
 		port="666"	(PORT)
 	; Checks
@@ -29,5 +29,5 @@ Email=
 Notification=none
 ;;; Upgrade options
 	; commit=49d6a9b894d17ab30fa8f972c7b08d41b9bbb2d7
-		name= Fix sha256sums, fix url 
+		name= Fix sha256sums, fix url
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&is_public=1&language=fr&password=pass&port=666&wiki_name=YnhCiMediaWiki
