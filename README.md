@@ -1,12 +1,7 @@
 # MediaWiki for YunoHost
 
-[
-![](https://dash.yunohost.org/integration/mediawiki.svg)
-![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg)
-![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
-](https://dash.yunohost.org/appci/app/mediawiki)
-
-[![Install WediaWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=mediawiki)
+[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
+[![Install WediaWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
@@ -41,46 +36,44 @@ Some of the extensions are marked as "disabled and unused" because they are not 
 
 How to configure this app:
 
-  * Through the admin panel: Log in then click on `Preferences`
+ * Through the admin panel: Log in then click on `Preferences`
 
 ## Documentation
 
-  * Official documentation: https://www.mediawiki.org
-  * YunoHost documentation: https://yunohost.org/#/app_mediawiki
+ * Official documentation: https://www.mediawiki.org
+ * YunoHost documentation: https://yunohost.org/#/app_mediawiki
 
 ## YunoHost specific features
 
 #### Multi-users support
 
-  * Is LDAP supported?: **yes**
-  * Is HTTP auth supported?: **no**
-  * Can the app be used by multiple users?: **yes**
+ * Is LDAP supported?: **yes**
+ * Is HTTP auth supported?: **no**
+ * Can the app be used by multiple users?: **yes**
 
 #### Supported architectures
 
-  * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
-  * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
-  * Buster x86-64b - [![Build Status](https://ci-buster.nohost.me/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-buster.nohost.me/ci/apps/mediawiki/)
+ * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+ * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
 
 ## Limitations
 
-  * Any known limitations.
+ * Any known limitations.
 
 ## Additional information
 
-  * The [Discourse forum topic](https://forum.yunohost.org/t/community-app-mediawiki-free-software-wiki-package-wikipedia/8588) tracking release schedule and feedback.
+ * The [Discourse forum topic](https://forum.yunohost.org/t/community-app-mediawiki-free-software-wiki-package-wikipedia/8588) tracking release schedule and feedback.
 
 ## Links
 
-  * Report a bug: https://github.com/YunoHost-Apps/mediawiki_ynh/issues
-  * App website: https://www.mediawiki.org
-  * Upstream app repository: https://github.com/wikimedia/mediawiki
-  * YunoHost website: https://yunohost.org
+ * Report a bug: https://github.com/YunoHost-Apps/mediawiki_ynh/issues
+ * App website: https://www.mediawiki.org
+ * Upstream app repository: https://github.com/wikimedia/mediawiki
+ * YunoHost website: https://yunohost.org
 
 ---
 
-Developers info
-----------------
+## Developers info
 
 Please do your pull request to the [testing branch](https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing).
 
