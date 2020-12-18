@@ -186,6 +186,14 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_USER__" --replace_string="$ldap_user"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LDAP_PASSWORD__" --replace_string="$ldap_password"
 
+# Check for admin password being too short for the new mediawiki requirements
+password_length=$(ynh_app_setting_get --app="$app" --key=admin_password | awk '{print length}')
+if (( password_length < 10 )); then
+    ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
+    ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
+    echo '$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;' >> "$final_path/LocalSettings.php"
+fi
+
 "php$phpversion" "$final_path/maintenance/update.php"
 
 #=================================================
