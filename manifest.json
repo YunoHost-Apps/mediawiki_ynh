@@ -83,8 +83,8 @@
                     "fr": "Définissez le mot de passe administrateur"
                 },
                 "help": {
-                    "en": "The password for the wiki administrator",
-                    "fr": "Le mot de passe de l'administrateur du wiki"
+                    "en": "The password for the wiki administrator. It needs to be solid or the installation process will fail.",
+                    "fr": "Le mot de passe de l'administrateur du wiki. Il doit être solide, sinon l'installation échouera."
                 },
                 "example": "Choose a password"
             },
