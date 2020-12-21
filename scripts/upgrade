@@ -184,7 +184,7 @@ password_length=$(ynh_app_setting_get --app="$app" --key=admin_password | awk '{
 if (( password_length < 10 )); then
     ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
     ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
-    echo '$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;' >> "$final_path/LocalSettings.php"
+    echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$final_path/LocalSettings.php"
 fi
 
 "php$phpversion" "$final_path/maintenance/update.php"
