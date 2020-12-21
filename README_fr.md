@@ -1,18 +1,18 @@
 # MediaWiki pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
-[![Installer WediaWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
+[![Niveau d'intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Installer MediaWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
-*[Read this readme in english.](./README.md)* 
+*[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer WediaWiki rapidement et simplement sur un serveur YunoHost.  
+> *Ce package vous permet d'installer MediaWiki rapidement et simplement sur un serveur YunoHost.
 Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install) pour apprendre comment l'installer.*
 
 ## Vue d'ensemble
 
-MediaWiki est un moteur de wiki pour le Web. Il est utilisé par l’ensemble des projets de la Wikimedia Foundation.
+MediaWiki est un moteur de wiki pour le Web. Il est utilisé par l’ensemble des projets de la Fondation Wikimedia.
 
-**Shipped version:** 1.35.0
+**Version de Mediawiki:** 1.35.0
 
 **Versions d'extension livrées:**
   * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
@@ -34,7 +34,7 @@ Certaines extensions sont marquées comme "désactivées et inutilisées" car el
 
 ## Configuration
 
-Comment configurer cette application : 
+Comment configurer cette application :
 
  * Via le panneau d'administration : Connectez-vous puis cliquez sur `Préférences`
 
