@@ -12,7 +12,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 
 MediaWiki est un moteur de wiki pour le Web. Il est utilisé par l’ensemble des projets de la Fondation Wikimedia.
 
-**Version de Mediawiki:** 1.35.0
+**Version de Mediawiki:** 1.35.1
 
 **Versions d'extension livrées:**
   * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
