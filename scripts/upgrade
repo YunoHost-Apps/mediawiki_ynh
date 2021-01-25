@@ -195,13 +195,13 @@ ynh_script_progression --message="Upgrading SSOwat configuration..." --weight=1
 # Upgrade from the legacy permissions system
 protected_uris=$(ynh_app_setting_get --app="$app" --key=protected_uris)
 if [ -n "${protected_uris}" ]; then
-  ynh_app_setting_delete --app="$app" --key=protected_uris
+    ynh_app_setting_delete --app="$app" --key=protected_uris
 fi
 
 # Make app public if necessary
 if [ $is_public -eq 1 ]; then
-  # Allow public access on /
-  ynh_permission_update --permission "main" --add "visitors"
+    # Allow public access on /
+    ynh_permission_update --permission "main" --add "visitors"
 fi
 
 #=================================================
