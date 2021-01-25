@@ -14,8 +14,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
+    ### Remove this function if there's nothing to clean before calling the remove script.
+    true
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
@@ -132,21 +132,21 @@ phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
 #=================================================
 ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
 if [ "$path_url" = "/" ]; then
-  scriptpath=""
+    scriptpath=""
 else
-  scriptpath=$path_url
+    scriptpath=$path_url
 fi
 
 "php$phpversion" "$final_path/maintenance/install.php" --conf "$final_path" \
-  --server "https://$domain" \
-  --scriptpath "$scriptpath" \
-  --dbuser "$db_name" \
-  --dbpass "$db_pwd" \
-  --dbname "$db_name" \
-  --dbprefix "mdk_" \
-  --lang "$language" \
-  --pass "$admin_password" \
-  "$wiki_name" "$admin"
+    --server "https://$domain" \
+    --scriptpath "$scriptpath" \
+    --dbuser "$db_name" \
+    --dbpass "$db_pwd" \
+    --dbname "$db_name" \
+    --dbprefix "mdk_" \
+    --lang "$language" \
+    --pass "$admin_password" \
+    "$wiki_name" "$admin"
 
 #=================================================
 # REPLACE CONFIGURATION SETTINGS
