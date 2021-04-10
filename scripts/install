@@ -54,7 +54,6 @@ ynh_app_setting_set --app="$app" --key=domain --value="$domain"
 ynh_app_setting_set --app="$app" --key=path --value="$path_url"
 ynh_app_setting_set --app="$app" --key=admin --value="$admin"
 ynh_app_setting_set --app="$app" --key=admin_password --value="$admin_password"
-ynh_app_setting_set --app="$app" --key=is_public --value="$is_public"
 ynh_app_setting_set --app="$app" --key=language --value="$language"
 ynh_app_setting_set --app="$app" --key=wiki_name --value="$wiki_name"
 
@@ -183,7 +182,7 @@ chown -R "$app:$app" "$final_path"
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring SSOwat..." --weight=1
+ynh_script_progression --message="Configuring permissions..." --weight=1
 
 # Make app public if necessary
 if [ "$is_public" -eq 1 ]; then

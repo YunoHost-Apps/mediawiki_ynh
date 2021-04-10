@@ -12,7 +12,7 @@
 
 MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.
 
-**Shipped version:** 1.35.1
+**Shipped version:** 1.35.2
 
 **Shipped extension versions:**
   * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
@@ -41,7 +41,7 @@ How to configure this app:
 ## Documentation
 
  * Official documentation: https://www.mediawiki.org
- * YunoHost documentation: https://yunohost.org/#/app_mediawiki
+ * YunoHost documentation: https://yunohost.org/en/app_mediawiki
 
 ## YunoHost specific features
 
@@ -53,8 +53,8 @@ How to configure this app:
 
 #### Supported architectures
 
- * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
- * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
+ * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+ * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
 
 ## Limitations
 

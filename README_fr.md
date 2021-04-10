@@ -12,7 +12,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 
 MediaWiki est un moteur de wiki pour le Web. Il est utilisé par l’ensemble des projets de la Fondation Wikimedia.
 
-**Version de Mediawiki:** 1.35.1
+**Version de Mediawiki:** 1.35.2
 
 **Versions d'extension livrées:**
   * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
@@ -41,7 +41,7 @@ Comment configurer cette application :
 ## Documentation
 
  * Documentation officielle : https://www.mediawiki.org
- * Documentation YunoHost : https://yunohost.org/#/app_mediawiki
+ * Documentation YunoHost : https://yunohost.org/fr/app_mediawiki
 
 ## Caractéristiques spécifiques YunoHost
 
@@ -53,8 +53,8 @@ Comment configurer cette application :
 
 #### Architectures supportées
 
-  * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
-  * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
+  * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+  * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
 
 ## Limitations
 
