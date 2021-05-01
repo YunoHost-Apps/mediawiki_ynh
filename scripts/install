@@ -98,7 +98,7 @@ ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_aut
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring nginx web server..." --weight=1
+ynh_script_progression --message="Configuring NGINX web server..." --weight=1
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -119,12 +119,6 @@ ynh_script_progression --message="Configuring PHP-FPM..." --weight=1
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config
 phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-# ...
-#=================================================
 
 #=================================================
 # RUN INSTALLATION OF MEDIAWIKI

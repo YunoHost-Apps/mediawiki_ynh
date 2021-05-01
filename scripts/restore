@@ -69,7 +69,7 @@ ynh_system_user_create --username="$app"
 #=================================================
 
 # Restore permissions on app files
-chown -R "$app:$app" "$final_path"
+chown -R $app:$app "$final_path"
 
 #=================================================
 # RESTORE THE PHP-FPM CONFIGURATION
@@ -103,7 +103,7 @@ ynh_mysql_connect_as --user="$db_user" --password="$db_pwd" --database="$db_name
 #=================================================
 ynh_script_progression --message="Reloading NGINX web server and PHP-FPM..." --weight=1
 
-ynh_systemd_action --service_name="php$phpversion-fpm" --action=reload
+ynh_systemd_action --service_name=php$phpversion-fpm --action=reload
 ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
