@@ -1,5 +1,5 @@
 SOURCE_URL=https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/LDAPProvider/+archive/refs/heads/REL1_36.tar.gz
-SOURCE_SUM=4f8c307fb2a45fe4324c734e041d7fee3bfc6294d52e24221c6987fa2d56891f
+SOURCE_SUM=4915144497e6230117af98ebb86fefbce0497cdcbe3b0e5240765d14a6bc741e
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false
