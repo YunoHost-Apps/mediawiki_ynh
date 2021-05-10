@@ -1,5 +1,5 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_35-ca854c1.tar.gz
-SOURCE_SUM=87420f722c4646f4cf9e47a798ac9e776d0ce904323484674a3dd003dcce6f60
+SOURCE_URL=https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/LDAPProvider/+archive/refs/heads/REL1_36.tar.gz
+SOURCE_SUM=4f8c307fb2a45fe4324c734e041d7fee3bfc6294d52e24221c6987fa2d56891f
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false
