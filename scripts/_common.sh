@@ -1,13 +1,22 @@
 #!/bin/bash
 
 #=================================================
-# CONSTANTS
+# COMMON VARIABLES
 #=================================================
-# shellcheck disable=SC2034 # Variable is used by other scripts
-pkg_dependencies=(
-    diffutils
-    imagemagick
-    acl
-)
+
+# dependencies used by the app
+pkg_dependencies="diffutils imagemagick acl"
 
 YNH_PHP_VERSION="7.3"
+
+#=================================================
+# PERSONAL HELPERS
+#=================================================
+
+#=================================================
+# EXPERIMENTAL HELPERS
+#=================================================
+
+#=================================================
+# FUTURE OFFICIAL HELPERS
+#=================================================

@@ -16,47 +16,27 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app="$app" --key=domain)
-path_url=$(ynh_app_setting_get --app="$app" --key=path)
-admin=$(ynh_app_setting_get --app="$app" --key=admin)
-is_public=$(ynh_app_setting_get --app="$app" --key=is_public)
-final_path=$(ynh_app_setting_get --app="$app" --key=final_path)
-language=$(ynh_app_setting_get --app="$app" --key=language)
-wiki_name=$(ynh_app_setting_get --app="$app" --key=wiki_name)
-db_name=$(ynh_app_setting_get --app="$app" --key=db_name)
-db_pwd=$(ynh_app_setting_get --app="$app" --key=mysqlpwd)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path)
+admin=$(ynh_app_setting_get --app=$app --key=admin)
+final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+language=$(ynh_app_setting_get --app=$app --key=language)
+wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 
 # Note(decentral1se): avoid using this on upgrade for the versions
 # of the application that upgrade and have not stored this in their
 # settings (when it was not available to them). Later on, when we have
 # moved a few versions on, we can re-enable this
-# wiki_name=$(ynh_app_setting_get --app="$app" --key=wiki_name)
+# wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
+# CHECK VERSION
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+ynh_script_progression --message="Checking version..."
 
-# Fix is_public as a boolean value
-if [ "$is_public" = "Yes" ]; then
-    ynh_app_setting_set --app="$app" --key=is_public --value=1
-    is_public=1
-elif [ "$is_public" = "No" ]; then
-    ynh_app_setting_set --app="$app" --key=is_public --value=0
-    is_public=0
-fi
-
-# If db_name doesn't exist, create it
-if [ -z "$db_name" ]; then
-    db_name=$(ynh_sanitize_dbid --db_name="$app")
-    ynh_app_setting_set --app="$app" --key=db_name --value="$db_name"
-fi
-
-# If final_path doesn't exist, create it
-if [ -z "$final_path" ]; then
-    final_path="/var/www/$app"
-    ynh_app_setting_set --app="$app" --key=final_path --value="$final_path"
-fi
+upgrade_type=$(ynh_check_app_version_changed)
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -66,8 +46,8 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 # Backup the current version of the app
 ynh_backup_before_upgrade
 ynh_clean_setup () {
-    # restore it if the upgrade fails
-    ynh_restore_upgradebackup
+	# Restore it if the upgrade fails
+	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
@@ -75,34 +55,37 @@ ynh_abort_if_errors
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
+# ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=4
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
-ynh_setup_source --dest_dir="$final_path"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_auth"
+# Fix is_public as a boolean value
+if [ "$is_public" = "Yes" ]; then
+    ynh_app_setting_set --app=$app --key=is_public --value=1
+    is_public=1
+elif [ "$is_public" = "No" ]; then
+    ynh_app_setting_set --app=$app --key=is_public --value=0
+    is_public=0
+fi
 
-# Note(decentral1se): Disabled and unused for now ...
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_groups"
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_userinfo"
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authorization"
+# If db_name doesn't exist, create it
+if [ -z "$db_name" ]; then
+    db_name=$(ynh_sanitize_dbid --db_name=$app)
+    ynh_app_setting_set --app=$app --key=db_name --value="$db_name"
+fi
 
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading nginx web server configuration..." --weight=1
+# If final_path doesn't exist, create it
+if [ -z "$final_path" ]; then
+    final_path="/var/www/$app"
+    ynh_app_setting_set --app=$app --key=final_path --value="$final_path"
+fi
 
-# Create a dedicated nginx config
-ynh_add_nginx_config
+# Cleaning legacy permissions
+if ynh_legacy_permissions_exists; then
+	ynh_legacy_permissions_delete_all
 
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=3
-
-ynh_install_app_dependencies "${pkg_dependencies[@]}"
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
 
 #=================================================
 # CREATE DEDICATED USER
@@ -110,16 +93,56 @@ ynh_install_app_dependencies "${pkg_dependencies[@]}"
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username="$app"
+ynh_system_user_create --username=$app --home_dir=$final_path
+
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+
+if [ "$upgrade_type" == "UPGRADE_APP" ]
+then
+	ynh_script_progression --message="Upgrading source files..." --weight=4
+
+	# Download, check integrity, uncompress and patch the source from app.src
+	ynh_setup_source --dest_dir="$final_path"
+	ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
+	ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
+	ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_auth"
+
+	# Note(decentral1se): Disabled and unused for now ...
+	# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_groups"
+	# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_userinfo"
+	# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authorization"
+
+fi
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:$app "$final_path"
+
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+
+# Create a dedicated NGINX config
+ynh_add_nginx_config
+
+#=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Upgrading dependencies..." --weight=3
+
+ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading php-fpm configuration..." --weight=1
+ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
-# Create a dedicated php-fpm config
+# Create a dedicated PHP-FPM config
 ynh_add_fpm_config
-phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # SPECIFIC UPGRADE
@@ -127,17 +150,17 @@ phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
 # REMOVE LEGACY LDAP USER
 #=================================================
 # Removed in dec. 2020
-ldap_user=$(ynh_app_setting_get --app="$app" --key=ldap_user)
+ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 if [[ -n "$ldap_user" ]]; then
     yunohost user delete "$ldap_user"
-    ynh_app_setting_delete --app="$app" --key=ldap_user
-    ynh_app_setting_delete --app="$app" --key=ldap_password
+    ynh_app_setting_delete --app=$app --key=ldap_user
+    ynh_app_setting_delete --app=$app --key=ldap_password
 fi
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
-ynh_backup_if_checksum_is_different --file="$final_path/CONFIG_FILE"
+ynh_backup_if_checksum_is_different --file="$final_path/LocalSettings.php"
 
 #=================================================
 # REPLACE CONFIGURATION SETTINGS
@@ -167,11 +190,11 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LANGUAGE__"  --replace_string="$language"
 
 secret=$(ynh_string_random 64)
-ynh_app_setting_set "$app" secret "$secret"
+ynh_app_setting_set $app secret "$secret"
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
 
 # Check for admin password being too short for the new mediawiki requirements
-password_length=$(ynh_app_setting_get --app="$app" --key=admin_password | awk '{print length}')
+password_length=$(ynh_app_setting_get --app=$app --key=admin_password | awk '{print length}')
 if (( password_length < 10 )); then
     ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
     ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
@@ -180,34 +203,15 @@ fi
 
 "php$phpversion" "$final_path/maintenance/update.php"
 
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
 # Set permissions on app files
-chown -R "$app:$app" "$final_path"
+chown -R $app:$app "$final_path"
 
 #=================================================
-# SETUP SSOWAT
-#=================================================
-ynh_script_progression --message="Upgrading SSOwat configuration..." --weight=1
-
-# Upgrade from the legacy permissions system
-protected_uris=$(ynh_app_setting_get --app="$app" --key=protected_uris)
-if [ -n "${protected_uris}" ]; then
-    ynh_app_setting_delete --app="$app" --key=protected_uris
-fi
-
-# Make app public if necessary
-if [ $is_public -eq 1 ]; then
-    # Allow public access on /
-    ynh_permission_update --permission "main" --add "visitors"
-fi
-
+# GENERIC FINALIZATION
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading nginx web server..." --weight=1
+ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
 ynh_systemd_action --service_name=nginx --action=reload
 
