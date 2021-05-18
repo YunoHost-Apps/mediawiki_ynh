@@ -77,7 +77,7 @@ def get_required_extensions(extensions):
     ext_files = [
         { 'name': 'LDAPAuthentication2',    'file': 'conf/ldap_authentication2.src', },
         { 'name': 'LDAPAuthorization',      'file': 'conf/ldap_authorization.src', },
-        { 'name': 'Auth_remoteuser',        'file': 'conf/ldap_auth_remoteuser.src', },
+        # { 'name': 'Auth_remoteuser',        'file': 'conf/ldap_auth_remoteuser.src', },
         { 'name': 'LDAPGroups',             'file': 'conf/ldap_groups.src', },
         { 'name': 'LDAPProvider',           'file': 'conf/ldap_provider.src', },
         { 'name': 'LDAPUserInfo',           'file': 'conf/ldap_userinfo.src', },
