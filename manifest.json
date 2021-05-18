@@ -14,7 +14,7 @@
         "email": "felix@piedallu.me"
     },
     "requirements": {
-        "yunohost": ">= 3.7.0"
+        "yunohost": ">= 4.1.0"
     },
     "multi_instance": true,
     "services": [
