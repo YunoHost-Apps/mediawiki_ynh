@@ -65,10 +65,6 @@ ynh_script_progression --message="Removing PHP-FPM configuration..." --weight=1
 ynh_remove_fpm_config
 
 #=================================================
-# SPECIFIC REMOVE
-#=================================================
-
-#=================================================
 # GENERIC FINALIZATION
 #=================================================
 # REMOVE DEDICATED USER
