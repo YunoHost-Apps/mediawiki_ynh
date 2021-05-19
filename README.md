@@ -12,7 +12,7 @@
 
 MediaWiki is a free and open source software wiki package written in PHP, originally for use on Wikipedia.
 
-**Shipped version:** 1.35.1
+**Shipped version:** 1.35.2
 
 **Shipped extension versions:**
   * [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
