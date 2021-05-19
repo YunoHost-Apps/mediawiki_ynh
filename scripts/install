@@ -14,7 +14,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-    true
+	true
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
@@ -132,21 +132,21 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 #=================================================
 ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
 if [ "$path_url" = "/" ]; then
-    scriptpath=""
+	scriptpath=""
 else
-    scriptpath=$path_url
+	scriptpath=$path_url
 fi
 
 "php$phpversion" "$final_path/maintenance/install.php" --conf "$final_path" \
-    --server "https://$domain" \
-    --scriptpath "$scriptpath" \
-    --dbuser "$db_name" \
-    --dbpass "$db_pwd" \
-    --dbname "$db_name" \
-    --dbprefix "mdk_" \
-    --lang "$language" \
-    --pass "$admin_password" \
-    "$wiki_name" "$admin"
+	--server "https://$domain" \
+	--scriptpath "$scriptpath" \
+	--dbuser "$db_name" \
+	--dbpass "$db_pwd" \
+	--dbname "$db_name" \
+	--dbprefix "mdk_" \
+	--lang "$language" \
+	--pass "$admin_password" \
+	"$wiki_name" "$admin"
 
 #=================================================
 # REPLACE CONFIGURATION SETTINGS
@@ -157,13 +157,13 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
 
 if [ "$path_url" = "/" ]; then
-    # MediaWiki expects a "" for the root URL which is typically assumed to be
-    # "/" by other application packages. Therefore, we assume end-users will do
-    # this as well and make sure to ensure an "" in all cases where "/" is
-    # specified
-    ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
+	# MediaWiki expects a "" for the root URL which is typically assumed to be
+	# "/" by other application packages. Therefore, we assume end-users will do
+	# this as well and make sure to ensure an "" in all cases where "/" is
+	# specified
+	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
 else
-    ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
+	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
 fi
 
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DOMAIN__"    --replace_string="$domain"

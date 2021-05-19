@@ -146,9 +146,9 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 # Removed in dec. 2020
 ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 if [[ -n "$ldap_user" ]]; then
-    yunohost user delete "$ldap_user"
-    ynh_app_setting_delete --app=$app --key=ldap_user
-    ynh_app_setting_delete --app=$app --key=ldap_password
+	yunohost user delete "$ldap_user"
+	ynh_app_setting_delete --app=$app --key=ldap_user
+	ynh_app_setting_delete --app=$app --key=ldap_password
 fi
 
 #=================================================
@@ -168,13 +168,13 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
 
 if [ "$path_url" = "/" ]; then
-    # MediaWiki expects a "" for the root URL which is typically assumed to be
-    # "/" by other application packages. Therefore, we assume end-users will do
-    # this as well and make sure to ensure an "" in all cases where "/" is
-    # specified
-    ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
+	# MediaWiki expects a "" for the root URL which is typically assumed to be
+	# "/" by other application packages. Therefore, we assume end-users will do
+	# this as well and make sure to ensure an "" in all cases where "/" is
+	# specified
+	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
 else
-    ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
+	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
 fi
 
 ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DOMAIN__"    --replace_string="$domain"
@@ -190,9 +190,9 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --app=$app --key=admin_password | awk '{print length}')
 if (( password_length < 10 )); then
-    ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
-    ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
-    echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$final_path/LocalSettings.php"
+	ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
+	ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
+	echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$final_path/LocalSettings.php"
 fi
 
 "php$phpversion" "$final_path/maintenance/update.php"
