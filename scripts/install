@@ -53,7 +53,6 @@ ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=admin_password --value=$admin_password
-ynh_app_setting_set --app=$app --key=is_public --value=$is_public
 ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=wiki_name --value=$wiki_name
 
@@ -181,6 +180,8 @@ ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string=
 
 chown -R $app:www-data "$final_path"
 
+#=================================================
+# GENERIC FINALIZATION
 #=================================================
 # SETUP SSOWAT
 #=================================================
