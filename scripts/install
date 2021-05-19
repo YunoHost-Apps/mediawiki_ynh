@@ -124,10 +124,6 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 #=================================================
 # SPECIFIC SETUP
 #=================================================
-# ...
-#=================================================
-
-#=================================================
 # RUN INSTALLATION OF MEDIAWIKI
 #=================================================
 ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14

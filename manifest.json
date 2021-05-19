@@ -4,7 +4,7 @@
     "packaging_format": 1,
     "description": {
         "en": "A free and open source software wiki package written in PHP, originally for use on Wikipedia.",
-        "fr": "Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia ."
+        "fr": "Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia."
     },
     "version": "1.35.1~ynh2",
     "url": "https://www.mediawiki.org",
