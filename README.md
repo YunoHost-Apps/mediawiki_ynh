@@ -25,7 +25,7 @@ A free and open source software wiki package written in PHP, originally for use 
 
 ## Screenshots
 
-![](./doc/screenshots/screenshot.png)
+![](./doc/screenshots/screenshot.avif)
 
 ## Disclaimers / important information
 
