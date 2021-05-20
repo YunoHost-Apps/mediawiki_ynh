@@ -16,7 +16,6 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=1cea793f85ad8251a08adaf852b780bc0a0f9a20
 		backup_restore=1
 		multi_instance=1
 		incorrect_path=1
@@ -28,6 +27,3 @@
 Email=
 Notification=none
 ;;; Upgrade options
-	; commit=1cea793f85ad8251a08adaf852b780bc0a0f9a20
-		name=Add script to easily update extensions
-		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&is_public=1&language=fr&password=pass&port=666&wiki_name=YnhCiMediaWiki
