@@ -17,7 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 A free and open source software wiki package written in PHP, originally for use on Wikipedia.
 
-**Shipped version:** 1.35.2
+**Shipped version:** 1.36.0
 
 **Demo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
