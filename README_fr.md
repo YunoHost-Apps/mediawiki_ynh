@@ -13,7 +13,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia.
 
-**Version incluse :** 1.35.2
+**Version incluse :** 1.36.0
 
 **Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
