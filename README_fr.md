@@ -1,21 +1,21 @@
 # MediaWiki pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Niveau d'intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
 [![Installer MediaWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Read this readme in english.](./README.md)*
 *[Lire ce readme en français.](./README_fr.md)*
 
 > *Ce package vous permet d'installer MediaWiki rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install) pour apprendre comment l'installer.*
+Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
 
 ## Vue d'ensemble
 
 Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia.
 
-**Version incluse:** 1.35.2
+**Version incluse :** 1.35.2
 
-**Démo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
+**Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
 ## Captures d'écran
 
@@ -52,12 +52,12 @@ Certaines extensions sont marquées comme "désactivées et inutilisées" car el
 
 ## Documentations et ressources
 
-* Site officiel de l'app : https://www.mediawiki.org
-* Documentation officielle utilisateur: https://www.mediawiki.org/wiki/Project:Help
-* Documentation officielle de l'admin: https://www.mediawiki.org/wiki/Documentation
-* Dépôt de code officiel de l'app:  https://github.com/wikimedia/mediawiki
-* Documentation YunoHost pour cette app: https://yunohost.org/app_mediawiki
-* Signaler un bug: https://github.com/YunoHost-Apps/mediawiki_ynh/issues
+* Site officiel de l'app : https://www.mediawiki.org
+* Documentation officielle utilisateur : https://www.mediawiki.org/wiki/Project:Help
+* Documentation officielle de l'admin : https://www.mediawiki.org/wiki/Documentation
+* Dépôt de code officiel de l'app : https://github.com/wikimedia/mediawiki
+* Documentation YunoHost pour cette app : https://yunohost.org/app_mediawiki
+* Signaler un bug : https://github.com/YunoHost-Apps/mediawiki_ynh/issues
 
 ## Informations pour les développeurs
 
@@ -66,8 +66,8 @@ Merci de faire vos pull request sur la [branche testing](https://github.com/Yuno
 Pour essayer la branche testing, procédez comme suit.
 ```
 sudo yunohost app install https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
-or
+ou
 sudo yunohost app upgrade mediawiki -u https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications:** https://yunohost.org/packaging_apps
+**Plus d'infos sur le packaging d'applications :** https://yunohost.org/packaging_apps
