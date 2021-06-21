@@ -23,7 +23,7 @@ A free and open source software wiki package written in PHP, originally for use 
 
 ## Screenshots
 
-![](./doc/screenshots/screenshot.avif)
+![](./doc/screenshots/screenshot.png)
 
 ## Disclaimers / important information
 

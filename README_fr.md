@@ -19,7 +19,7 @@ Un wiki à base de logiciels libres Open source, développé à l’origine pour
 
 ## Captures d'écran
 
-![](./doc/screenshots/screenshot.avif)
+![](./doc/screenshots/screenshot.png)
 
 ## Avertissements / informations importantes
 
