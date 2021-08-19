@@ -15,7 +15,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-A free and open source software wiki package written in PHP, originally for use on Wikipedia.
+Wiki package originally for use on Wikipedia
 
 **Shipped version:** 1.36.0
 
@@ -23,7 +23,7 @@ A free and open source software wiki package written in PHP, originally for use 
 
 ## Screenshots
 
-![](./doc/screenshots/screenshot.avif)
+![](./doc/screenshots/screenshot.png)
 
 ## Disclaimers / important information
 
