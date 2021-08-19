@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-Un wiki à base de logiciels libres Open source, développé à l’origine pour Wikipédia.
+Wiki développé à l’origine pour Wikipédia
 
 **Version incluse :** 1.36.0
 
