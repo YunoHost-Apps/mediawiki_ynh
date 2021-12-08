@@ -13,7 +13,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Wiki développé à l’origine pour Wikipédia
 
-**Version incluse :** 1.36.0
+**Version incluse :** 1.37.0~ynh1
 
 **Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
