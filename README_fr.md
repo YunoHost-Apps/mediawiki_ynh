@@ -1,6 +1,6 @@
 # MediaWiki pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
+[![Niveau d'intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
 [![Installer MediaWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Read this readme in english.](./README.md)*
@@ -13,7 +13,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Wiki développé à l’origine pour Wikipédia
 
-**Version incluse :** 1.36.2
+**Version incluse :** 1.37.0~ynh1
 
 **Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 

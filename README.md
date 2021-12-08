@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # MediaWiki for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
 [![Install MediaWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -17,7 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Wiki package originally for use on Wikipedia
 
-**Shipped version:** 1.36.2
+**Shipped version:** 1.37.0~ynh1
 
 **Demo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
