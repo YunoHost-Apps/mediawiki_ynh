@@ -1,7 +1,6 @@
-SOURCE_URL=https://releases.wikimedia.org/mediawiki/1.36/mediawiki-1.36.2.tar.gz
-SOURCE_SUM=c7357dde98449c8635134dbd82790660d732592cb02cbff3574361df39fee2d4
+SOURCE_URL=https://releases.wikimedia.org/mediawiki/1.37/mediawiki-1.37.0.tar.gz
+SOURCE_SUM=dd1ad227c5bbbc833d851c01727ee8706a39e4aa31e0f49ce45e50257ef9b97f
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=
 SOURCE_EXTRACT=true
