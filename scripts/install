@@ -147,30 +147,23 @@ fi
 #=================================================
 # REPLACE CONFIGURATION SETTINGS
 #=================================================
-cp ../conf/LocalSettings.php "$final_path/LocalSettings.php"
-
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__WIKI_NAME__" --replace_string="$wiki_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
 
 if [ "$path_url" = "/" ]; then
-	# MediaWiki expects a "" for the root URL which is typically assumed to be
-	# "/" by other application packages. Therefore, we assume end-users will do
-	# this as well and make sure to ensure an "" in all cases where "/" is
-	# specified
-	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
+	# MediaWiki expects a "" for the root URL which is typically assumed to be "/"
+	# by other application packages. Therefore, we assume end-users will do this
+	# as well and make sure to ensure an "" in all cases where "/" is specified
+	localsettings_path_url=""
 else
-	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
+	localsettings_path_url="$path_url"
 fi
 
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DOMAIN__"    --replace_string="$domain"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_NAME__"   --replace_string="$db_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_USER__"   --replace_string="$db_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_PWD__"    --replace_string="$db_pwd"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LANGUAGE__"  --replace_string="$language"
-
 secret=$(ynh_string_random 64)
-ynh_app_setting_set $app secret "$secret"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
+ynh_app_setting_set "$app" secret "$secret"
+
+path_url="$localsettings_path_url" \
+ynh_add_config \
+	--template=../conf/LocalSettings.php \
+	--destination="$final_path/LocalSettings.php" \
 
 "php$phpversion" "$final_path/maintenance/update.php"
 
