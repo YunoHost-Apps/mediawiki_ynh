@@ -17,7 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Wiki package originally for use on Wikipedia
 
-**Shipped version:** 1.37.1~ynh1
+**Shipped version:** 1.37.2~ynh1
 
 **Demo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 

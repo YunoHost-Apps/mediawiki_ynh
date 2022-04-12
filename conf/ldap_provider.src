@@ -1,5 +1,5 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_35-a801161.tar.gz
-SOURCE_SUM=e0ef72d68ba6c89123212bdd06a3739b4f733d3b45e5caa3a0a295a8225a15ea
+SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_38-78f283a.tar.gz
+SOURCE_SUM=a0d72d6da668c014b665f8f2263d0008a5abf636228888ddf6d6b4a5ad0f9031
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false
