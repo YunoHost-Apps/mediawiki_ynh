@@ -45,15 +45,6 @@ Some of the extensions are marked as "disabled and unused" because they are not 
 * Is HTTP auth supported?: **no**
 * Can the app be used by multiple users?: **yes**
 
-#### Supported architectures
-
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
-
-### How to configure this app:
-
-* Through the admin panel: Log in then click on `Preferences`
-
 ## Documentation and resources
 
 * Official app website: https://www.mediawiki.org
