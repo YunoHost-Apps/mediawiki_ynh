@@ -14,13 +14,3 @@ Certaines extensions sont marquées comme "désactivées et inutilisées" car el
 * L'authentification LDAP est-elle prise en charge ? **Oui**
 * L'authentification HTTP est-elle prise en charge ? **Non**
 * L'application peut-elle être utilisée par plusieurs utilisateurs ? **Oui**
-
-
-#### Architectures supportées
-
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
-
-### Comment configurer cette application :
-
-* Via le panneau d'administration : Connectez-vous puis cliquez sur `Préférences`
