@@ -18,13 +18,15 @@ app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
+language=$(ynh_app_setting_get --app=$app --key=language)
 admin=$(ynh_app_setting_get --app=$app --key=admin)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-language=$(ynh_app_setting_get --app=$app --key=language)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+secret=$(ynh_app_setting_get --app=$app --key=secret)
 
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
@@ -32,6 +34,7 @@ fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
 #=================================================
 # CHECK VERSION
 #=================================================
+ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
 
@@ -80,21 +83,19 @@ if [ -z "$fpm_usage" ]; then
 	ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 fi
 
+# Removed in dec. 2020
+ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
+if [[ -n "$ldap_user" ]]; then
+	yunohost user delete "$ldap_user"
+	ynh_app_setting_delete --app=$app --key=ldap_user
+	ynh_app_setting_delete --app=$app --key=ldap_password
+fi
+
 # Cleaning legacy permissions
 if ynh_legacy_permissions_exists; then
 	ynh_legacy_permissions_delete_all
 
 	ynh_app_setting_delete --app=$app --key=is_public
-fi
-
-if ! ynh_permission_exists --permission="admin"; then
-	# Create the required permissions
-	ynh_permission_create --permission="admin" --url="/admin" --allowed=$admin
-fi
-
-# Create a permission if needed
-if ! ynh_permission_exists --permission="api"; then
-	ynh_permission_create --permission="api" --url="/api" --allowed="visitors" --show_tile="false" --protected="true"
 fi
 
 #=================================================
@@ -103,7 +104,7 @@ fi
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir=$final_path
+ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -158,14 +159,6 @@ ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_
 #=================================================
 # REMOVE LEGACY LDAP USER
 #=================================================
-# Removed in dec. 2020
-ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
-if [[ -n "$ldap_user" ]]; then
-	yunohost user delete "$ldap_user"
-	ynh_app_setting_delete --app=$app --key=ldap_user
-	ynh_app_setting_delete --app=$app --key=ldap_password
-fi
-
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
@@ -176,31 +169,17 @@ ynh_backup_if_checksum_is_different --file="$final_path/LocalSettings.php"
 #=================================================
 ynh_script_progression --message="Upgrading application files..." --weight=4
 
-rm "$final_path/LocalSettings.php"
-cp ../conf/LocalSettings.php "$final_path/LocalSettings.php"
-
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__WIKI_NAME__" --replace_string="$wiki_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
-
 if [ "$path_url" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
 	# "/" by other application packages. Therefore, we assume end-users will do
 	# this as well and make sure to ensure an "" in all cases where "/" is
 	# specified
-	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
+	mediawiki_path=""
 else
-	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
+	mediawiki_path="$path_url"
 fi
 
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DOMAIN__"    --replace_string="$domain"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_NAME__"   --replace_string="$db_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_USER__"   --replace_string="$db_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_PWD__"    --replace_string="$db_pwd"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LANGUAGE__"  --replace_string="$language"
-
-secret=$(ynh_string_random 64)
-ynh_app_setting_set $app secret "$secret"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
+ynh_add_config --template="../conf/LocalSettings.php" --destination="$final_path/LocalSettings.php"
 
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --app=$app --key=admin_password | awk '{print length}')
