@@ -11,9 +11,10 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-Wiki développé à l’origine pour Wikipédia
+MediaWiki est un progiciel wiki gratuit et open-source écrit en PHP. Il sert de plate-forme pour Wikipedia et les autres projets Wikimedia, utilisés par des centaines de millions de personnes chaque mois. MediaWiki est localisé dans plus de 350 langues et sa fiabilité et son ensemble de fonctionnalités robustes lui ont valu une communauté importante et dynamique d'utilisateurs et de développeurs tiers.
 
-**Version incluse :** 1.37.1~ynh1
+
+**Version incluse :** 1.37.2~ynh1
 
 **Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
@@ -39,16 +40,6 @@ Certaines extensions sont marquées comme "désactivées et inutilisées" car el
 * L'authentification LDAP est-elle prise en charge ? **Oui**
 * L'authentification HTTP est-elle prise en charge ? **Non**
 * L'application peut-elle être utilisée par plusieurs utilisateurs ? **Oui**
-
-
-#### Architectures supportées
-
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
-
-### Comment configurer cette application :
-
-* Via le panneau d'administration : Connectez-vous puis cliquez sur `Préférences`
 
 ## Documentations et ressources
 

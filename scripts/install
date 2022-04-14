@@ -13,9 +13,6 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
-ynh_clean_setup () {
-	true
-}
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
@@ -25,13 +22,15 @@ ynh_abort_if_errors
 
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
-admin=$YNH_APP_ARG_ADMIN
-admin_password=$YNH_APP_ARG_PASSWORD
 is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
+admin=$YNH_APP_ARG_ADMIN
+admin_password=$YNH_APP_ARG_PASSWORD
 wiki_name=$YNH_APP_ARG_WIKI_NAME
 
 app=$YNH_APP_INSTANCE_NAME
+
+secret=$(ynh_string_random --length=64)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -51,10 +50,11 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
+ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=admin_password --value=$admin_password
-ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=wiki_name --value=$wiki_name
+ynh_app_setting_set --app=$app --key=secret --value=$secret
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -71,7 +71,7 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
-ynh_system_user_create --username=$app --home_dir=$final_path
+ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # CREATE A MYSQL DATABASE
@@ -145,32 +145,21 @@ fi
 	"$wiki_name" "$admin"
 
 #=================================================
-# REPLACE CONFIGURATION SETTINGS
+# ADD A CONFIGURATION
 #=================================================
-cp ../conf/LocalSettings.php "$final_path/LocalSettings.php"
-
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__WIKI_NAME__" --replace_string="$wiki_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__ADMIN__"     --replace_string="$admin"
+ynh_script_progression --message="Adding a configuration file..."
 
 if [ "$path_url" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
 	# "/" by other application packages. Therefore, we assume end-users will do
 	# this as well and make sure to ensure an "" in all cases where "/" is
 	# specified
-	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string=""
+	mediawiki_path=""
 else
-	ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__PATH__"  --replace_string="$path_url"
+	mediawiki_path="$path_url"
 fi
 
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DOMAIN__"    --replace_string="$domain"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_NAME__"   --replace_string="$db_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_USER__"   --replace_string="$db_name"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__DB_PWD__"    --replace_string="$db_pwd"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__LANGUAGE__"  --replace_string="$language"
-
-secret=$(ynh_string_random 64)
-ynh_app_setting_set $app secret "$secret"
-ynh_replace_string --target_file="$final_path/LocalSettings.php" --match_string="__SECRET__"    --replace_string="$secret"
+ynh_add_config --template="../conf/LocalSettings.php" --destination="$final_path/LocalSettings.php"
 
 "php$phpversion" "$final_path/maintenance/update.php"
 

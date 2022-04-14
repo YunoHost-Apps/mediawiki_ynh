@@ -15,9 +15,10 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Wiki package originally for use on Wikipedia
+MediaWiki is a free and open-source wiki software package written in PHP. It serves as the platform for Wikipedia and the other Wikimedia projects, used by hundreds of millions of people each month. MediaWiki is localised in over 350 languages and its reliability and robust feature set have earned it a large and vibrant community of third-party users and developers.
 
-**Shipped version:** 1.37.1~ynh1
+
+**Shipped version:** 1.37.2~ynh1
 
 **Demo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
@@ -43,15 +44,6 @@ Some of the extensions are marked as "disabled and unused" because they are not 
 * Is LDAP supported?: **yes**
 * Is HTTP auth supported?: **no**
 * Can the app be used by multiple users?: **yes**
-
-#### Supported architectures
-
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mediawiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mediawiki/)
-
-### How to configure this app:
-
-* Through the admin panel: Log in then click on `Preferences`
 
 ## Documentation and resources
 
