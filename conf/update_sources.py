@@ -45,7 +45,7 @@ def generate_source(url: str, output_name: str, source_extract=True, source_in_s
 
 # SPECIFIC TO MEDIAWIKI
 
-VERSION = "1.37.1"
+VERSION = "1.37.2"
 EXTENSION_VERSION = "_".join(VERSION.split(".")[0:2])
 EXTENSIONS_HOST_URL = "https://extdist.wmflabs.org/dist/extensions/"
 
