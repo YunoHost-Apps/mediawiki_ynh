@@ -36,8 +36,9 @@ def generate_ext_source(asset_url: str, src_filename: str) -> None:
             SOURCE_URL={asset_url}
             SOURCE_SUM={sha256sum_of_url(asset_url)}
             SOURCE_SUM_PRG=sha256sum
-            SOURCE_FORMAT=.tar.gz
-            SOURCE_IN_SUBDIR=true
+            SOURCE_FORMAT=tar.gz
+            SOURCE_IN_SUBDIR=false
+            SOURCE_FILENAME=
             SOURCE_EXTRACT=true
         """))
 
