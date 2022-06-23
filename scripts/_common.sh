@@ -7,8 +7,6 @@
 # dependencies used by the app
 pkg_dependencies="diffutils imagemagick acl"
 
-YNH_PHP_VERSION="7.3"
-
 #=================================================
 # PERSONAL HELPERS
 #=================================================
