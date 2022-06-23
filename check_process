@@ -5,7 +5,7 @@
 		is_public=1
 		language="fr"
 		admin="john"
-		password="jztI4OHHr2RfhrqK5wgX"
+		password="1Strong-Password"
 		wiki_name="MyYunoWiki"
 	; Checks
 		pkg_linter=1

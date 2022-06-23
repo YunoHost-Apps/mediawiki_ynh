@@ -27,7 +27,6 @@ db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 secret=$(ynh_app_setting_get --app=$app --key=secret)
-
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
 
@@ -59,6 +58,13 @@ ynh_abort_if_errors
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
+# Cleaning legacy permissions
+if ynh_legacy_permissions_exists; then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
+
 # If db_name doesn't exist, create it
 if [ -z "$db_name" ]; then
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
@@ -89,13 +95,6 @@ if [[ -n "$ldap_user" ]]; then
 	yunohost user delete "$ldap_user"
 	ynh_app_setting_delete --app=$app --key=ldap_user
 	ynh_app_setting_delete --app=$app --key=ldap_password
-fi
-
-# Cleaning legacy permissions
-if ynh_legacy_permissions_exists; then
-	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
 #=================================================
@@ -132,14 +131,6 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
-
-# Create a dedicated NGINX config
-ynh_add_nginx_config
-
-#=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..." --weight=3
@@ -155,19 +146,19 @@ ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_footprint
 
 #=================================================
-# SPECIFIC UPGRADE
+# NGINX CONFIGURATION
 #=================================================
-# REMOVE LEGACY LDAP USER
-#=================================================
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-ynh_backup_if_checksum_is_different --file="$final_path/LocalSettings.php"
+ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+
+# Create a dedicated NGINX config
+ynh_add_nginx_config
 
 #=================================================
-# REPLACE CONFIGURATION SETTINGS
+# SPECIFIC UPGRADE
 #=================================================
-ynh_script_progression --message="Upgrading application files..." --weight=4
+# UPDATE A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Updating a configuration file..." --weight=4
 
 if [ "$path_url" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
