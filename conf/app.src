@@ -1,5 +1,5 @@
-SOURCE_URL=https://releases.wikimedia.org/mediawiki/1.38/mediawiki-1.38.2.tar.gz
-SOURCE_SUM=697eb3bdbf31d09810066133cc7b5ca2d9629c77eea61ce16a05bc99703d53a6
+SOURCE_URL=https://releases.wikimedia.org/mediawiki/1.38/mediawiki-1.38.4.tar.gz
+SOURCE_SUM=d2b3a32d42a41eb65838fc30878307f7d63303c34a7e862411055a83b502b497
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
