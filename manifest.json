@@ -6,7 +6,7 @@
         "en": "Wiki package originally for use on Wikipedia",
         "fr": "Wiki développé à l’origine pour Wikipédia"
     },
-    "version": "1.38.2~ynh1",
+    "version": "1.38.4~ynh1",
     "url": "https://www.mediawiki.org",
     "upstream": {
         "license": "GPL-2.0-or-later",
