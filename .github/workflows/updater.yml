@@ -69,7 +69,7 @@ jobs:
           committer: 'yunohost-bot <yunohost-bot@users.noreply.github.com>'
           author: 'yunohost-bot <yunohost-bot@users.noreply.github.com>'
           signoff: false
-          base: master
+          base: testing
           branch: ci-auto-update-extensions
           delete-branch: true
           title: Update extension urls
