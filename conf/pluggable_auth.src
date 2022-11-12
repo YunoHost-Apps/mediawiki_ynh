@@ -1,5 +1,5 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_38-bdf6fce.tar.gz
-SOURCE_SUM=e5b814a7981cd697ba33f643c850e1103195ba35ed359b9df7ff980cf174a402
+SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_38-919f067.tar.gz
+SOURCE_SUM=abe07553e7794d270d327839e4d21ffe90e446bd3b63b21a23878b564fb3c3fa
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false
