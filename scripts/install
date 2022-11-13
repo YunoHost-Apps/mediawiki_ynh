@@ -14,7 +14,10 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 secret=$(ynh_string_random --length=64)
+create_account=false
+
 ynh_app_setting_set --app=$app --key=secret --value=$secret
+ynh_app_setting_set --app=$app --key=create_account --value=$create_account
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE

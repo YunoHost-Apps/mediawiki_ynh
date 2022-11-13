@@ -3,6 +3,18 @@ version = "1.0"
 [main]
 name = "Mediawiki configuration"
 
+
+    [main.config]
+    name = "Configuration Options"
+
+        [main.config.create_account]
+        ask = "Create account"
+        type = "boolean"
+        yes = true
+        no = false
+        help = "Set to 'true' to allow account creation."
+        bind = "create_account:__FINALPATH__/LocalSettings.php"
+
     [main.php_fpm_config]
     name = "PHP-FPM configuration"
 

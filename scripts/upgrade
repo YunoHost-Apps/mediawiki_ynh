@@ -34,6 +34,12 @@ if [ -z "${fpm_usage:-}" ]; then
 	ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 fi
 
+# If create_account doesn't exist, create it
+if [ -z "$create_account" ]; then
+	create_account=false
+	ynh_app_setting_set --app=$app --key=create_account --value=$create_account
+fi
+
 # Removed in dec. 2020
 ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 if [[ -n "${ldap_user:-}" ]]; then
