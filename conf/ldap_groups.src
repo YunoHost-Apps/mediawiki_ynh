@@ -1,5 +1,5 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPGroups-REL1_38-a5cc7ee.tar.gz
-SOURCE_SUM=1615e07150a59b531ee6e435fcee6738ea80fbc776fe498e2a9315ca4d146ed3
+SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPGroups-REL1_39-bf4f26d.tar.gz
+SOURCE_SUM=821afb700f017a4f6c5ca117d70c2e8a6fc0c018c54902ac91c9c9ffc2e109af
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false

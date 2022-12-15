@@ -1,5 +1,5 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPUserInfo-REL1_38-ebf8071.tar.gz
-SOURCE_SUM=34dcdc44bee6587d1dc46d4a6390e2719b8c78348134c4da9b904e6f181a1539
+SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPUserInfo-REL1_39-492578d.tar.gz
+SOURCE_SUM=a8b07ca3353c47122e6d476e67214463d8842b6e93dd3470002df6656d322dc4
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false
