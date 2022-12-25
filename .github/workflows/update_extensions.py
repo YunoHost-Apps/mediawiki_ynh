@@ -62,11 +62,15 @@ def get_all_extensions() -> List[str]:
 
 def find_valid_ext(all_exts: List[str], name: str, max_version: version.Version) -> Optional[str]:
     def version_of(ext):
-        return version.parse(ext.split("-")[1].replace("_", ".").replace("REL", ""))
+        try:
+            return version.parse(ext.split("-")[1].replace("_", ".").replace("REL", ""))
+        except version.InvalidVersion:
+            print(f"Invalid version (this might be normal): {ext}")
+            return version.parse("0.0")
 
     found_exts = [
         ext for ext in all_exts
-        if ext.startswith(name) and version_of(ext) <= max_version
+        if ext.startswith(name) and version_of(ext) <= max_version 
     ]
     return max(found_exts, key=version_of) if found_exts else None
 
