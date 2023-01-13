@@ -1,5 +1,5 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPAuthentication2-REL1_39-ba99252.tar.gz
-SOURCE_SUM=0cab9c3535034ac6e61f6c9d68488a6d7bca23c2eda05156b8bd78a359d17996
+SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPAuthentication2-REL1_39-b4c4283.tar.gz
+SOURCE_SUM=812fdf30d13d5298edd18d05d5f6c4982308451742d5d497bae87ad666be50a4
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=false
