@@ -1,96 +1,94 @@
 #!/usr/bin/env python3
+"""
+Download extensions for the current mediawiki version, and update the conf files.
+"""
 
-from pathlib import Path
 from typing import List, Optional
 import hashlib
-import json
-import textwrap
 import urllib
 from html.parser import HTMLParser
+import tomlkit
 from packaging import version
 import requests
 
 EXTENSIONS_HOST_URL = "https://extdist.wmflabs.org/dist/extensions/"
 
-EXTENSIONS = {
-    "ldap_authentication2": "LDAPAuthentication2",
-    "ldap_authorization": "LDAPAuthorization",
-    # "ldap_auth_remoteuser": "Auth_remoteuser",
-    "ldap_groups": "LDAPGroups",
-    "ldap_provider": "LDAPProvider",
-    "ldap_userinfo": "LDAPUserInfo",
-    "pluggable_auth": "PluggableAuth",
-}
+GITHUB_API_URL = "https://api.github.com/repos"
+
 
 def sha256sum_of_url(url: str) -> str:
     """Compute checksum without saving the file"""
     checksum = hashlib.sha256()
-    for chunk in requests.get(url, stream=True).iter_content():
+    for chunk in requests.get(url, stream=True, timeout=10).iter_content():
         checksum.update(chunk)
     return checksum.hexdigest()
 
 
-def generate_ext_source(asset_url: str, src_filename: str) -> None:
-    with open(f"conf/{src_filename}", "w", encoding="utf-8") as output:
-        output.write(textwrap.dedent(f"""\
-            SOURCE_URL={asset_url}
-            SOURCE_SUM={sha256sum_of_url(asset_url)}
-            SOURCE_SUM_PRG=sha256sum
-            SOURCE_FORMAT=tar.gz
-            SOURCE_IN_SUBDIR=false
-            SOURCE_FILENAME=
-            SOURCE_EXTRACT=true
-        """))
-
-
-def get_all_extensions() -> List[str]:
-    """Get all available extensions."""
-    with urllib.request.urlopen(EXTENSIONS_HOST_URL) as page:
-        webpage = page.read().decode("utf-8")
-
-    class MyHTMLParser(HTMLParser):
-        links = []
-        def handle_starttag(self, tag, attrs):
-            if tag == "a":
-                for name, value in attrs:
-                    if name == "href":
-                        self.links.append(value)
-
-    parser = MyHTMLParser()
-    parser.feed(webpage)
-    return parser.links
-
-def find_valid_ext(all_exts: List[str], name: str, max_version: version.Version) -> Optional[str]:
+def find_valid_version(all_versions: List[str], max_version: version.Version) -> Optional[str]:
+    """Find the valid extensions for the current mediawiki version"""
     def version_of(ext):
         try:
-            return version.parse(ext.split("-")[1].replace("_", ".").replace("REL", ""))
+            return version.parse(ext.replace("_", ".").replace("REL", ""))
         except version.InvalidVersion:
-            print(f"Invalid version (this might be normal): {ext}")
+            # print(f"Invalid version (this might be normal): {ext}")
             return version.parse("0.0")
 
-    found_exts = [
-        ext for ext in all_exts
-        if ext.startswith(name) and version_of(ext) <= max_version 
-    ]
-    return max(found_exts, key=version_of) if found_exts else None
+    def compatible(ext_version: str) -> bool:
+        return version_of(ext_version) <= max_version
+
+    compatible_versions = filter(compatible, all_versions)
+
+    if compatible_versions:
+        return max(compatible_versions, key=version_of)
+
+    if "master" in all_versions:
+        return "master"
+
+    return None
+
+
+def get_repo(url: str) -> str:
+    return "/".join(url.split("://")[1].split("/")[1:3])
+
+
+def get_branches(repo: str) -> List[str]:
+    branches = requests.get(f"{GITHUB_API_URL}/{repo}/branches", timeout=10).json()
+    names = [branch["name"] for branch in branches]
+    return names
+
+
+def get_last_commit_of(repo: str, branch: str) -> str:
+    commit = requests.get(f"{GITHUB_API_URL}/{repo}/commits/{branch}", timeout=10).json()
+    return commit["sha"]
 
 
 def main():
     print('Updating extensions source files...')
-    with open("manifest.json", "r", encoding="utf-8") as file:
-        manifest = json.load(file)
-    mediawiki_version = version.Version(manifest["version"].split("~")[0])
+    with open("manifest.toml", "r", encoding="utf-8") as file:
+        manifest = tomlkit.loads(file.read())
+    mediawiki_version = version.Version(manifest["version"].value.split("~")[0])
 
-    all_extensions = get_all_extensions()
-
-    for file, name in EXTENSIONS.items():
+    for name, descr in manifest["resources"]["sources"].items():
+        if "extension" not in descr["url"]:
+            # not an extension
+            continue
         print(f'Updating source file for {name}')
-        ext = find_valid_ext(all_extensions, name, mediawiki_version)
-        if ext is None:
-            print(f'ERROR: Could not find an upstream link for extension {name}')
-        else:
-            new_url = EXTENSIONS_HOST_URL + ext
-            generate_ext_source(new_url, file + ".src")
+        repo = get_repo(descr["url"])
+        branches = get_branches(repo)
+        branch = find_valid_version(branches, mediawiki_version)
+        if not branch:
+            print("Could not find any valid branch")
+            continue
+
+        commit = get_last_commit_of(repo, branch)
+
+        url = f"https://github.com/{repo}/archive/{commit}.tar.gz"
+
+        manifest["resources"]["sources"][name]["url"] = url
+        manifest["resources"]["sources"][name]["sha256"] = sha256sum_of_url(url)
+
+    with open("manifest.toml", "w", encoding="utf-8") as manifest_file:
+        manifest_file.write(tomlkit.dumps(manifest))
 
 
 if __name__ == "__main__":

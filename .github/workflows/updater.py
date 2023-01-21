@@ -10,7 +10,6 @@ You need to enable the action by removing `if ${{ false }}` in updater.yml!
 """
 
 import hashlib
-import json
 import logging
 import os
 from subprocess import run, PIPE
