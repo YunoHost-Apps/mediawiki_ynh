@@ -91,14 +91,14 @@ ynh_script_progression --message="Setting up source files..." --weight=4
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_auth"
+__setup_extension_or_update --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
+__setup_extension_or_update --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
+__setup_extension_or_update --dest_dir="$final_path/extensions/" --source_id="pluggable_auth"
 
 # Note(decentral1se): Disabled and unused for now ...
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_groups"
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_userinfo"
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authorization"
+# __setup_extension_or_update --dest_dir="$final_path/extensions/" --source_id="ldap_groups"
+# __setup_extension_or_update --dest_dir="$final_path/extensions/" --source_id="ldap_userinfo"
+# __setup_extension_or_update --dest_dir="$final_path/extensions/" --source_id="ldap_authorization"
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"

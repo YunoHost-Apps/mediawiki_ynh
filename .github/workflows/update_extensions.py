@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+"""
+Download extensions for the current mediawiki version, and update the conf files.
+"""
 
-from pathlib import Path
+import argparse
 from typing import List, Optional
 import hashlib
 import json
@@ -25,12 +28,13 @@ EXTENSIONS = {
 def sha256sum_of_url(url: str) -> str:
     """Compute checksum without saving the file"""
     checksum = hashlib.sha256()
-    for chunk in requests.get(url, stream=True).iter_content():
+    for chunk in requests.get(url, stream=True, timeout=10).iter_content():
         checksum.update(chunk)
     return checksum.hexdigest()
 
 
 def generate_ext_source(asset_url: str, src_filename: str) -> None:
+    """Generate the conf file"""
     with open(f"conf/{src_filename}", "w", encoding="utf-8") as output:
         output.write(textwrap.dedent(f"""\
             SOURCE_URL={asset_url}
@@ -50,6 +54,7 @@ def get_all_extensions() -> List[str]:
 
     class MyHTMLParser(HTMLParser):
         links = []
+
         def handle_starttag(self, tag, attrs):
             if tag == "a":
                 for name, value in attrs:
@@ -61,6 +66,7 @@ def get_all_extensions() -> List[str]:
     return parser.links
 
 def find_valid_ext(all_exts: List[str], name: str, max_version: version.Version) -> Optional[str]:
+    """Find the valid extensions for the current mediawiki version"""
     def version_of(ext):
         try:
             return version.parse(ext.split("-")[1].replace("_", ".").replace("REL", ""))
@@ -70,7 +76,7 @@ def find_valid_ext(all_exts: List[str], name: str, max_version: version.Version)
 
     found_exts = [
         ext for ext in all_exts
-        if ext.startswith(name) and version_of(ext) <= max_version 
+        if ext.startswith(name) and version_of(ext) <= max_version
     ]
     return max(found_exts, key=version_of) if found_exts else None
 
@@ -83,7 +89,16 @@ def main():
 
     all_extensions = get_all_extensions()
 
-    for file, name in EXTENSIONS.items():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('extension_file', nargs='?')
+    args = parser.parse_args()
+
+    if args.extension_file:
+        extensions = {args.extension_file: EXTENSIONS[args.extension_file]}
+    else:
+        extensions = EXTENSIONS
+
+    for file, name in extensions.items():
         print(f'Updating source file for {name}')
         ext = find_valid_ext(all_extensions, name, mediawiki_version)
         if ext is None:
