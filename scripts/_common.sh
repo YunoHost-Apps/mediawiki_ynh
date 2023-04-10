@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="diffutils imagemagick acl"
+#REMOVEME? pkg_dependencies="diffutils imagemagick acl"
 
 #=================================================
 # PERSONAL HELPERS

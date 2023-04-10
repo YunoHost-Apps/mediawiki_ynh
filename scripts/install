@@ -14,45 +14,45 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 # Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
+#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
-domain=$YNH_APP_ARG_DOMAIN
-path_url=$YNH_APP_ARG_PATH
-is_public=$YNH_APP_ARG_IS_PUBLIC
-language=$YNH_APP_ARG_LANGUAGE
-admin=$YNH_APP_ARG_ADMIN
-admin_password=$YNH_APP_ARG_PASSWORD
-wiki_name=$YNH_APP_ARG_WIKI_NAME
+#REMOVEME? domain=$YNH_APP_ARG_DOMAIN
+#REMOVEME? path=$YNH_APP_ARG_PATH
+#REMOVEME? is_public=$YNH_APP_ARG_IS_PUBLIC
+#REMOVEME? language=$YNH_APP_ARG_LANGUAGE
+#REMOVEME? admin=$YNH_APP_ARG_ADMIN
+#REMOVEME? admin_password=$YNH_APP_ARG_PASSWORD
+#REMOVEME? wiki_name=$YNH_APP_ARG_WIKI_NAME
 
-app=$YNH_APP_INSTANCE_NAME
+#REMOVEME? app=$YNH_APP_INSTANCE_NAME
 
 secret=$(ynh_string_random --length=64)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
-ynh_script_progression --message="Validating installation parameters..." --weight=1
+#REMOVEME? ynh_script_progression --message="Validating installation parameters..." --weight=1
 
-final_path=/var/www/$app
-test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
+#REMOVEME? install_dir=/var/www/$app
+#REMOVEME? test ! -e "$install_dir" || ynh_die --message="This path already contains a folder"
 
 # Register (book) web path
-ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
+#REMOVEME? ynh_webpath_register --app=$app --domain=$domain --path=$path
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-ynh_script_progression --message="Storing installation settings..." --weight=1
+#REMOVEME? ynh_script_progression --message="Storing installation settings..." --weight=1
 
-ynh_app_setting_set --app=$app --key=domain --value=$domain
-ynh_app_setting_set --app=$app --key=path --value=$path_url
+#REMOVEME? ynh_app_setting_set --app=$app --key=domain --value=$domain
+#REMOVEME? ynh_app_setting_set --app=$app --key=path --value=$path
 ynh_app_setting_set --app=$app --key=language --value=$language
-ynh_app_setting_set --app=$app --key=admin --value=$admin
-ynh_app_setting_set --app=$app --key=admin_password --value=$admin_password
+#REMOVEME? ynh_app_setting_set --app=$app --key=admin --value=$admin
+#REMOVEME? ynh_app_setting_set --app=$app --key=admin_password --value=$admin_password
 ynh_app_setting_set --app=$app --key=wiki_name --value=$wiki_name
 ynh_app_setting_set --app=$app --key=secret --value=$secret
 
@@ -61,48 +61,48 @@ ynh_app_setting_set --app=$app --key=secret --value=$secret
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=15
+#REMOVEME? ynh_script_progression --message="Installing dependencies..." --weight=15
 
-ynh_install_app_dependencies $pkg_dependencies
+#REMOVEME? ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Configuring system user..." --weight=2
+#REMOVEME? ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
-ynh_system_user_create --username=$app --home_dir="$final_path"
+#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-ynh_script_progression --message="Creating a MySQL database..." --weight=1
+#REMOVEME? ynh_script_progression --message="Creating a MySQL database..." --weight=1
 
-db_name=$(ynh_sanitize_dbid --db_name=$app)
-db_user=$db_name
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
+#REMOVEME? db_name=$(ynh_sanitize_dbid --db_name=$app)
+#REMOVEME? db_user=$db_name
+#REMOVEME? ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+#REMOVEME? ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=4
 
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+#REMOVEME? ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
-ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_auth"
+ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_authentication2"
+ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_provider"
+ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="pluggable_auth"
 
 # Note(decentral1se): Disabled and unused for now ...
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_groups"
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_userinfo"
-# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authorization"
+# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_groups"
+# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_userinfo"
+# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_authorization"
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -111,7 +111,7 @@ ynh_script_progression --message="Configuring PHP-FPM..." --weight=1
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --usage=low --footprint=low
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+#REMOVEME? phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # NGINX CONFIGURATION
@@ -127,13 +127,13 @@ ynh_add_nginx_config
 # RUN INSTALLATION OF MEDIAWIKI
 #=================================================
 ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
-if [ "$path_url" = "/" ]; then
+if [ "$path" = "/" ]; then
 	scriptpath=""
 else
-	scriptpath=$path_url
+	scriptpath=$path
 fi
 
-"php$phpversion" "$final_path/maintenance/install.php" --conf "$final_path" \
+"php$phpversion" "$install_dir/maintenance/install.php" --conf "$install_dir" \
 	--server "https://$domain" \
 	--scriptpath "$scriptpath" \
 	--dbuser "$db_name" \
@@ -149,43 +149,43 @@ fi
 #=================================================
 ynh_script_progression --message="Adding a configuration file..."
 
-if [ "$path_url" = "/" ]; then
+if [ "$path" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
 	# "/" by other application packages. Therefore, we assume end-users will do
 	# this as well and make sure to ensure an "" in all cases where "/" is
 	# specified
 	mediawiki_path=""
 else
-	mediawiki_path="$path_url"
+	mediawiki_path="$path"
 fi
 
-ynh_add_config --template="../conf/LocalSettings.php" --destination="$final_path/LocalSettings.php"
+ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
-"php$phpversion" "$final_path/maintenance/update.php"
+"php$phpversion" "$install_dir/maintenance/update.php"
 
-chown -R $app:www-data "$final_path"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring permissions..." --weight=1
+#REMOVEME? ynh_script_progression --message="Configuring permissions..." --weight=1
 
 # Make app public if necessary
-if [ $is_public -eq 1 ]
+#REMOVEME? if [ $is_public -eq 1 ]
 then
 	# Everyone can access the app.
 	# The "main" permission is automatically created before the install script.
-	ynh_permission_update --permission="main" --add="visitors"
+#REMOVEME? 	ynh_permission_update --permission="main" --add="visitors"
 fi
 
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=1
+#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
-ynh_systemd_action --service_name=nginx --action=reload
+#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT

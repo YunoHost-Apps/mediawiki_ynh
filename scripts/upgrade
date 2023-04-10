@@ -12,23 +12,23 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
+#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
 
-app=$YNH_APP_INSTANCE_NAME
+#REMOVEME? app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-language=$(ynh_app_setting_get --app=$app --key=language)
-admin=$(ynh_app_setting_get --app=$app --key=admin)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
-db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-secret=$(ynh_app_setting_get --app=$app --key=secret)
-fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
-fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
+#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
+#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
+#REMOVEME? language=$(ynh_app_setting_get --app=$app --key=language)
+#REMOVEME? admin=$(ynh_app_setting_get --app=$app --key=admin)
+#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
+#REMOVEME? db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+#REMOVEME? db_user=$db_name
+#REMOVEME? db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
+#REMOVEME? wiki_name=$(ynh_app_setting_get --app=$app --key=wiki_name)
+#REMOVEME? phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+#REMOVEME? secret=$(ynh_app_setting_get --app=$app --key=secret)
+#REMOVEME? fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
+#REMOVEME? fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
 
 #=================================================
 # CHECK VERSION
@@ -40,16 +40,16 @@ upgrade_type=$(ynh_check_app_version_changed)
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=6
+#REMOVEME? ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=6
 
 # Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
+#REMOVEME? ynh_backup_before_upgrade
+#REMOVEME? ynh_clean_setup () {
 	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
+#REMOVEME? 	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
+#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -59,8 +59,8 @@ ynh_abort_if_errors
 ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # Cleaning legacy permissions
-if ynh_legacy_permissions_exists; then
-	ynh_legacy_permissions_delete_all
+#REMOVEME? if ynh_legacy_permissions_exists; then
+#REMOVEME? 	ynh_legacy_permissions_delete_all
 
 	ynh_app_setting_delete --app=$app --key=is_public
 fi
@@ -68,13 +68,13 @@ fi
 # If db_name doesn't exist, create it
 if [ -z "$db_name" ]; then
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+#REMOVEME? 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 fi
 
-# If final_path doesn't exist, create it
-if [ -z "$final_path" ]; then
-	final_path=/var/www/$app
-	ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+# If install_dir doesn't exist, create it
+if [ -z "$install_dir" ]; then
+#REMOVEME? 	install_dir=/var/www/$app
+#REMOVEME? 	ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
 fi
 
 # If fpm_footprint doesn't exist, create it
@@ -90,7 +90,7 @@ if [ -z "$fpm_usage" ]; then
 fi
 
 # Removed in dec. 2020
-ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
+#REMOVEME? ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 if [[ -n "$ldap_user" ]]; then
 	yunohost user delete "$ldap_user"
 	ynh_app_setting_delete --app=$app --key=ldap_user
@@ -100,10 +100,10 @@ fi
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
+#REMOVEME? ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
+#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -114,28 +114,28 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=4
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
-	ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authentication2"
-	ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_provider"
-	ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="pluggable_auth"
+	ynh_setup_source --dest_dir="$install_dir"
+	ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_authentication2"
+	ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_provider"
+	ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="pluggable_auth"
 
 	# Note(decentral1se): Disabled and unused for now ...
-	# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_groups"
-	# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_userinfo"
-	# ynh_setup_source --dest_dir="$final_path/extensions/" --source_id="ldap_authorization"
+	# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_groups"
+	# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_userinfo"
+	# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_authorization"
 
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=3
+#REMOVEME? ynh_script_progression --message="Upgrading dependencies..." --weight=3
 
-ynh_install_app_dependencies $pkg_dependencies
+#REMOVEME? ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -160,39 +160,39 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Updating a configuration file..." --weight=4
 
-if [ "$path_url" = "/" ]; then
+if [ "$path" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
 	# "/" by other application packages. Therefore, we assume end-users will do
 	# this as well and make sure to ensure an "" in all cases where "/" is
 	# specified
 	mediawiki_path=""
 else
-	mediawiki_path="$path_url"
+	mediawiki_path="$path"
 fi
 
-ynh_add_config --template="../conf/LocalSettings.php" --destination="$final_path/LocalSettings.php"
+ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
 # Check for admin password being too short for the new mediawiki requirements
-password_length=$(ynh_app_setting_get --app=$app --key=admin_password | awk '{print length}')
+#REMOVEME? password_length=$(ynh_app_setting_get --app=$app --key=admin_password | awk '{print length}')
 if (( password_length < 10 )); then
 	ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
 	ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
-	echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$final_path/LocalSettings.php"
+	echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
 fi
 
-"php$phpversion" "$final_path/maintenance/update.php"
+"php$phpversion" "$install_dir/maintenance/update.php"
 
 # Set permissions on app files
-chown -R $app:www-data "$final_path"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=1
+#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
-ynh_systemd_action --service_name=nginx --action=reload
+#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
