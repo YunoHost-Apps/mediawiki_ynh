@@ -75,8 +75,8 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.pluggable_auth]
-        url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_39-e7de886.tar.gz"
-        sha256 = "89d825ad7b1ec13c428e2daebe2b86433f45fd3c45f0479c476b252aa1deaa84"
+        url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_39-68bec9b.tar.gz"
+        sha256 = "8a7dfacab1b18fd3e35a6b48acfd9322efaf622597311f29f0d268cd3e0e2c21"
         in_subdir = false
 
         [resources.sources.ldap_authentication2]
