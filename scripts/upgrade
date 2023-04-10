@@ -92,8 +92,7 @@ ynh_script_progression --message="Updating a configuration file..." --weight=4
 if [ "$path" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
 	# "/" by other application packages. Therefore, we assume end-users will do
-	# this as well and make sure to ensure an "" in all cases where "/" is
-	# specified
+	# this as well and make sure to ensure an "" in all cases where "/" is specified
 	mediawiki_path=""
 else
 	mediawiki_path="$path"
