@@ -65,8 +65,8 @@ ram.runtime = "50M"
 [resources]
     [resources.sources]
         [resources.sources.ldap_groups]
-        url = "https://extdist.wmflabs.org/dist/extensions/LDAPGroups-REL1_39-ceb5903.tar.gz"
-        sha256 = "293b2ed93a13002a4c3584849b5beb2e90aad24e5338761cdd586c539647de65"
+        url = "https://extdist.wmflabs.org/dist/extensions/LDAPGroups-REL1_39-17bfc3f.tar.gz"
+        sha256 = "c19aa36fd7fc29871c2db2c0616cddd9bd50c421c75d2ac171ed1fdea2a95b21"
         in_subdir = false
 
         [resources.sources.ldap_authorization]
