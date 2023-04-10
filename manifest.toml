@@ -106,7 +106,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server diffutils imagemagick acl"
+    packages = "php8.0-fpm php8.0-mysql mariadb-server diffutils imagemagick acl"
 
     [resources.database]
     type = "mysql"
