@@ -89,8 +89,8 @@ ram.runtime = "50M"
         sha256 = "ddec3f90e1e7b1ac66819178ca81037d3f8084dc577d4ab7732a4b8f980d85f9"
 
         [resources.sources.ldap_userinfo]
-        url = "https://extdist.wmflabs.org/dist/extensions/LDAPUserInfo-REL1_39-a470354.tar.gz"
-        sha256 = "f4e9a2bd4e58525d04eb80e103374b4a0d7de9f1d969e9046623a0766029aa33"
+        url = "https://extdist.wmflabs.org/dist/extensions/LDAPUserInfo-REL1_39-47dc6d3.tar.gz"
+        sha256 = "78293e821b6d22109e4900726b6b22f4aadd57701b8437af805ee074ad2a261f"
         in_subdir = false
 
         [resources.sources.ldap_provider]
