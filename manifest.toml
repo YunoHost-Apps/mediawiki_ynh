@@ -80,8 +80,8 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.ldap_authentication2]
-        url = "https://extdist.wmflabs.org/dist/extensions/LDAPAuthentication2-REL1_39-b4c4283.tar.gz"
-        sha256 = "812fdf30d13d5298edd18d05d5f6c4982308451742d5d497bae87ad666be50a4"
+        url = "https://extdist.wmflabs.org/dist/extensions/LDAPAuthentication2-REL1_39-984847c.tar.gz"
+        sha256 = "779adf22f715fa5ecd0cb784c7c0cf0fecbffeadd6b81d9e12e8d32c481fcb4d"
         in_subdir = false
 
         [resources.sources.main]
