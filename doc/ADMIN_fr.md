@@ -8,9 +8,3 @@
 * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth)
 
 Certaines extensions sont marquées comme "désactivées et inutilisées" car elles font partie de la "pile LDAP" de MediaWiki qui pourrait être nécessaire dans les versions futures.
-
-#### Support multi-utilisateur
-
-* L'authentification LDAP est-elle prise en charge ? **Oui**
-* L'authentification HTTP est-elle prise en charge ? **Non**
-* L'application peut-elle être utilisée par plusieurs utilisateurs ? **Oui**
