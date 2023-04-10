@@ -4,9 +4,6 @@
 # COMMON VARIABLES
 #=================================================
 
-# dependencies used by the app
-#REMOVEME? pkg_dependencies="diffutils imagemagick acl"
-
 #=================================================
 # PERSONAL HELPERS
 #=================================================
