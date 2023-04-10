@@ -70,8 +70,8 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.ldap_authorization]
-        url = "https://extdist.wmflabs.org/dist/extensions/LDAPAuthorization-REL1_39-f73c996.tar.gz"
-        sha256 = "cc1d87a0d1572c02db5ca68434d23ce2fe30858bbbbb16506933fac696fcc1ca"
+        url = "https://extdist.wmflabs.org/dist/extensions/LDAPAuthorization-REL1_39-8a98b7d.tar.gz"
+        sha256 = "4254bea8d17a8a91c951181a8bb619c58f09620b0d0e68a01ba63e7e213d6075"
         in_subdir = false
 
         [resources.sources.pluggable_auth]
