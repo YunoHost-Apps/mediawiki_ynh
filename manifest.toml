@@ -94,8 +94,8 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.ldap_provider]
-        url = "https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_39-362be1f.tar.gz"
-        sha256 = "8c45661dc64b8053773bea69ce8eee322e26923557d06fc0b98d90d3e1a78f34"
+        url = "https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_39-c440a49.tar.gz"
+        sha256 = "6e48b1c1cc2f5edfbe1652d65e97912e1f775513d92fc55064c44c6dac0117f9"
         in_subdir = false
 
     [resources.system_user]
