@@ -102,7 +102,7 @@ fi
 ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
 # Check for admin password being too short for the new mediawiki requirements
-#REMOVEME? password_length=$(ynh_app_setting_get --app=$app --key=admin_password | awk '{print length}')
+password_length=$(ynh_app_setting_get --app=$app --key=password | awk '{print length}')
 if (( password_length < 10 )); then
 	ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
 	ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."

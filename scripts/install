@@ -72,7 +72,7 @@ fi
 	--dbname "$db_name" \
 	--dbprefix "mdk_" \
 	--lang "$language" \
-	--pass "$admin_password" \
+	--pass "$password" \
 	"$wiki_name" "$admin"
 
 #=================================================
