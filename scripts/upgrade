@@ -35,7 +35,7 @@ if [ -z "${fpm_usage:-}" ]; then
 fi
 
 # Removed in dec. 2020
-REMOVEME? ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
+ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 if [[ -n "${ldap_user:-}" ]]; then
 	yunohost user delete "$ldap_user"
 	ynh_app_setting_delete --app=$app --key=ldap_user
