@@ -67,22 +67,18 @@ ram.runtime = "50M"
         [resources.sources.ldap_groups]
         url = "https://extdist.wmflabs.org/dist/extensions/LDAPGroups-REL1_39-17bfc3f.tar.gz"
         sha256 = "c19aa36fd7fc29871c2db2c0616cddd9bd50c421c75d2ac171ed1fdea2a95b21"
-        in_subdir = false
 
         [resources.sources.ldap_authorization]
         url = "https://extdist.wmflabs.org/dist/extensions/LDAPAuthorization-REL1_39-8a98b7d.tar.gz"
         sha256 = "4254bea8d17a8a91c951181a8bb619c58f09620b0d0e68a01ba63e7e213d6075"
-        in_subdir = false
 
         [resources.sources.pluggable_auth]
         url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_39-68bec9b.tar.gz"
         sha256 = "8a7dfacab1b18fd3e35a6b48acfd9322efaf622597311f29f0d268cd3e0e2c21"
-        in_subdir = false
 
         [resources.sources.ldap_authentication2]
         url = "https://extdist.wmflabs.org/dist/extensions/LDAPAuthentication2-REL1_39-984847c.tar.gz"
         sha256 = "779adf22f715fa5ecd0cb784c7c0cf0fecbffeadd6b81d9e12e8d32c481fcb4d"
-        in_subdir = false
 
         [resources.sources.main]
         url = "https://releases.wikimedia.org/mediawiki/1.39/mediawiki-1.39.1.tar.gz"
@@ -91,12 +87,10 @@ ram.runtime = "50M"
         [resources.sources.ldap_userinfo]
         url = "https://extdist.wmflabs.org/dist/extensions/LDAPUserInfo-REL1_39-47dc6d3.tar.gz"
         sha256 = "78293e821b6d22109e4900726b6b22f4aadd57701b8437af805ee074ad2a261f"
-        in_subdir = false
 
         [resources.sources.ldap_provider]
         url = "https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_39-c440a49.tar.gz"
         sha256 = "6e48b1c1cc2f5edfbe1652d65e97912e1f775513d92fc55064c44c6dac0117f9"
-        in_subdir = false
 
     [resources.system_user]
 

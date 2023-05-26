@@ -52,14 +52,13 @@ then
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$install_dir"
-	ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_authentication2"
-	ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_provider"
-	ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="pluggable_auth"
+	ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
+	ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
+	ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
 
-	# Note(decentral1se): Disabled and unused for now ...
-	# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_groups"
-	# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_userinfo"
-	# ynh_setup_source --dest_dir="$install_dir/extensions/" --source_id="ldap_authorization"
+	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
+	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
+	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
 
 fi
 
