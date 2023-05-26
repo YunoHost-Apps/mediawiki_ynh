@@ -83,6 +83,7 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://releases.wikimedia.org/mediawiki/1.39/mediawiki-1.39.1.tar.gz"
         sha256 = "ddec3f90e1e7b1ac66819178ca81037d3f8084dc577d4ab7732a4b8f980d85f9"
+        in_subdir = false
 
         [resources.sources.ldap_userinfo]
         url = "https://extdist.wmflabs.org/dist/extensions/LDAPUserInfo-REL1_39-85fbec0.tar.gz"
