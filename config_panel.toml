@@ -13,7 +13,7 @@ name = "Mediawiki configuration"
         yes = true
         no = false
         help = "Set to 'true' to allow account creation."
-        bind = "create_account:__FINALPATH__/LocalSettings.php"
+        bind = "create_account:__INSTALL_DIR__/LocalSettings.php"
 
     [main.php_fpm_config]
     name = "PHP-FPM configuration"
