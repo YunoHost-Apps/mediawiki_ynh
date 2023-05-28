@@ -19,7 +19,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 MediaWiki is a free and open-source wiki software package written in PHP. It serves as the platform for Wikipedia and the other Wikimedia projects, used by hundreds of millions of people each month. MediaWiki is localised in over 350 languages and its reliability and robust feature set have earned it a large and vibrant community of third-party users and developers.
 
 
-**Shipped version:** 1.39.1~ynh1
+**Shipped version:** 1.39.3~ynh1
 
 **Demo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
