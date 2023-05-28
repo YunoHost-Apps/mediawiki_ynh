@@ -1,7 +1,0 @@
-SOURCE_URL=https://extdist.wmflabs.org/dist/extensions/LDAPProvider-REL1_39-362be1f.tar.gz
-SOURCE_SUM=8c45661dc64b8053773bea69ce8eee322e26923557d06fc0b98d90d3e1a78f34
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
-SOURCE_IN_SUBDIR=false
-SOURCE_FILENAME=
-SOURCE_EXTRACT=true

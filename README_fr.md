@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # MediaWiki pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+
 [![Installer MediaWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
 *[Read this readme in english.](./README.md)*
@@ -18,32 +19,13 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 MediaWiki est un progiciel wiki gratuit et open-source écrit en PHP. Il sert de plate-forme pour Wikipedia et les autres projets Wikimedia, utilisés par des centaines de millions de personnes chaque mois. MediaWiki est localisé dans plus de 350 langues et sa fiabilité et son ensemble de fonctionnalités robustes lui ont valu une communauté importante et dynamique d'utilisateurs et de développeurs tiers.
 
 
-**Version incluse :** 1.39.0~ynh1
+**Version incluse :** 1.39.3~ynh1
 
 **Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
 
 ## Captures d’écran
 
 ![Capture d’écran de MediaWiki](./doc/screenshots/screenshot.png)
-
-## Avertissements / informations importantes
-
-### Extensions livrées
-
-* [LDAPAuthentication2](https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2)
-* [LDAPAuthorization](https://www.mediawiki.org/wiki/Extension:LDAPAuthorization) (**désactivée et inutilisée pour l'instant**)
-* [LDAPGroups](https://www.mediawiki.org/wiki/Extension:LDAPGroups) (**désactivée et inutilisée pour l'instant**)
-* [LDAPUserInfo](https://www.mediawiki.org/wiki/Extension:LDAPUserInfo) (**désactivée et inutilisée pour l'instant**)
-* [LDAPProvider](https://www.mediawiki.org/wiki/Extension:LDAPProvider)
-* [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth)
-
-Certaines extensions sont marquées comme "désactivées et inutilisées" car elles font partie de la "pile LDAP" de MediaWiki qui pourrait être nécessaire dans les versions futures.
-
-#### Support multi-utilisateur
-
-* L'authentification LDAP est-elle prise en charge ? **Oui**
-* L'authentification HTTP est-elle prise en charge ? **Non**
-* L'application peut-elle être utilisée par plusieurs utilisateurs ? **Oui**
 
 ## Documentations et ressources
 

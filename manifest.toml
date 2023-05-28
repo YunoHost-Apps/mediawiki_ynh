@@ -1,0 +1,112 @@
+packaging_format = 2
+
+id = "mediawiki"
+name = "MediaWiki"
+description.en = "Wiki package originally for use on Wikipedia"
+description.fr = "Wiki développé à l’origine pour Wikipédia"
+
+version = "1.39.3~ynh1"
+
+maintainers = ["Salamandar"]
+
+[upstream]
+license = "GPL-2.0-or-later"
+website = "https://www.mediawiki.org"
+demo = "https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox"
+admindoc = "https://www.mediawiki.org/wiki/Documentation"
+userdoc = "https://www.mediawiki.org/wiki/Project:Help"
+code = "https://github.com/wikimedia/mediawiki"
+
+[integration]
+yunohost = ">= 11.1.17"
+architectures = "all"
+multi_instance = true
+ldap = true
+sso = false
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/wiki"
+
+    [install.init_main_permission]
+    help.en = "Visibility of the wiki pages"
+    help.fr = "La visibilité des pages du wiki"
+    type = "group"
+    default = "visitors"
+
+    [install.language]
+    ask.en = "Choose the application language"
+    ask.fr = "Choisissez la langue de l'application"
+    type = "string"
+    choices = ["fr", "en"]
+    default = "fr"
+
+    [install.admin]
+    type = "user"
+
+    [install.password]
+    help.en = "The password for the wiki administrator. It needs to be solid or the installation process will fail."
+    help.fr = "Le mot de passe de l'administrateur du wiki. Il doit être solide, sinon l'installation échouera."
+    type = "password"
+
+    [install.wiki_name]
+    ask.en = "Choose the application name"
+    ask.fr = "Choisissez le nom de l'application"
+    type = "string"
+    default = "YunoWiki"
+
+[resources]
+    [resources.sources]
+        [resources.sources.main]
+        url = "https://releases.wikimedia.org/mediawiki/1.39/mediawiki-1.39.3.tar.gz"
+        sha256 = "e35769343876af42496da43ae2f47224fb8c779b8f45705c4147c6ff3522cc1d"
+
+        [resources.sources.ldap_groups]
+        url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/refs/tags/1.0.5.tar.gz"
+        sha256 = "26f91deb271f9062181019fb41a3bc1646e7e1f4d894a7e03bc688f3b974d234"
+        in_subdir = true
+
+        [resources.sources.ldap_authorization]
+        url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/refs/tags/1.1.2.tar.gz"
+        sha256 = "fa25468492e39fd6a308468ab81fbcf65dc856c64a5723c00c3b85a84409f1c8"
+        in_subdir = true
+
+        [resources.sources.pluggable_auth]
+        url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/refs/tags/6.3.tar.gz"
+        sha256 = "d22ee584c6616a585d3453989f2ca6e03d1447ec378c4e76b5ccb08f0d09fc05"
+        in_subdir = true
+
+        [resources.sources.ldap_authentication2]
+        url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/refs/tags/1.0.5.tar.gz"
+        sha256 = "d2465d0bf78371cdf0fbb0a0271e05441bd2c5668235f4d8998299b66279c28a"
+        in_subdir = true
+
+        [resources.sources.ldap_userinfo]
+        url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/refs/tags/1.0.2.tar.gz"
+        sha256 = "e59560535395947fe2b2c673efd94445425795527c852534a02af0c9506a51cd"
+        in_subdir = true
+
+        [resources.sources.ldap_provider]
+        url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/refs/tags/1.0.7.tar.gz"
+        sha256 = "1bee8a7a94a18b1e9980487335dbc5152051e2d269be160bb18714893fa8ec91"
+        in_subdir = true
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.apt]
+    packages = "php8.0-fpm php8.0-mysql php8.0-mbstring php8.0-xml php8.0-intl mariadb-server diffutils imagemagick acl"
+
+    [resources.database]
+    type = "mysql"
