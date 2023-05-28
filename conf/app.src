@@ -1,5 +1,5 @@
-SOURCE_URL=https://releases.wikimedia.org/mediawiki/1.39/mediawiki-1.39.1.tar.gz
-SOURCE_SUM=ddec3f90e1e7b1ac66819178ca81037d3f8084dc577d4ab7732a4b8f980d85f9
+SOURCE_URL=https://releases.wikimedia.org/mediawiki/1.39/mediawiki-1.39.3.tar.gz
+SOURCE_SUM=395445f45cd655e3f5521e332205abe6b31c551799396184e02da8d2fc3e743c
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
