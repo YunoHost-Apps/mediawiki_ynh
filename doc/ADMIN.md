@@ -8,9 +8,3 @@
 * [PluggableAuth](https://www.mediawiki.org/wiki/Extension:PluggableAuth)
 
 Some of the extensions are marked as "disabled and unused" because they are not immediately required but are part of the MediaWiki "LDAP Stack" which may be needed in future versions.
-
-#### Multi-users support
-
-* Is LDAP supported?: **yes**
-* Is HTTP auth supported?: **no**
-* Can the app be used by multiple users?: **yes**
