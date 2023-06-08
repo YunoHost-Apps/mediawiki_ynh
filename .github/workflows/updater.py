@@ -13,17 +13,20 @@ import hashlib
 import json
 import logging
 import os
-import re
 from subprocess import run, PIPE
 import textwrap
-from typing import List, Tuple, Any
+from typing import List, Tuple, Any, Optional
 import requests
 from packaging import version
+
+import tomlkit
+
 
 logging.getLogger().setLevel(logging.INFO)
 
 # ========================================================================== #
 # Functions customizable by app maintainer
+
 
 def get_latest_version(repo: str) -> Tuple[version.Version, Any]:
     """May be customized by maintainers for other forges than Github"""
@@ -36,6 +39,7 @@ def get_latest_version(repo: str) -> Tuple[version.Version, Any]:
     )
     return version.Version(release_info["name"]), release_info
 
+
 def get_asset_urls_of_release(repo: str, release: Any) -> List[str]:
     """May be customized by maintainers for custom urls"""
     rel = release['name']
@@ -44,38 +48,26 @@ def get_asset_urls_of_release(repo: str, release: Any) -> List[str]:
         f"https://releases.wikimedia.org/mediawiki/{short_rel}/mediawiki-{rel}.tar.gz"
     ]
 
-def handle_asset(asset_url: str):
+
+def handle_asset(asset_url: str) -> Optional[str]:
     """This should be customized by the maintainer according to upstream"""
     logging.info("Handling asset at %s", asset_url)
     if asset_url.endswith(".tar.gz"):
-        write_src_file("app.src", asset_url, "tar.gz")
-    else:
-        logging.info("Asset ignored")
+        return "main"
+    logging.info("Asset ignored")
+    return None
 
 # ========================================================================== #
 # Core generic code of the script
 
+
 def sha256sum_of_url(url: str) -> str:
     """Compute checksum without saving the file"""
     checksum = hashlib.sha256()
-    for chunk in requests.get(url, stream=True).iter_content():
+    for chunk in requests.get(url, stream=True, timeout=100).iter_content(chunk_size=4096):
         checksum.update(chunk)
     return checksum.hexdigest()
 
-def write_src_file(name: str, asset_url: str, extension: str,
-                   extract: bool = True, subdir: bool = True) -> None:
-    """Rewrite conf/app.src"""
-    logging.info("Writing %s...", name)
-
-    with open(f"conf/{name}", "w", encoding="utf-8") as conf_file:
-        conf_file.write(textwrap.dedent(f"""\
-            SOURCE_URL={asset_url}
-            SOURCE_SUM={sha256sum_of_url(asset_url)}
-            SOURCE_SUM_PRG=sha256sum
-            SOURCE_FORMAT={extension}
-            SOURCE_IN_SUBDIR={str(subdir).lower()}
-            SOURCE_EXTRACT={str(extract).lower()}
-        """))
 
 def write_github_env(proceed: bool, new_version: str, branch: str):
     """Those values will be used later in the workflow"""
@@ -89,12 +81,13 @@ def write_github_env(proceed: bool, new_version: str, branch: str):
             PROCEED={str(proceed).lower()}
         """))
 
+
 def main():
-    with open("manifest.json", "r", encoding="utf-8") as manifest_file:
-        manifest = json.load(manifest_file)
+    with open("manifest.toml", "r", encoding="utf-8") as manifest_file:
+        manifest = tomlkit.loads(manifest_file.read())
     repo = manifest["upstream"]["code"]
 
-    current_version = version.Version(manifest["version"].split("~")[0])
+    current_version = version.Version(manifest["version"].value.split("~")[0])
     latest_version, release_info = get_latest_version(repo)
     logging.info("Current version: %s", current_version)
     logging.info("Latest upstream version: %s", latest_version)
@@ -114,14 +107,17 @@ def main():
         return
 
     assets = get_asset_urls_of_release(repo, release_info)
+
     logging.info("%d available asset(s)", len(assets))
     for asset in assets:
-        handle_asset(asset)
+        name = handle_asset(asset)
+        if name:
+            manifest["resources"]["sources"][name]["url"] = asset
+            manifest["resources"]["sources"][name]["sha256"] = sha256sum_of_url(asset)
 
     manifest["version"] = f"{latest_version}~ynh1"
-    with open("manifest.json", "w", encoding="utf-8") as manifest_file:
-        json.dump(manifest, manifest_file, indent=4, ensure_ascii=False)
-        manifest_file.write("\n")
+    with open("manifest.toml", "w", encoding="utf-8") as manifest_file:
+        manifest_file.write(tomlkit.dumps(manifest))
 
     write_github_env(True, latest_version, branch)
 
