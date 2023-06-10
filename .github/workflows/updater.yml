@@ -23,6 +23,7 @@ jobs:
           # Setting up Git user
           git config --global user.name 'yunohost-bot'
           git config --global user.email 'yunohost-bot@users.noreply.github.com'
+          python3 -m pip install tomlkit
           # Run the updater script
           .github/workflows/updater.py
       - name: Commit changes
