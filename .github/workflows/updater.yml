@@ -59,7 +59,9 @@ jobs:
 
       - name: Run the updater script
         id: run_updater
-        run: .github/workflows/update_extensions.py
+        run: |
+          python3 -m pip install tomlkit
+          .github/workflows/update_extensions.py
 
       - name: Create Pull Request
         id: cpr
