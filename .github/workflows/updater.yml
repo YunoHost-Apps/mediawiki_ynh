@@ -78,4 +78,4 @@ jobs:
           title: Update extension urls
           body: Update extension urls
           draft: false
-          add-paths: conf
+          add-paths: manifest.toml
