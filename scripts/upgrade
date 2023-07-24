@@ -35,7 +35,7 @@ if [ -z "${fpm_usage:-}" ]; then
 fi
 
 # If create_account doesn't exist, create it
-if [ -z "$create_account" ]; then
+if [ -z "${create_account:-}" ]; then
 	create_account=false
 	ynh_app_setting_set --app=$app --key=create_account --value=$create_account
 fi
