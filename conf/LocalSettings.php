@@ -181,5 +181,5 @@ $LDAPProviderDomainConfigProvider = function() {
 
   return new \MediaWiki\Extension\LDAPProvider\DomainConfigProvider\InlinePHPArray( $config );
 };
-$createaccount = __CREATE_ACCOUNT__
+$createaccount = __CREATE_ACCOUNT__;
 $wgGroupPermissions['*']['createaccount'] = $createaccount;
