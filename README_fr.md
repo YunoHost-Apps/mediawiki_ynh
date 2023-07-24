@@ -21,7 +21,7 @@ MediaWiki est un progiciel wiki gratuit et open-source écrit en PHP. Il sert de
 
 **Version incluse :** 1.39.3~ynh1
 
-**Démo :** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
+**Démo :** https://www.wikipedia.org
 
 ## Captures d’écran
 

@@ -21,7 +21,7 @@ MediaWiki is a free and open-source wiki software package written in PHP. It ser
 
 **Shipped version:** 1.39.3~ynh1
 
-**Demo:** https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox
+**Demo:** https://www.wikipedia.org
 
 ## Screenshots
 
