@@ -12,7 +12,7 @@ maintainers = ["Salamandar"]
 [upstream]
 license = "GPL-2.0-or-later"
 website = "https://www.mediawiki.org"
-demo = "https://www.wikipedia.org/, https://www.mediawiki.org/wiki/Project:Sandbox"
+demo = "https://www.wikipedia.org"
 admindoc = "https://www.mediawiki.org/wiki/Documentation"
 userdoc = "https://www.mediawiki.org/wiki/Project:Help"
 code = "https://github.com/wikimedia/mediawiki"
@@ -44,9 +44,9 @@ ram.runtime = "50M"
     [install.language]
     ask.en = "Choose the application language"
     ask.fr = "Choisissez la langue de l'application"
-    type = "string"
-    choices = ["fr", "en"]
-    default = "fr"
+    type = "select"
+    choices = ["en", "fr"]
+    default = "en"
 
     [install.admin]
     type = "user"
