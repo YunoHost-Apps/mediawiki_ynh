@@ -61,30 +61,6 @@ ynh_add_nginx_config
 ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
 
 if [ "$path" = "/" ]; then
-	scriptpath=""
-else
-	scriptpath=$path
-fi
-
-wiki_name_underscorified=${wiki_name//[a-zA-Z0-9]/_}
-
-"php$phpversion" "$install_dir/maintenance/install.php" --conf "$install_dir" \
-	--server "https://$domain" \
-	--scriptpath "$scriptpath" \
-	--dbuser "$db_name" \
-	--dbpass "$db_pwd" \
-	--dbname "$db_name" \
-	--dbprefix "mdk_" \
-	--lang "$language" \
-	--pass "$password" \
-	"$wiki_name" "$admin"
-
-#=================================================
-# ADD A CONFIGURATION
-#=================================================
-ynh_script_progression --message="Adding a configuration file..."
-
-if [ "$path" = "/" ]; then
 	# MediaWiki expects a "" for the root URL which is typically assumed to be
 	# "/" by other application packages. Therefore, we assume end-users will do
 	# this as well and make sure to ensure an "" in all cases where "/" is
@@ -93,6 +69,29 @@ if [ "$path" = "/" ]; then
 else
 	mediawiki_path="$path"
 fi
+
+wiki_name_underscorified=${wiki_name//[a-zA-Z0-9]/_}
+
+pushd "$install_dir" || ynh_die "Could not pushd $install_dir"
+	"php$phpversion" "$install_dir/maintenance/install.php" \
+		--server "https://$domain" \
+		--scriptpath "$mediawiki_path" \
+		--dbuser "$db_name" \
+		--dbpass "$db_pwd" \
+		--dbname "$db_name" \
+		--dbprefix "mdk_" \
+		--lang "$language" \
+		--pass "$password" \
+		"$wiki_name" "$admin"
+popd || ynh_die "Could not popd from $install_dir"
+
+#=================================================
+# ADD A CONFIGURATION
+#=================================================
+ynh_script_progression --message="Adding a configuration file..."
+
+# save the original LocalSettings.php for eventual debugging
+mv "$install_dir/LocalSettings.php" "$install_dir/LocalSettings.php.orig"
 
 ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
