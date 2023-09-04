@@ -63,6 +63,10 @@ $wgDBprefix = "mdk_";
 # MySQL table options to use during installation or update
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 
+# Shared database table
+# This has no effect unless $wgSharedDB is also set.
+$wgSharedTables[] = "actor";
+
 ## Shared memory settings
 $wgMainCacheType = CACHE_NONE;
 $wgMemCachedServers = [];
