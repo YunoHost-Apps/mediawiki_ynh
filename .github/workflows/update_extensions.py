@@ -6,14 +6,19 @@ Download extensions for the current mediawiki version, and update the conf files
 from typing import List, Optional
 import hashlib
 import urllib
+import datetime
 from html.parser import HTMLParser
 import tomlkit
 from packaging import version
 import requests
 
-EXTENSIONS_HOST_URL = "https://extdist.wmflabs.org/dist/extensions/"
-
 GITHUB_API_URL = "https://api.github.com/repos"
+
+# Update this after updating mediawiki version.
+ACCEPTABLE_BRANCHES = [
+    "REL1_40",
+    "REL1_39",
+]
 
 
 def sha256sum_of_url(url: str) -> str:
@@ -62,6 +67,16 @@ def get_last_commit_of(repo: str, branch: str) -> str:
     return commit["sha"]
 
 
+def timestamp_of_commit(repo: str, sha: str) -> int:
+    commit = requests.get(f"{GITHUB_API_URL}/{repo}/commits/{sha}", timeout=10).json()
+    try:
+        date = commit["commit"]["author"]["date"]
+    except :
+        print(date)
+        raise
+    return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
+
+
 def main():
     print('Updating extensions source files...')
     with open("manifest.toml", "r", encoding="utf-8") as file:
@@ -75,13 +90,20 @@ def main():
         print(f'Updating source file for {name}')
         repo = get_repo(descr["url"])
         branches = get_branches(repo)
-        branch = find_valid_version(branches, mediawiki_version)
-        if not branch:
+        commits = [
+            get_last_commit_of(repo, branch)
+            for branch in branches
+            if branch in ACCEPTABLE_BRANCHES
+        ]
+
+        if not commits:
             print("Could not find any valid branch")
             continue
 
-        commit = get_last_commit_of(repo, branch)
+        # Sort by commit date…
+        commits = sorted(commits, key=lambda x, r=repo: timestamp_of_commit(r, x), reverse=True)
 
+        commit = commits[0]
         url = f"https://github.com/{repo}/archive/{commit}.tar.gz"
 
         manifest["resources"]["sources"][name]["url"] = url
