@@ -3,14 +3,32 @@ version = "1.0"
 [main]
 name = "Mediawiki configuration"
 
-
     [main.config]
     name = "Configuration Options"
 
-        [main.config.create_account]
-        ask = "Create account"
-        type = "boolean"
-        yes = true
-        no = false
-        help = "Set to 'true' to allow account creation."
-        bind = "createaccount:__INSTALL_DIR__/LocalSettings.php"
+    [install.public_wiki]
+    ask.en = "Is this Wiki public ?"
+    ask.fr = "Ce Wiki est-il public ?"
+    help.en = "This visibility is handled by Mediawiki, not Yunohost"
+    help.fr = "Cette visibilité est gérée par Mediawiki, pas Yunohost"
+    type = "boolean"
+    default = true
+    bind = ":__INSTALL_DIR__/LocalSettings.php"
+
+    [install.local_accounts]
+    ask.en = "Allow local accounts (non-Yunohost login) ?"
+    ask.fr = "Autoriser les comptes locaux (non connectés à Yunohost) ?"
+    help.en = "If this is enabled, people without a Yunohost account can create an account, local to the wiki."
+    help.fr = "Si activé, les personnes sans compte Yunohost pourront créer un compte local au wiki."
+    type = "boolean"
+    default = false
+    bind = ":__INSTALL_DIR__/LocalSettings.php"
+
+    [install.yunohost_accounts]
+    ask.en = "Link with Yunohost accounts"
+    ask.fr = "Lier aux comptes Yunohost"
+    help.en = "If this is enabled, Yunohost users will be able to login."
+    help.fr = "Si activé, les utilisateurs Yunohost pourront s'authentifier."
+    type = "boolean"
+    default = true
+    bind = ":__INSTALL_DIR__/LocalSettings.php"

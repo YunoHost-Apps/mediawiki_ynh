@@ -26,13 +26,16 @@ ynh_script_progression --message="Setting up source files..." --weight=4
 
     # Download, check integrity, uncompress and patch the source from app.src
     ynh_setup_source --dest_dir="$install_dir"
+
+    # See https://www.mediawiki.org/wiki/Manual:Active_Directory_Integration
+    ynh_setup_source --dest_dir="$install_dir/extensions/Auth_remoteuser" --source_id="auth_remoteuser"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
     ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
     ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
     ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
 
-    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
-    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
-    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
 
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
@@ -94,6 +97,7 @@ mv "$install_dir/LocalSettings.php" "$install_dir/LocalSettings.php.orig"
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
 ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+ynh_add_config --template="../conf/ldapproviders.json" --destination="$install_dir/ldapproviders.json"
 
 # This is required to update database schemas
 "php$phpversion" "$install_dir/maintenance/update.php"

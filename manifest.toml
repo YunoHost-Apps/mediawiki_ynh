@@ -38,8 +38,8 @@ ram.runtime = "50M"
     default = "/wiki"
 
     [install.init_main_permission]
-    help.en = "Visibility of the wiki pages"
-    help.fr = "La visibilité des pages du wiki"
+    help.en = "Visibility of the wiki (handled by Yunohost)"
+    help.fr = "La visibilité du wiki (gérée par Yunohost)"
     type = "group"
     default = "visitors"
 
@@ -64,11 +64,41 @@ ram.runtime = "50M"
     type = "string"
     default = "YunoWiki"
 
+    [install.public_wiki]
+    ask.en = "Is this Wiki public ?"
+    ask.fr = "Ce Wiki est-il public ?"
+    help.en = "This visibility is handled by Mediawiki, not Yunohost"
+    help.fr = "Cette visibilité est gérée par Mediawiki, pas Yunohost"
+    type = "boolean"
+    default = true
+
+    [install.local_accounts]
+    ask.en = "Allow local accounts (non-Yunohost login) ?"
+    ask.fr = "Autoriser les comptes locaux (non connectés à Yunohost) ?"
+    help.en = "If this is enabled, people without a Yunohost account can create an account, local to the wiki."
+    help.fr = "Si activé, les personnes sans compte Yunohost pourront créer un compte local au wiki."
+    type = "boolean"
+    default = false
+
+    [install.yunohost_accounts]
+    ask.en = "Link with Yunohost accounts"
+    ask.fr = "Lier aux comptes Yunohost"
+    help.en = "If this is enabled, Yunohost users will be able to login."
+    help.fr = "Si activé, les utilisateurs Yunohost pourront s'authentifier."
+    type = "boolean"
+    default = true
+
+
 [resources]
     [resources.sources]
     [resources.sources.main]
     url = "https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.1.tar.gz"
     sha256 = "e05d419de40c6ad03145aca07e08cf995d1ca1667d97793bb73970e2c11b0a04"
+
+    [resources.sources.auth_remoteuser]
+    url = "https://github.com/wikimedia/mediawiki-extensions-Auth_remoteuser/archive/1a72290f4b3f35694a9a0a71d7c17258badca429.tar.gz"
+    sha256 = "4864edde068209a8a72a97238041220d47b3d4cd4c353637dd0857f488b67904"
+    in_subdir = true
 
     [resources.sources.ldap_groups]
     url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/6babc982f16ea9b6a6a64d45e55413c663bc6b6f.tar.gz"
