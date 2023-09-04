@@ -24,28 +24,28 @@ ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # If fpm_footprint doesn't exist, create it
 if [ -z "${fpm_footprint:-}" ]; then
-	fpm_footprint=low
-	ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
+    fpm_footprint=low
+    ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
 fi
 
 # If fpm_usage doesn't exist, create it
 if [ -z "${fpm_usage:-}" ]; then
-	fpm_usage=low
-	ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
+    fpm_usage=low
+    ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 fi
 
 # If create_account doesn't exist, create it
 if [ -z "${create_account:-}" ]; then
-	create_account=false
-	ynh_app_setting_set --app=$app --key=create_account --value=$create_account
+    create_account=false
+    ynh_app_setting_set --app=$app --key=create_account --value=$create_account
 fi
 
 # Removed in dec. 2020
 ldap_user=$(ynh_app_setting_get --app=$app --key=ldap_user)
 if [[ -n "${ldap_user:-}" ]]; then
-	yunohost user delete "$ldap_user"
-	ynh_app_setting_delete --app=$app --key=ldap_user
-	ynh_app_setting_delete --app=$app --key=ldap_password
+    yunohost user delete "$ldap_user"
+    ynh_app_setting_delete --app=$app --key=ldap_user
+    ynh_app_setting_delete --app=$app --key=ldap_password
 fi
 
 #=================================================
@@ -54,17 +54,17 @@ fi
 
 if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
-	ynh_script_progression --message="Upgrading source files..." --weight=4
+    ynh_script_progression --message="Upgrading source files..." --weight=4
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir"
-	ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
-	ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
-	ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
+    # Download, check integrity, uncompress and patch the source from app.src
+    ynh_setup_source --dest_dir="$install_dir"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
+    ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
 
-	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
-	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
-	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
+    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
+    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
+    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
 
 fi
 
@@ -95,20 +95,20 @@ ynh_add_nginx_config
 ynh_script_progression --message="Updating a configuration file..." --weight=4
 
 if [ "$path" = "/" ]; then
-	# MediaWiki expects a "" for the root URL which is typically assumed to be
-	# "/" by other application packages. Therefore, we assume end-users will do
-	# this as well and make sure to ensure an "" in all cases where "/" is specified
-	mediawiki_path=""
+    # MediaWiki expects a "" for the root URL which is typically assumed to be
+    # "/" by other application packages. Therefore, we assume end-users will do
+    # this as well and make sure to ensure an "" in all cases where "/" is specified
+    mediawiki_path=""
 else
-	mediawiki_path="$path"
+    mediawiki_path="$path"
 fi
 
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --app=$app --key=password | awk '{print length}')
 if (( password_length < 10 )); then
-	ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
-	ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
-	echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
+    ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
+    ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
+    echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
 fi
 
 "php$phpversion" "$install_dir/maintenance/update.php"

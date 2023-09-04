@@ -24,15 +24,15 @@ ynh_app_setting_set --app=$app --key=create_account --value=$create_account
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=4
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir"
-	ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
-	ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
-	ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
+    # Download, check integrity, uncompress and patch the source from app.src
+    ynh_setup_source --dest_dir="$install_dir"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
+    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
+    ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
 
-	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
-	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
-	# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
+    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
+    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
+    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
 
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
@@ -61,21 +61,21 @@ ynh_add_nginx_config
 ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
 
 if [ "$path" = "/" ]; then
-	scriptpath=""
+    scriptpath=""
 else
-	scriptpath=$path
+    scriptpath=$path
 fi
 
 "php$phpversion" "$install_dir/maintenance/install.php" --conf "$install_dir" \
-	--server "https://$domain" \
-	--scriptpath "$scriptpath" \
-	--dbuser "$db_name" \
-	--dbpass "$db_pwd" \
-	--dbname "$db_name" \
-	--dbprefix "mdk_" \
-	--lang "$language" \
-	--pass "$password" \
-	"$wiki_name" "$admin"
+    --server "https://$domain" \
+    --scriptpath "$scriptpath" \
+    --dbuser "$db_name" \
+    --dbpass "$db_pwd" \
+    --dbname "$db_name" \
+    --dbprefix "mdk_" \
+    --lang "$language" \
+    --pass "$password" \
+    "$wiki_name" "$admin"
 
 #=================================================
 # ADD A CONFIGURATION
@@ -83,13 +83,13 @@ fi
 ynh_script_progression --message="Adding a configuration file..."
 
 if [ "$path" = "/" ]; then
-	# MediaWiki expects a "" for the root URL which is typically assumed to be
-	# "/" by other application packages. Therefore, we assume end-users will do
-	# this as well and make sure to ensure an "" in all cases where "/" is
-	# specified
-	mediawiki_path=""
+    # MediaWiki expects a "" for the root URL which is typically assumed to be
+    # "/" by other application packages. Therefore, we assume end-users will do
+    # this as well and make sure to ensure an "" in all cases where "/" is
+    # specified
+    mediawiki_path=""
 else
-	mediawiki_path="$path"
+    mediawiki_path="$path"
 fi
 
 ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
