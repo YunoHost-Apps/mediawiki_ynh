@@ -94,6 +94,7 @@ fi
 
 ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
+# This is required to update database schemas
 "php$phpversion" "$install_dir/maintenance/update.php"
 
 chown -R $app:www-data "$install_dir"
