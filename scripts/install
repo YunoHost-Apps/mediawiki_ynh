@@ -70,8 +70,6 @@ else
     mediawiki_path="$path"
 fi
 
-wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
-
 pushd "$install_dir" || ynh_die "Could not pushd $install_dir"
     "php$phpversion" "$install_dir/maintenance/install.php" \
         --server "https://$domain" \
@@ -92,6 +90,8 @@ ynh_script_progression --message="Adding a configuration file..."
 
 # save the original LocalSettings.php for eventual debugging
 mv "$install_dir/LocalSettings.php" "$install_dir/LocalSettings.php.orig"
+
+wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
 ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
