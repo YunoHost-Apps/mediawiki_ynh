@@ -3,7 +3,7 @@
 Download extensions for the current mediawiki version, and update the conf files.
 """
 
-from typing import List, Optional
+from typing import List, Optional, Any
 import hashlib
 import urllib
 import datetime
@@ -14,11 +14,31 @@ import requests
 
 GITHUB_API_URL = "https://api.github.com/repos"
 
+GITHUB_API_TOKEN = False
+
 # Update this after updating mediawiki version.
 ACCEPTABLE_BRANCHES = [
     "REL1_40",
     "REL1_39",
 ]
+
+
+def github_get(path: str, *args, **kwargs) -> Any:
+    headers = kwargs.get("headers", {})
+    if GITHUB_API_TOKEN:
+        headers["Authorization"] = f"Bearer {GITHUB_API_TOKEN}"
+
+    kwargs["headers"] = headers
+    result = requests.get(
+        f"{GITHUB_API_URL}/{path}",
+        timeout=10,
+        *args,
+        **kwargs
+    )
+    if result.status_code == requests.codes["forbidden"]:
+        raise RuntimeError(result.json().get("message"), result.json().get("documentation_url"))
+
+    return result.json()
 
 
 def sha256sum_of_url(url: str) -> str:
@@ -57,18 +77,18 @@ def get_repo(url: str) -> str:
 
 
 def get_branches(repo: str) -> List[str]:
-    branches = requests.get(f"{GITHUB_API_URL}/{repo}/branches", timeout=10).json()
+    branches = github_get(f"{repo}/branches")
     names = [branch["name"] for branch in branches]
     return names
 
 
 def get_last_commit_of(repo: str, branch: str) -> str:
-    commit = requests.get(f"{GITHUB_API_URL}/{repo}/commits/{branch}", timeout=10).json()
+    commit = github_get(f"{repo}/commits/{branch}")
     return commit["sha"]
 
 
 def timestamp_of_commit(repo: str, sha: str) -> int:
-    commit = requests.get(f"{GITHUB_API_URL}/{repo}/commits/{sha}", timeout=10).json()
+    commit = github_get(f"{repo}/commits/{sha}")
     try:
         date = commit["commit"]["author"]["date"]
     except :
