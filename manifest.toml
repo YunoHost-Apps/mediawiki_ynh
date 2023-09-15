@@ -81,8 +81,8 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.pluggable_auth]
-    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/1cbf44824f08347ba4f2a9e7cfef74cc84eeb8cc.tar.gz"
-    sha256 = "699ae20b7144d438ece5aeffc3bcf91ad3691182e2213e1ac59a0f06e0d3c869"
+    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/8104ed91f386ddbd03ece9a390f9b23f4f6eb4b3.tar.gz"
+    sha256 = "8f9648cd862ad4f24d28a595d51b82f398b7bddaec9a0a5f82058a5d4a34e08a"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
