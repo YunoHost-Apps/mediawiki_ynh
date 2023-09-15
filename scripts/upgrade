@@ -103,6 +103,10 @@ else
     mediawiki_path="$path"
 fi
 
+wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
+
+ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --app=$app --key=password | awk '{print length}')
 if (( password_length < 10 )); then
