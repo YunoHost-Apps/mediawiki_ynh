@@ -12,14 +12,13 @@ You need to enable the action by removing `if ${{ false }}` in updater.yml!
 import hashlib
 import logging
 import os
-from subprocess import run, PIPE
 import textwrap
-from typing import List, Tuple, Any, Optional
+from subprocess import PIPE, run
+from typing import Any, List, Optional, Tuple
+
 import requests
-from packaging import version
-
 import tomlkit
-
+from packaging import version
 
 logging.getLogger().setLevel(logging.INFO)
 

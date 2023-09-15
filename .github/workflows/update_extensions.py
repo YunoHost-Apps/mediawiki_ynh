@@ -3,14 +3,13 @@
 Download extensions for the current mediawiki version, and update the conf files.
 """
 
-from typing import List, Optional, Any
-import hashlib
-import urllib
 import datetime
-from html.parser import HTMLParser
+import hashlib
+from typing import Any, List, Optional
+
+import requests
 import tomlkit
 from packaging import version
-import requests
 
 GITHUB_API_URL = "https://api.github.com/repos"
 
@@ -87,13 +86,9 @@ def get_last_commit_of(repo: str, branch: str) -> str:
     return commit["sha"]
 
 
-def timestamp_of_commit(repo: str, sha: str) -> int:
+def timestamp_of_commit(repo: str, sha: str) -> datetime.datetime:
     commit = github_get(f"{repo}/commits/{sha}")
-    try:
-        date = commit["commit"]["author"]["date"]
-    except :
-        print(date)
-        raise
+    date = commit["commit"]["author"]["date"]
     return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
 
 
@@ -101,7 +96,7 @@ def main():
     print('Updating extensions source files...')
     with open("manifest.toml", "r", encoding="utf-8") as file:
         manifest = tomlkit.loads(file.read())
-    mediawiki_version = version.Version(manifest["version"].value.split("~")[0])
+    # mediawiki_version = version.Version(manifest["version"].value.split("~")[0])
 
     for name, descr in manifest["resources"]["sources"].items():
         if "extension" not in descr["url"]:
