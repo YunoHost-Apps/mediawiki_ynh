@@ -111,6 +111,7 @@ if (( password_length < 10 )); then
     echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
 fi
 
+# This is required to update database schemas
 "php$phpversion" "$install_dir/maintenance/update.php"
 
 # Set permissions on app files
