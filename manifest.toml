@@ -86,13 +86,13 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/4c7944f2b6b2524ac8404eb1b66e5624f545ed78.tar.gz"
-    sha256 = "6d031086fc40d3223df24998cd47d3b1f4e287984a7633e2d5549f66826286a4"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/42ec3c8d8d92780f51bdce53d5fae4006f82b31e.tar.gz"
+    sha256 = "c1c1b2e4cd92ccaca91a62e88a2ed4aae9c5190ecb19d328f33d3382a778f0b0"
     in_subdir = true
 
     [resources.sources.ldap_userinfo]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/01a4b9e4f533666fbbd2b51892be47dde671238f.tar.gz"
-    sha256 = "180d7944acb9796bf279f1a2b04b2855669f856c2a2904b4b8242993c37f3e0e"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/2fda62c6831885a5f8e6430f017ac4278858e87b.tar.gz"
+    sha256 = "d4894386773dc797509d538eb69d8feb118b9d054608a9d7c52ecbd181d3dfc6"
     in_subdir = true
 
     [resources.sources.ldap_provider]
