@@ -33,7 +33,7 @@ MediaWiki is a free and open-source wiki software package written in PHP. It ser
 * Official user documentation: <https://www.mediawiki.org/wiki/Project:Help>
 * Official admin documentation: <https://www.mediawiki.org/wiki/Documentation>
 * Upstream app code repository: <https://github.com/wikimedia/mediawiki>
-* YunoHost documentation for this app: <https://yunohost.org/app_mediawiki>
+* YunoHost Store: <https://apps.yunohost.org/app/mediawiki>
 * Report a bug: <https://github.com/YunoHost-Apps/mediawiki_ynh/issues>
 
 ## Developer info

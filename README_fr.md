@@ -33,7 +33,7 @@ MediaWiki est un progiciel wiki gratuit et open-source écrit en PHP. Il sert de
 * Documentation officielle utilisateur : <https://www.mediawiki.org/wiki/Project:Help>
 * Documentation officielle de l’admin : <https://www.mediawiki.org/wiki/Documentation>
 * Dépôt de code officiel de l’app : <https://github.com/wikimedia/mediawiki>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_mediawiki>
+* YunoHost Store: <https://apps.yunohost.org/app/mediawiki>
 * Signaler un bug : <https://github.com/YunoHost-Apps/mediawiki_ynh/issues>
 
 ## Informations pour les développeurs
