@@ -135,59 +135,54 @@ wfLoadSkin( 'Vector' );
 # End of automatically generated settings.
 # Add more configuration options below.
 
-# Enabled extensions. Most of the extensions are enabled by adding
-# wfLoadExtensions('ExtensionName');
-# to LocalSettings.php. Check specific extension documentation for more details.
+# LDAP Settings
+# See https://www.mediawiki.org/wiki/Manual:Active_Directory_Integration
 
-# LDAPProvider
-# https://www.mediawiki.org/wiki/Extension:LDAPProvider
-wfLoadExtension( 'LDAPProvider' );
-
-# PluggableAuth
-# https://www.mediawiki.org/wiki/Extension:PluggableAuth
-wfLoadExtension( 'PluggableAuth' );
-
-$wgPluggableAuth_EnableLocalLogin = true;
-$wgPluggableAuth_EnableLocalProperties = true;
-
-# LDAPAuthentication2
-# https://www.mediawiki.org/wiki/Extension:LDAPAuthentication2
-wfLoadExtension( 'LDAPAuthentication2' );
-
-# Note(decentral1se): leaving here in case we need them one day
-# LDAPGroups
-# https://www.mediawiki.org/wiki/Extension:LDAPGroups
-# wfLoadExtension( 'LDAPGroups' );
-
-# Note(decentral1se): leaving here in case we need them one day
-# LDAPUserInfo
-# https://www.mediawiki.org/wiki/Extension:LDAPUserInfo
-# wfLoadExtension( 'LDAPUserInfo' );
-
-# Note(decentral1se): leaving here in case we need them one day
-# LDAPAuthorization
-# https://www.mediawiki.org/wiki/Extension:LDAPAuthorization
 # wfLoadExtension( 'LDAPAuthorization' );
+wfLoadExtension( 'LDAPAuthentication2' );
+wfLoadExtension( 'LDAPGroups' );
+wfLoadExtension( 'LDAPProvider' );
+wfLoadExtension( 'LDAPUserInfo' );
+wfLoadExtension( 'PluggableAuth' );
+wfLoadExtension( 'Auth_remoteuser' );
 
-# LDAP configuration
-$LDAPProviderDomainConfigProvider = function() {
-  $config = [
-    "LDAP" => [
-      "connection" => [
-        "server" => "localhost",
-        "port" => "389",
-        "basedn" => "dc=yunohost,dc=org",
-        "groupbasedn" => "ou=users,dc=yunohost,dc=org",
-        "userbasedn" => "ou=groups,dc=yunohost,dc=org",
-        "searchattribute" => "uid",
-        "usernameattribute" => "uid",
-        "realnameattribute" => "cn",
-        "emailattribute" => "mail"
-      ]
-    ]
+# Yunohost configuration values for config_panel
+$public_wiki = __PUBLIC_WIKI__;
+$local_accounts = __LOCAL_ACCOUNTS__;
+$yunohost_accounts = __YUNOHOST_ACCOUNTS__;
+
+# Configuration of the generic PluggableAuth extension
+$wgPluggableAuth_EnableLocalLogin = $local_accounts;
+$wgPluggableAuth_EnableLocalProperties = true;
+$wgPluggableAuth_EnableFastLogout = true;
+# $wgPluggableAuth_ButtonLabel = "Log In";
+
+# Configuration of the Yunohost LDAP+SSO
+if ($yunohost_accounts) {
+  $LDAPProviderDomainConfigs = "$IP/ldapproviders.json";
+  $LDAPProviderDefaultDomain = "yunohost.local";
+
+  $wgPluggableAuth_Config["Log In with Yunohost"] = [
+    "plugin" => "LDAPAuthentication2",
+    "data" => [ "domain" => "yunohost.local" ]
   ];
 
-  return new \MediaWiki\Extension\LDAPProvider\DomainConfigProvider\InlinePHPArray( $config );
-};
-$createaccount = __CREATE_ACCOUNT__;
-$wgGroupPermissions['*']['createaccount'] = $createaccount;
+  $wgAuthRemoteuserUserUrls = [
+    'logout' => 'https://__DOMAIN__/yunohost/sso/?action=logout'
+  ];
+}
+
+# Auth_remoteuser will read the REMOTE_USER http header (for Yunohost SSO)
+$wgAuthRemoteuserUserName = [
+  getenv('REMOTE_USER'),
+];
+
+# Allow users to login as other than SSO logged in user
+$wgAuthRemoteuserAllowUserSwitch = true;
+
+# $wgEmailConfirmToEdit = false;
+$wgGroupPermissions['*']['edit'] = $public_wiki;
+$wgGroupPermissions['*']['read'] = $public_wiki;
+$wgGroupPermissions['*']['createaccount'] = $local_accounts;
+$wgGroupPermissions['*']['autocreateaccount'] = true;
+$wgBlockDisablesLogin = true;

@@ -1,0 +1,24 @@
+{
+    "yunohost.local": {
+        "connection": {
+            "server": "localhost",
+            "port": "389",
+            "use-tls": "false",
+            "basedn": "dc=yunohost,dc=org",
+            "userbasedn": "ou=users,dc=yunohost,dc=org",
+            "groupbasedn": "ou=groups,dc=yunohost,dc=org",
+            "searchattribute": "uid",
+            "usernameattribute": "uid",
+            "realnameattribute": "cn",
+            "emailattribute": "mail",
+            "grouprequest": "MediaWiki\\Extension\\LDAPProvider\\UserGroupsRequest\\UserMemberOf::factory",
+            "presearchusernamemodifiers": [ "spacestounderscores", "lowercase" ]
+        },
+        "userinfo": [],
+        "authorization": [],
+        "groupsync": {
+            "mapping": {
+            }
+        }
+    }
+}
