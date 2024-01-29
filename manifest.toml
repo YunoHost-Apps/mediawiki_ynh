@@ -71,18 +71,18 @@ ram.runtime = "50M"
     sha256 = "e05d419de40c6ad03145aca07e08cf995d1ca1667d97793bb73970e2c11b0a04"
 
     [resources.sources.ldap_groups]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/6babc982f16ea9b6a6a64d45e55413c663bc6b6f.tar.gz"
-    sha256 = "88ce087760726ea61c002c8d4b169b1d3a5421d76d8e4afa916ba55051a9130a"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/e4c9b9c5d443a90c6ea8b2daae68e367d9266451.tar.gz"
+    sha256 = "472ee2984674fcdc15acf09f45627d69d7f77186a29ae8a12e3555c9139fa24f"
     in_subdir = true
 
     [resources.sources.ldap_authorization]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/ddf0de6ed25b0eaf69605b83ffb707369ccabaa4.tar.gz"
-    sha256 = "d5119a25d1f2885fa947c401570074dd5ff5bb82684df748ed60388ab16ca427"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/dc7fe20c0aab224a4d188187db9bc8492e946f29.tar.gz"
+    sha256 = "e99a08e02502cad4dd21b55dfe3697bd41df4564a2a7e3de129ef7ab2128592e"
     in_subdir = true
 
     [resources.sources.pluggable_auth]
-    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/ad994fcc97f2f11d4819a091dbfdd52fac2460d5.tar.gz"
-    sha256 = "1d9112b5ec163ce0c96f423eb304b7401d4fb8d81af8ecdb1785e62ca7049d6c"
+    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/dc6186d4c573f30f5edc1f8846951f879ac62e96.tar.gz"
+    sha256 = "d2e28b703e455d794a59a1076ca79872c4527c3f664a313c9411eb0a6c60d2b0"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
@@ -96,8 +96,8 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.ldap_provider]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/d12e1b453e79b2776c1b2533873e9034b40390bc.tar.gz"
-    sha256 = "e98aa5bfdabd80f97bc4a7d94356bcfca3c128f1e49ac6cc68d63e71fed8f927"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/740f097174b58e9dd28d925a4f429b897183f13e.tar.gz"
+    sha256 = "d49c80e8a5d97c7d91d07b11179668e46ab0c2b31e99680bd424308313e9c327"
     in_subdir = true
 
     [resources.system_user]
