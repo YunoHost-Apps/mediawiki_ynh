@@ -71,13 +71,13 @@ ram.runtime = "50M"
     sha256 = "4e0baa953b85e94d31040cb25120abc606fa869b2e33126bdfbb7fc613e8c4b2"
 
     [resources.sources.ldap_groups]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/956a438fe20792c66a6e74b1c4c39faa60d7fb93.tar.gz"
-    sha256 = "ac5707dd586b3aeaea8ec344db8532f865d32f479e1b9f337f1406f59b0649de"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/4e0bcb686520ee27ad8f60a7be9f0105daa85c05.tar.gz"
+    sha256 = "fe6415cfd2d744d0fed10d616ea36d5be14bd3e8e6ada609805ba3cbaa73b8c8"
     in_subdir = true
 
     [resources.sources.ldap_authorization]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/ccd20da7e9633686e9ea693169d06054c6ac306b.tar.gz"
-    sha256 = "294e800de7308de0a34fe57fac6d51ebe8a4e1cd8a3367669e15c823a98ddf9e"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/f20eeabfafeb6c7571bbfb771222fb1fad889272.tar.gz"
+    sha256 = "11af940beaf8ccca82b918ad7ca5fccf4d5cf7f6ea7289a460ab737530767672"
     in_subdir = true
 
     [resources.sources.pluggable_auth]
@@ -86,18 +86,18 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/3a91dadae20e06010d86d2e1ba1a776b528a2fe9.tar.gz"
-    sha256 = "e1f0c264f39ff4b1f7da9b6cad632aaff87f1ea4a08a92f836d26ee9bc73eace"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/2ed6e51002f26ee0fef88cdab00be265b2053527.tar.gz"
+    sha256 = "6ee6da53c4f76a093db1c1e929c2e51000f8ed005ac61ae35cd93a25e1387e19"
     in_subdir = true
 
     [resources.sources.ldap_userinfo]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/a5eeff00bd87c0df95766ed829d2ee106fb6975f.tar.gz"
-    sha256 = "541c6a8415086f6a0de6d96237794268da2bb97448ab9d87946548b8fd5da423"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/0bbff87984249e3eda6b1cf2625cf0edfeaa2c99.tar.gz"
+    sha256 = "4cbaa9834483623e9dabeb95ebac65bef189ce8b2d1632f400c7d0dae2b72b6e"
     in_subdir = true
 
     [resources.sources.ldap_provider]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/07c6aa523214e5e58f6adb3cb35f0e7bae235e75.tar.gz"
-    sha256 = "37d5b93f1fb6a29fcffff18e2ed92f6ace19350a7708ddecd344cbe676454289"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/f8cf796988c9c710ec86603608c8d5f88668cf14.tar.gz"
+    sha256 = "612d65de02ea7c9151d9ddabd99c68a7f843f1ffcd718c2a00e728d3f22a6a97"
     in_subdir = true
 
     [resources.system_user]
