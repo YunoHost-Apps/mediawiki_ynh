@@ -1,16 +1,12 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC STARTING
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# STANDARD MODIFICATIONS
 #=================================================
 # MODIFY URL IN NGINX CONF
 #=================================================
@@ -19,19 +15,17 @@ ynh_script_progression --message="Updating NGINX web server configuration..." --
 ynh_change_url_nginx_config
 
 #=================================================
-# SPECIFIC MODIFICATIONS
-#=================================================
 # SET NEW URL
 #=================================================
 ynh_script_progression --message="Setting the new URL..." --weight=1
 
-if [ $change_domain -eq 1 ]
-then
-    ynh_replace_string --match_string="\$wgServer = \"https://$old_domain\";" --replace_string="\$wgServer = \"https://$new_domain\";" --target_file="$install_dir/LocalSettings.php"
+if [ "$change_domain" -eq 1 ]; then
+    ynh_replace_string --target_file="$install_dir/LocalSettings.php" \
+        --match_string="\$wgServer = \"https://$old_domain\";" \
+        --replace_string="\$wgServer = \"https://$new_domain\";"
 fi
 
-if [ $change_path -eq 1 ]
-then
+if [ $change_path -eq 1 ]; then
     if [ "$old_path" = "/" ]; then
         old_scriptpath=""
     else
@@ -44,7 +38,9 @@ then
         new_scriptpath=$new_path
     fi
 
-    ynh_replace_string --match_string="\$wgScriptPath = \"$old_scriptpath\";" --replace_string="\$wgScriptPath = \"$new_scriptpath\";" --target_file="$install_dir/LocalSettings.php"
+    ynh_replace_string --target_file="$install_dir/LocalSettings.php" \
+        --match_string="\$wgScriptPath = \"$old_scriptpath\";" \
+        --replace_string="\$wgScriptPath = \"$new_scriptpath\";"
 fi
 
 #=================================================

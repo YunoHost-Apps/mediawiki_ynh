@@ -1,8 +1,6 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC START
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
@@ -16,45 +14,27 @@ source /usr/share/yunohost/helpers
 secret=$(ynh_string_random --length=64)
 create_account=false
 
-ynh_app_setting_set --app=$app --key=secret --value=$secret
-ynh_app_setting_set --app=$app --key=create_account --value=$create_account
+ynh_app_setting_set --app="$app" --key="secret" --value="$secret"
+ynh_app_setting_set --app="$app" --key="create_account" --value="$create_account"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=4
 
-    # Download, check integrity, uncompress and patch the source from app.src
-    ynh_setup_source --dest_dir="$install_dir"
-    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
-    ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
-    ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
+ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
+ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
 
-    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
-    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
-    # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
+# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPGroups" --source_id="ldap_groups"
+# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
+# ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
 
 chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
+chown -R "$app:www-data" "$install_dir"
 
-#=================================================
-# PHP-FPM CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=1
-
-# Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=low --footprint=low
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=1
-
-# Create a dedicated NGINX config
-ynh_add_nginx_config
-
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # RUN INSTALLATION OF MEDIAWIKI
 #=================================================
@@ -70,7 +50,7 @@ else
     mediawiki_path="$path"
 fi
 
-pushd "$install_dir" || ynh_die "Could not pushd $install_dir"
+pushd "$install_dir"
     "php$phpversion" "$install_dir/maintenance/install.php" \
         --server "https://$domain" \
         --scriptpath "$mediawiki_path" \
@@ -81,24 +61,35 @@ pushd "$install_dir" || ynh_die "Could not pushd $install_dir"
         --lang "$language" \
         --pass "$password" \
         "$wiki_name" "$admin"
-popd || ynh_die "Could not popd from $install_dir"
+popd
 
 #=================================================
-# ADD A CONFIGURATION
+# APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..."
+ynh_script_progression --message="Adding $app's configuration files..." --weight=1
 
 # save the original LocalSettings.php for eventual debugging
 mv "$install_dir/LocalSettings.php" "$install_dir/LocalSettings.php.orig"
 
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
-ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+ynh_add_config --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
 # This is required to update database schemas
 "php$phpversion" "$install_dir/maintenance/update.php"
 
-chown -R $app:www-data "$install_dir"
+chown -R "$app:www-data" "$install_dir"
+
+#=================================================
+# SYSTEM CONFIGURATION
+#=================================================
+ynh_script_progression --message="Adding system configurations related to $app..." --weight=1
+
+# Create a dedicated PHP-FPM config
+ynh_add_fpm_config --usage=low --footprint=low
+
+# Create a dedicated NGINX config
+ynh_add_nginx_config
 
 #=================================================
 # END OF SCRIPT
