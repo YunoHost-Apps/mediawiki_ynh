@@ -96,8 +96,8 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.ldap_provider]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/0bd997a8c853b5e993a9dd7b775c61bd48ed6821.tar.gz"
-    sha256 = "33af7e44e795c84a78b115f36c7f62ee74380ebdb0c36edb5f8ccd9324a13100"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/c800dd60a4c7c25083c3f5a80125ee47d656f8ad.tar.gz"
+    sha256 = "c6043a85b81b5741aad29704517ee9b440cdc15426d0ff32d4c70e8a171db7aa"
     in_subdir = true
 
     [resources.system_user]
