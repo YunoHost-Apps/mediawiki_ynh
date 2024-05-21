@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 MediaWiki
+# YunoHost 上的 MediaWiki
 
 [![集成程度](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![工作状态](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
 
