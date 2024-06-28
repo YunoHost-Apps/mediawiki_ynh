@@ -5,7 +5,7 @@ Il NE doit PAS être modifié à la main.
 
 # MediaWiki pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Niveau d’intégration](https://dash.yunohost.org/integration/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
 
 [![Installer MediaWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
@@ -19,7 +19,7 @@ Il NE doit PAS être modifié à la main.
 MediaWiki est un progiciel wiki gratuit et open-source écrit en PHP. Il sert de plate-forme pour Wikipedia et les autres projets Wikimedia, utilisés par des centaines de millions de personnes chaque mois. MediaWiki est localisé dans plus de 350 langues et sa fiabilité et son ensemble de fonctionnalités robustes lui ont valu une communauté importante et dynamique d'utilisateurs et de développeurs tiers.
 
 
-**Version incluse :** 1.42.0~ynh2
+**Version incluse :** 1.42.1~ynh1
 
 **Démo :** <https://www.wikipedia.org>
 
