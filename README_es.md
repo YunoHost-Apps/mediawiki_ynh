@@ -5,7 +5,7 @@ No se debe editar a mano.
 
 # MediaWiki para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
 
 [![Instalar MediaWiki con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
@@ -19,7 +19,7 @@ No se debe editar a mano.
 MediaWiki is a free and open-source wiki software package written in PHP. It serves as the platform for Wikipedia and the other Wikimedia projects, used by hundreds of millions of people each month. MediaWiki is localised in over 350 languages and its reliability and robust feature set have earned it a large and vibrant community of third-party users and developers.
 
 
-**Versión actual:** 1.42.0~ynh2
+**Versión actual:** 1.42.1~ynh1
 
 **Demo:** <https://www.wikipedia.org>
 

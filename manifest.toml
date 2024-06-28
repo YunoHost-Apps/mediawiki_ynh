@@ -7,7 +7,7 @@ name = "MediaWiki"
 description.en = "Wiki package originally for use on Wikipedia"
 description.fr = "Wiki développé à l’origine pour Wikipédia"
 
-version = "1.42.0~ynh2"
+version = "1.42.1~ynh1"
 
 maintainers = ["Salamandar"]
 
@@ -67,8 +67,8 @@ ram.runtime = "50M"
 [resources]
     [resources.sources]
     [resources.sources.main]
-    url = "https://releases.wikimedia.org/mediawiki/1.42/mediawiki-1.42.0.tar.gz"
-    sha256 = "092a39298b9f5d47653ea4c65a694f173ee247d6d313d3be177c779929181a67"
+    url = "https://releases.wikimedia.org/mediawiki/1.42/mediawiki-1.42.1.tar.gz"
+    sha256 = "ec87af95a35dd09c34d52e02795652a030ab72955e431f08ca722a73737eba53"
 
     [resources.sources.ldap_groups]
     url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/d7ff367d76e19d3fd1e992fbc0b0d3adf380d15b.tar.gz"
@@ -81,8 +81,8 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.pluggable_auth]
-    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/1884a127cd5947ad7484d3b55711db3f6515d439.tar.gz"
-    sha256 = "e895eb8f7470eaae9a1e7dea2e0488f7975d59be838b11261d544b3c8ae22a2a"
+    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/de411792c3005417b27279ce903357cab2e60422.tar.gz"
+    sha256 = "97fcf0549e0c60e9ea98e6b9642deaa55124597f040175d9b92e987f7e292024"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
