@@ -5,7 +5,7 @@ No se debe editar a mano.
 
 # MediaWiki para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/mediawiki.svg)](https://dash.yunohost.org/appci/app/mediawiki) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
 
 [![Instalar MediaWiki con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
