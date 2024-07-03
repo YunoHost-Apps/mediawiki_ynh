@@ -19,7 +19,7 @@ NON debe editarse manualmente.
 MediaWiki is a free and open-source wiki software package written in PHP. It serves as the platform for Wikipedia and the other Wikimedia projects, used by hundreds of millions of people each month. MediaWiki is localised in over 350 languages and its reliability and robust feature set have earned it a large and vibrant community of third-party users and developers.
 
 
-**Versión proporcionada:** 1.42.0~ynh2
+**Versión proporcionada:** 1.42.1~ynh1
 
 **Demo:** <https://www.wikipedia.org>
 
