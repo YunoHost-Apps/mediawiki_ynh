@@ -7,41 +7,44 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+ynh_app_setting_set_default --key=php_upload_max_filesize --value=256M
+
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+ynh_script_progression "Ensuring downward compatibility..."
 
 # If fpm_footprint doesn't exist, create it
 if [ -z "${fpm_footprint:-}" ]; then
     fpm_footprint=low
-    ynh_app_setting_set --app="$app" --key="fpm_footprint" --value="$fpm_footprint"
+#REMOVEME? Everything about fpm_footprint is removed in helpers2.1... |     ynh_app_setting_set --key="fpm_footprint" --value="$fpm_footprint"
 fi
 
 # If fpm_usage doesn't exist, create it
 if [ -z "${fpm_usage:-}" ]; then
     fpm_usage=low
-    ynh_app_setting_set --app="$app" --key="fpm_usage" --value="$fpm_usage"
+#REMOVEME? Everything about fpm_usage is removed in helpers2.1... |     ynh_app_setting_set --key="fpm_usage" --value="$fpm_usage"
 fi
 
 # If create_account doesn't exist, create it
+# FIXMEhelpers2.1: maybe replace with: ynh_app_setting_set_default --key=create_account --value=false
 if [ -z "${create_account:-}" ]; then
     create_account=false
-    ynh_app_setting_set --app="$app" --key="create_account" --value="$create_account"
+    ynh_app_setting_set --key="create_account" --value="$create_account"
 fi
 
 # Removed in dec. 2020
-ldap_user=$(ynh_app_setting_get --app="$app" --key="ldap_user")
+ldap_user=$(ynh_app_setting_get --key="ldap_user")
 if [[ -n "${ldap_user:-}" ]]; then
     yunohost user delete "$ldap_user"
-    ynh_app_setting_delete --app="$app" --key="ldap_user"
-    ynh_app_setting_delete --app="$app" --key="ldap_password"
+    ynh_app_setting_delete --key="ldap_user"
+    ynh_app_setting_delete --key="ldap_password"
 fi
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Upgrading source files..." --weight=4
+ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
@@ -53,13 +56,12 @@ ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id=
 # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
 # ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthorization" --source_id="ldap_authorization"
 
-chmod -R o-rwx "$install_dir"
-chown -R "$app:www-data" "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..." --weight=4
+ynh_script_progression "Updating configuration..."
 
 if [ "$path" = "/" ]; then
     # MediaWiki expects a "" for the root URL which is typically assumed to be
@@ -72,10 +74,10 @@ fi
 
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
-ynh_add_config --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+ynh_config_add --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
 # Check for admin password being too short for the new mediawiki requirements
-password_length=$(ynh_app_setting_get --app="$app" --key=password | awk '{print length}')
+password_length=$(ynh_app_setting_get --key=password | awk '{print length}')
 if (( password_length < 10 )); then
     ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
     ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
@@ -83,24 +85,23 @@ if (( password_length < 10 )); then
 fi
 
 # This is required to update database schemas
-"php$phpversion" "$install_dir/maintenance/update.php"
+"php$php_version" "$install_dir/maintenance/update.php"
 
 # Set permissions on app files
-chown -R "$app:www-data" "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --phpversion="$phpversion" --usage="$fpm_usage" --footprint="$fpm_footprint"
+ynh_config_add_phpfpm
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
