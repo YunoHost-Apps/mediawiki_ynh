@@ -1,2 +1,5 @@
 .apps.json
 .spdx_licenses
+*~
+*.sw[op]
+.DS_Store

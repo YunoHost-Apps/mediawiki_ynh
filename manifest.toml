@@ -20,7 +20,8 @@ userdoc = "https://www.mediawiki.org/wiki/Project:Help"
 code = "https://github.com/wikimedia/mediawiki"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 11.2.30"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 ldap = true
@@ -71,13 +72,13 @@ ram.runtime = "50M"
     sha256 = "ec87af95a35dd09c34d52e02795652a030ab72955e431f08ca722a73737eba53"
 
     [resources.sources.ldap_groups]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/373d0c60b74fa0bf6e850958efd9ad08ea6f737a.tar.gz"
-    sha256 = "a202428c4c62ec9add3558e3de4cc8fef7b5d7e62bfc95891abd5ffd4d292513"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/51572d0ebc907889a769a2ab976a2d9447ff92fd.tar.gz"
+    sha256 = "b8530ffcefe563f8d4aa2b5dc0c074623d033b1333df0617cff0245d464cce9d"
     in_subdir = true
 
     [resources.sources.ldap_authorization]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/8bf43fa4cf74b5a015cf2a524b9197b15cd32625.tar.gz"
-    sha256 = "0047fec81d9bfbc2b02dadd5812925fa108371a48ddc2e2e7fc703e4cd2e9922"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/4eaed7ac9d431a08d9ced81989737ce3045977be.tar.gz"
+    sha256 = "a3b923b9203af0d4a5548a8af52ef8a38480f0f8a368872249cc0b831205a6a6"
     in_subdir = true
 
     [resources.sources.pluggable_auth]
@@ -86,23 +87,24 @@ ram.runtime = "50M"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/5d7dd9d7b7ae8f9c0a393c5e27884712c4bb5757.tar.gz"
-    sha256 = "15c27149832e72d955286c0a2f64879006c7ad3426d71cb83759d58d3d9ffd0e"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/8a1c959bf371050c41b212db7a04f41a0ad05da7.tar.gz"
+    sha256 = "34bbd4cfc3d1d7830cdb97e3305235c96866a1990a5520bf1629690de792564e"
     in_subdir = true
 
     [resources.sources.ldap_userinfo]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/628fd8cee51df729e1c8d2c7d32e74f060ab917f.tar.gz"
-    sha256 = "4597267969b2ecc0b0d93810e9dfffedd2fa9d3a99d55f594dc9e35e795dadf7"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/82ae07c5812e279d97e1fcf67028d0c1773e2e59.tar.gz"
+    sha256 = "7cab9e4300976a5cbdbbc5bd6d33ce04e52fd8f896ac2972f9649d6991d1ed9c"
     in_subdir = true
 
     [resources.sources.ldap_provider]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/8becb0e8d04844e91354a51283047d360c50cfff.tar.gz"
-    sha256 = "aa68417bbec89ea1229bff384c15f98073a3bac3d0d7325974385f1669f00abd"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/3cb010e095d1042ae0d3307e68d739449128a844.tar.gz"
+    sha256 = "5989ed38923e1074594095db3035fa842c6d2e4b006bfa43f8e7f413b6806ec5"
     in_subdir = true
 
     [resources.system_user]
 
     [resources.install_dir]
+    group = "www-data:r-x"
 
     [resources.permissions]
     main.url = "/"
@@ -113,11 +115,11 @@ ram.runtime = "50M"
 
     [resources.apt]
     packages = [
-        "php8.1-fpm",
-        "php8.1-mysql",
-        "php8.1-mbstring",
-        "php8.1-xml",
-        "php8.1-intl",
+        "php8.3-fpm",
+        "php8.3-mysql",
+        "php8.3-mbstring",
+        "php8.3-xml",
+        "php8.3-intl",
         "mariadb-server",
         "diffutils",
         "imagemagick",

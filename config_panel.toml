@@ -3,7 +3,6 @@ version = "1.0"
 [main]
 name = "Mediawiki configuration"
 
-
     [main.config]
     name = "Configuration Options"
 
