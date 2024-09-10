@@ -10,19 +10,19 @@ source /usr/share/yunohost/helpers
 #=================================================
 # MODIFY URL IN NGINX CONF
 #=================================================
-ynh_script_progression --message="Updating NGINX web server configuration..." --weight=1
+ynh_script_progression "Updating NGINX web server configuration..."
 
-ynh_change_url_nginx_config
+ynh_config_change_url_nginx
 
 #=================================================
 # SET NEW URL
 #=================================================
-ynh_script_progression --message="Setting the new URL..." --weight=1
+ynh_script_progression "Setting the new URL..."
 
 if [ "$change_domain" -eq 1 ]; then
-    ynh_replace_string --target_file="$install_dir/LocalSettings.php" \
-        --match_string="\$wgServer = \"https://$old_domain\";" \
-        --replace_string="\$wgServer = \"https://$new_domain\";"
+    ynh_replace --file="$install_dir/LocalSettings.php" \
+        --match="\$wgServer = \"https://$old_domain\";" \
+        --replace="\$wgServer = \"https://$new_domain\";"
 fi
 
 if [ $change_path -eq 1 ]; then
@@ -38,13 +38,13 @@ if [ $change_path -eq 1 ]; then
         new_scriptpath=$new_path
     fi
 
-    ynh_replace_string --target_file="$install_dir/LocalSettings.php" \
-        --match_string="\$wgScriptPath = \"$old_scriptpath\";" \
-        --replace_string="\$wgScriptPath = \"$new_scriptpath\";"
+    ynh_replace --file="$install_dir/LocalSettings.php" \
+        --match="\$wgScriptPath = \"$old_scriptpath\";" \
+        --replace="\$wgScriptPath = \"$new_scriptpath\";"
 fi
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Change of URL completed for $app" --last
+ynh_script_progression "Change of URL completed for $app"
