@@ -20,7 +20,7 @@ userdoc = "https://www.mediawiki.org/wiki/Project:Help"
 code = "https://github.com/wikimedia/mediawiki"
 
 [integration]
-yunohost = ">= 11.2.18"
+yunohost = ">= 11.2.30"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
