@@ -38,7 +38,7 @@ MediaWiki is a free and open-source wiki software package written in PHP. It ser
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/mediawiki_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
