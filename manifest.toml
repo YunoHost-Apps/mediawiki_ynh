@@ -115,11 +115,11 @@ ram.runtime = "50M"
 
     [resources.apt]
     packages = [
-        "php8.1-fpm",
-        "php8.1-mysql",
-        "php8.1-mbstring",
-        "php8.1-xml",
-        "php8.1-intl",
+        "php8.3-fpm",
+        "php8.3-mysql",
+        "php8.3-mbstring",
+        "php8.3-xml",
+        "php8.3-intl",
         "mariadb-server",
         "diffutils",
         "imagemagick",
