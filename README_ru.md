@@ -5,7 +5,9 @@
 
 # MediaWiki для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/mediawiki)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+![Состояние работы](https://apps.yunohost.org/badge/state/mediawiki)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/mediawiki)
 
 [![Установите MediaWiki с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 

@@ -5,7 +5,9 @@ Hij mag NIET handmatig aangepast worden.
 
 # MediaWiki voor Yunohost
 
-[![Integratieniveau](https://dash.yunohost.org/integration/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/) ![Mate van functioneren](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Onderhoudsstatus](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/mediawiki)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/mediawiki)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/mediawiki)
 
 [![MediaWiki met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
