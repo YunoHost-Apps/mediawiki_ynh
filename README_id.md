@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # MediaWiki untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/mediawiki.svg)](https://ci-apps.yunohost.org/ci/apps/mediawiki/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/mediawiki.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/mediawiki.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/mediawiki)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
+![Status kerja](https://apps.yunohost.org/badge/state/mediawiki)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/mediawiki)
 
 [![Pasang MediaWiki dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mediawiki)
 
@@ -19,7 +21,7 @@ Ini TIDAK boleh diedit dengan tangan.
 MediaWiki is a free and open-source wiki software package written in PHP. It serves as the platform for Wikipedia and the other Wikimedia projects, used by hundreds of millions of people each month. MediaWiki is localised in over 350 languages and its reliability and robust feature set have earned it a large and vibrant community of third-party users and developers.
 
 
-**Versi terkirim:** 1.42.3~ynh1
+**Versi terkirim:** 1.43.0~ynh1
 
 **Demo:** <https://www.wikipedia.org>
 
