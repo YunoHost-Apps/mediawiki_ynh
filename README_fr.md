@@ -21,7 +21,7 @@ Il NE doit PAS être modifié à la main.
 MediaWiki est un progiciel wiki gratuit et open-source écrit en PHP. Il sert de plate-forme pour Wikipedia et les autres projets Wikimedia, utilisés par des centaines de millions de personnes chaque mois. MediaWiki est localisé dans plus de 350 langues et sa fiabilité et son ensemble de fonctionnalités robustes lui ont valu une communauté importante et dynamique d'utilisateurs et de développeurs tiers.
 
 
-**Version incluse :** 1.42.1~ynh1
+**Version incluse :** 1.43.0~ynh1
 
 **Démo :** <https://www.wikipedia.org>
 
