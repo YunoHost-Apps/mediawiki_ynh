@@ -3,7 +3,7 @@ Este archivo README esta generado automaticamente<https://github.com/YunoHost/ap
 No se debe editar a mano.
 -->
 
-# MediaWiki para Yunohost
+# MediaWiki para YunoHost
 
 [![Nivel de integración](https://apps.yunohost.org/badge/integration/mediawiki)](https://ci-apps.yunohost.org/ci/apps/mediawiki/)
 ![Estado funcional](https://apps.yunohost.org/badge/state/mediawiki)
