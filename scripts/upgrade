@@ -31,7 +31,7 @@ fi
 ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --full_replace
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep='LocalSettings.php images extensions'
 ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
 ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
 ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
@@ -55,16 +55,6 @@ else
 fi
 
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
-
-ynh_config_add --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
-
-# Check for admin password being too short for the new mediawiki requirements
-password_length=$(ynh_app_setting_get --key=password | awk '{print length}')
-if (( password_length < 10 )); then
-    ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
-    ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
-    echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
-fi
 
 # This is required to update database schemas
 "php$php_version" "$install_dir/maintenance/update.php"
