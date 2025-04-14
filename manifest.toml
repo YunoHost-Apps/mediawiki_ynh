@@ -55,7 +55,7 @@ ram.runtime = "50M"
     type = "user"
 
     [install.password]
-    help.en = "The password for the wiki administrator. It needs to be solid or the installation process will fail."
+    help.en = "The password for the wiki administrator. It needs to contain at least 10 characters or the installation will fail"
     help.fr = "Le mot de passe de l'administrateur du wiki. Il doit être solide, sinon l'installation échouera."
     type = "password"
 
