@@ -31,7 +31,7 @@ fi
 ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep='LocalSettings.php images extensions'
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep='LocalSettings.php images'
 ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
 ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
 ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
