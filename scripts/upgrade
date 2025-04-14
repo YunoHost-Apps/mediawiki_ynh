@@ -59,8 +59,8 @@ wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --key=password | awk '{print length}')
 if (( password_length < 10 )); then
-    ynh_print_warn -m "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
-    ynh_print_warn -m "We are adapting the minimum length, but that would be great to change the admin password."
+    ynh_print_warn "The current admin password is $password_length long. Mediawiki now requires a 10 chars minimum password."
+    ynh_print_warn "We are adapting the minimum length, but that would be great to change the admin password."
     echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
 fi
 
