@@ -68,15 +68,6 @@ fi
 "php$php_version" "$install_dir/maintenance/update.php"
 
 #=================================================
-# REAPPLY SYSTEM CONFIGURATIONS
-#=================================================
-ynh_script_progression "Upgrading system configurations related to $app..."
-
-ynh_config_add_phpfpm
-
-ynh_config_add_nginx
-
-#=================================================
 # END OF SCRIPT
 #=================================================
 
