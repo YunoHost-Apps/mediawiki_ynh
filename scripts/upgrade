@@ -31,7 +31,7 @@ fi
 ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep='LocalSettings.php images'
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep='LocalSettings.php images extensions'
 ynh_setup_source --dest_dir="$install_dir/extensions/LDAPAuthentication2" --source_id="ldap_authentication2"
 ynh_setup_source --dest_dir="$install_dir/extensions/LDAPProvider" --source_id="ldap_provider"
 ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
@@ -66,6 +66,15 @@ fi
 
 # This is required to update database schemas
 "php$php_version" "$install_dir/maintenance/update.php"
+
+#=================================================
+# REAPPLY SYSTEM CONFIGURATIONS
+#=================================================
+ynh_script_progression "Upgrading system configurations related to $app..."
+
+ynh_config_add_phpfpm
+
+ynh_config_add_nginx
 
 #=================================================
 # END OF SCRIPT
