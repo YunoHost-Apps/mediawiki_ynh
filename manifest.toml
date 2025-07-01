@@ -7,7 +7,7 @@ name = "MediaWiki"
 description.en = "Wiki package originally for use on Wikipedia"
 description.fr = "Wiki développé à l’origine pour Wikipédia"
 
-version = "1.43.1~ynh1"
+version = "1.43.2~ynh1"
 
 maintainers = ["Salamandar"]
 
@@ -68,8 +68,8 @@ ram.runtime = "50M"
 [resources]
     [resources.sources]
     [resources.sources.main]
-    url = "https://releases.wikimedia.org/mediawiki/1.43/mediawiki-1.43.1.tar.gz"
-    sha256 = "3c85aa9c4cd6c353c67804a3a58e7b79615d4141c3d66b101e5f3aeb40653d6c"
+    url = "https://releases.wikimedia.org/mediawiki/1.43/mediawiki-1.43.2.tar.gz"
+    sha256 = "dc40af70cd4ef4277adc3be05c72228e98db238be8e6aa3f0e59f85c8018e74e"
 
     [resources.sources.ldap_groups]
     url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/1d5f4e9e5a0b01a5e396a26543be81f749a85457.tar.gz"
