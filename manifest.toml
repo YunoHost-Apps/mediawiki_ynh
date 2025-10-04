@@ -20,15 +20,17 @@ userdoc = "https://www.mediawiki.org/wiki/Project:Help"
 code = "https://github.com/wikimedia/mediawiki"
 
 [integration]
-yunohost = ">= 11.2.30"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 ldap = true
 sso = false
-disk = "50M"
-ram.build = "50M"
-ram.runtime = "50M"
+
+disk = "750M"
+ram.build = "150M"
+ram.runtime = "150M"
 
 [install]
     [install.domain]
