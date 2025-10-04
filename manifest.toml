@@ -28,9 +28,9 @@ multi_instance = true
 ldap = true
 sso = false
 
-disk = "50M"
-ram.build = "50M"
-ram.runtime = "50M"
+disk = "750M"
+ram.build = "150M"
+ram.runtime = "150M"
 
 [install]
     [install.domain]
@@ -57,8 +57,8 @@ ram.runtime = "50M"
     type = "user"
 
     [install.password]
-    help.en = "The password for the wiki administrator. It needs to be solid or the installation process will fail."
-    help.fr = "Le mot de passe de l'administrateur du wiki. Il doit être solide, sinon l'installation échouera."
+    help.en = "The password for the wiki administrator. It needs to contain at least 10 characters or the installation will fail."
+    help.fr = "Mot de passe de l'administrateur du wiki. Il doit comporter au moins 10 caractères, sinon l'installation échouera."
     type = "password"
 
     [install.wiki_name]
@@ -74,33 +74,33 @@ ram.runtime = "50M"
     sha256 = "e7d70266979671fafd03705e17a21f185bd1b283ff843ed72fe290e86fac4331"
 
     [resources.sources.ldap_groups]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/1d5f4e9e5a0b01a5e396a26543be81f749a85457.tar.gz"
-    sha256 = "9c0139d623ae16d775de3dc1a98eb084a9fcd7c1dbf953c561492917a445fe9b"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/66eecb305c8e2952f25b1facf63fef1e51e78109.tar.gz"
+    sha256 = "d54fc0e3247b41fdcc5c02865d672ec6c3347cf57fb2f3a1eb09e050d9550b0d"
     in_subdir = true
 
     [resources.sources.ldap_authorization]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/4ad821f6a643e08e2f6fb517723b2c4ca5a3c91d.tar.gz"
-    sha256 = "3112b039a0bb8a7167cc5c5793c5aea03e1530dd19592fe957179afa9ead08df"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthorization/archive/95ae616f434a1ca8e46cdf9c72e58e17fcecaf13.tar.gz"
+    sha256 = "d5d0f3bcdcbb13e8ac012c665e1ba0cdc324163ab07c75b97571d25b77a844b5"
     in_subdir = true
 
     [resources.sources.pluggable_auth]
-    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/5a5039b79d69627d9cfdbed8a2851fb850d9508e.tar.gz"
-    sha256 = "98081ea0d7ac76e050357099c3d822db9e4b3b33953662699d74d088865ff0e0"
+    url = "https://github.com/wikimedia/mediawiki-extensions-PluggableAuth/archive/1a3250f50b4c24a6f989a65f08dad51739f1fc1e.tar.gz"
+    sha256 = "55e6830e18a4c83c37fdf2b1ba96dd8c1339dc89fddd7445c1a8a8b3e14aa721"
     in_subdir = true
 
     [resources.sources.ldap_authentication2]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/1adda117f991af0b84fed5aa269c1c6a051d627e.tar.gz"
-    sha256 = "ebd23c780324b6b040b6967f0df225f4e59dbd9e97d159f2bff1e7c66c4f3663"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPAuthentication2/archive/e906f4c574c59330594581ff7f488d78155ed0df.tar.gz"
+    sha256 = "b4a10a2920ba3507310e6e07e67fb30e7bcbbbd8194fde13d8812e087974893b"
     in_subdir = true
 
     [resources.sources.ldap_userinfo]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/361a8e5d1af19851e5dd874e2dc275db22eb3758.tar.gz"
-    sha256 = "ed889c276871df33eaa1fd0ad6346aa8c006847392ee6012777bbbae296e86ea"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPUserInfo/archive/287727d4c96115e0e0a7da48cd15b8341f3e2578.tar.gz"
+    sha256 = "c473c78d74d4e400973e531cea763676b75ad607e0ed020460b44f6bc22bdaa2"
     in_subdir = true
 
     [resources.sources.ldap_provider]
-    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/afc88610515d82186331fa9a6370508d84e53766.tar.gz"
-    sha256 = "57a3a1aec052f8bc34165766247d560807e1165f02a0c792413c502345f6c5c2"
+    url = "https://github.com/wikimedia/mediawiki-extensions-LDAPProvider/archive/74276a97dabfd683dd7262a822b9c7b2e2297f61.tar.gz"
+    sha256 = "e91a0244489a93f6923e2e3a56280f018360b22f7c66365b7752d9d2494e4f7a"
     in_subdir = true
 
     [resources.system_user]
