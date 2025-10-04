@@ -1,13 +1,12 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC START
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
 source /usr/share/yunohost/helpers
+
+ynh_app_setting_set --key=php_upload_max_filesize --value=256M
 
 #=================================================
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
@@ -16,13 +15,13 @@ source /usr/share/yunohost/helpers
 secret=$(ynh_string_random --length=64)
 create_account=false
 
-ynh_app_setting_set --app=$app --key=secret --value=$secret
-ynh_app_setting_set --app=$app --key=create_account --value=$create_account
+ynh_app_setting_set --key="secret" --value="$secret"
+ynh_app_setting_set --key="create_account" --value="$create_account"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=4
+ynh_script_progression "Setting up source files..."
 
     # Download, check integrity, uncompress and patch the source from app.src
     ynh_setup_source --dest_dir="$install_dir"
@@ -36,32 +35,10 @@ ynh_script_progression --message="Setting up source files..." --weight=4
     ynh_setup_source --dest_dir="$install_dir/extensions/LDAPUserInfo" --source_id="ldap_userinfo"
     ynh_setup_source --dest_dir="$install_dir/extensions/PluggableAuth" --source_id="pluggable_auth"
 
-
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
-
-#=================================================
-# PHP-FPM CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=1
-
-# Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=low --footprint=low
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=1
-
-# Create a dedicated NGINX config
-ynh_add_nginx_config
-
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # RUN INSTALLATION OF MEDIAWIKI
 #=================================================
-ynh_script_progression --message="Installing and configuring Mediawiki..." --weight=14
+ynh_script_progression "Installing and configuring Mediawiki..."
 
 if [ "$path" = "/" ]; then
     # MediaWiki expects a "" for the root URL which is typically assumed to be
@@ -73,8 +50,8 @@ else
     mediawiki_path="$path"
 fi
 
-pushd "$install_dir" || ynh_die "Could not pushd $install_dir"
-    "php$phpversion" "$install_dir/maintenance/install.php" \
+pushd "$install_dir"
+    "php$php_version" "$install_dir/maintenance/install.php" \
         --server "https://$domain" \
         --scriptpath "$mediawiki_path" \
         --dbuser "$db_name" \
@@ -84,28 +61,35 @@ pushd "$install_dir" || ynh_die "Could not pushd $install_dir"
         --lang "$language" \
         --pass "$password" \
         "$wiki_name" "$admin"
-popd || ynh_die "Could not popd from $install_dir"
+popd
 
 #=================================================
-# ADD A CONFIGURATION
+# APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..."
+ynh_script_progression "Adding $app's configuration files..."
 
 # save the original LocalSettings.php for eventual debugging
 mv "$install_dir/LocalSettings.php" "$install_dir/LocalSettings.php.orig"
 
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
-ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
-ynh_add_config --template="../conf/ldapproviders.json" --destination="$install_dir/ldapproviders.json"
+ynh_add_config --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+ynh_add_config --template="ldapproviders.json" --destination="$install_dir/ldapproviders.json"
 
 # This is required to update database schemas
-"php$phpversion" "$install_dir/maintenance/update.php"
+"php$php_version" "$install_dir/maintenance/update.php"
 
-chown -R $app:www-data "$install_dir"
+#=================================================
+# SYSTEM CONFIGURATION
+#=================================================
+ynh_script_progression "Adding system configurations related to $app..."
+
+ynh_config_add_phpfpm
+
+ynh_config_add_nginx
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
