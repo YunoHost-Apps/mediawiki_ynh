@@ -47,7 +47,7 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
+ynh_script_progression "Upgrading PHP-FPM configuration..."
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_footprint
@@ -55,7 +55,7 @@ ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+ynh_script_progression "Upgrading NGINX web server configuration..."
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -76,7 +76,7 @@ fi
 
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
-ynh_add_config --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+ynh_config_add --template="../conf/LocalSettings.php" --destination="$install_dir/LocalSettings.php"
 
 # Check for admin password being too short for the new mediawiki requirements
 password_length=$(ynh_app_setting_get --app=$app --key=password | awk '{print length}')
@@ -86,7 +86,7 @@ if (( password_length < 10 )); then
     echo "\$wgPasswordPolicy['policies']['default']['MinimalPasswordLength'] = 10;" >> "$install_dir/LocalSettings.php"
 fi
 
-ynh_add_config --template="ldapproviders.json" --destination="$install_dir/ldapproviders.json"
+ynh_config_add --template="ldapproviders.json" --destination="$install_dir/ldapproviders.json"
 
 # This is required to update database schemas
 "php$php_version" "$install_dir/maintenance/update.php"

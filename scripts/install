@@ -73,8 +73,8 @@ mv "$install_dir/LocalSettings.php" "$install_dir/LocalSettings.php.orig"
 
 wiki_name_underscorified="${wiki_name//[^a-zA-Z0-9]/_}"
 
-ynh_add_config --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
-ynh_add_config --template="ldapproviders.json" --destination="$install_dir/ldapproviders.json"
+ynh_config_add --template="LocalSettings.php" --destination="$install_dir/LocalSettings.php"
+ynh_config_add --template="ldapproviders.json" --destination="$install_dir/ldapproviders.json"
 
 # This is required to update database schemas
 "php$php_version" "$install_dir/maintenance/update.php"
