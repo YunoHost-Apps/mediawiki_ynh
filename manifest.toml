@@ -20,12 +20,14 @@ userdoc = "https://www.mediawiki.org/wiki/Project:Help"
 code = "https://github.com/wikimedia/mediawiki"
 
 [integration]
-yunohost = ">= 11.2.30"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 ldap = true
 sso = false
+
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -69,7 +71,7 @@ ram.runtime = "50M"
     [resources.sources]
     [resources.sources.main]
     url = "https://releases.wikimedia.org/mediawiki/1.44/mediawiki-1.44.2.tar.gz"
-    sha256 = "9feb6223827c2f855913bfe56f43b8463ea61c448dede1765dd3cf92d1e1d549"
+    sha256 = "e7d70266979671fafd03705e17a21f185bd1b283ff843ed72fe290e86fac4331"
 
     [resources.sources.ldap_groups]
     url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/1d5f4e9e5a0b01a5e396a26543be81f749a85457.tar.gz"
