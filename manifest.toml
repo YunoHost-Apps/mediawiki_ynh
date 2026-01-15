@@ -71,7 +71,7 @@ ram.runtime = "150M"
     [resources.sources]
     [resources.sources.main]
     url = "https://releases.wikimedia.org/mediawiki/1.45/mediawiki-1.45.1.tar.gz"
-    sha256 = "165da4d5af47d0a2008597750d184a3cef870aff9d0a5005b71d6bd17a75672e"
+    sha256 = "e2f126b19aec422051a0a50e0c6ab7e904f33b3988a47b9da8afbfd0c0a252cc"
 
     [resources.sources.ldap_groups]
     url = "https://github.com/wikimedia/mediawiki-extensions-LDAPGroups/archive/66eecb305c8e2952f25b1facf63fef1e51e78109.tar.gz"
